@@ -1,95 +1,53 @@
-import Image from 'next/image';
 import styles from './page.module.css';
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+    <div className={styles.container}>
+      {/* Action Cards */}
+      <div className={styles.actionCards}>
+        <div className={styles.card}>
+          <div className={styles.cardIcon}>📋</div>
+          <h3>Ver panel de pacientes</h3>
+          <p>Listado de todos tus pacientes</p>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <div className={styles.card}>
+          <div className={styles.cardIcon}>🔍</div>
+          <h3>Buscar paciente</h3>
+          <p>Busca un paciente por su historia clínica, nombre o DNI</p>
+          <div className={styles.searchInput}>
+            <input type="text"
+              placeholder="Buscar..." />
+            <span className={styles.searchIcon}>🔍</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Recent Patients Table */}
+      <div className={styles.tableSection}>
+        <h2>Últimos pacientes modificados</h2>
+        <div className={styles.table}>
+          <div className={styles.tableHeader}>
+            <div className={styles.headerCell}>ID PACIENTE</div>
+            <div className={styles.headerCell}>PACIENTE</div>
+            <div className={styles.headerCell}>ESTADO</div>
+          </div>
+          <div className={styles.tableRow}>
+            <div className={styles.cell}>ABO152</div>
+            <div className={styles.cell}>Juan Perez</div>
+            <div className={styles.cell}>
+              <span className={styles.statusBadge}>En curso</span>
+            </div>
+          </div>
+          <div className={styles.tableRow}>
+            <div className={styles.cell}>ZSO152</div>
+            <div className={styles.cell}>Lucía Salto</div>
+            <div className={styles.cell}>
+              <span className={styles.statusBadge}>En curso</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

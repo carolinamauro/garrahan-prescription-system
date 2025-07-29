@@ -1,6 +1,58 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Primary colors (solo los que se usan) */
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+
+  /* Gray scale (solo los que se usan) */
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-800: #1e293b;
+
+  /* Success colors (solo los que se usan) */
+  --success-100: #dcfce7;
+  --success-500: #22c55e;
+  --success-600: #16a34a;
+
+  /* Warning colors (solo los que se usan) */
+  --warning-500: #f59e0b;
+
+  /* Error colors (solo los que se usan) */
+  --error-500: #ef4444;
+
+  /* Info colors (solo los que se usan) */
+  --info-500: #3b82f6;
+
+  /* Background colors */
+  --background-primary: #ffffff;
+  --background-secondary: #f8fafc;
+  --background-tertiary: #f1f5f9;
+
+  /* Text colors */
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-tertiary: #94a3b8;
+
+  /* Border colors */
+  --border-light: #e2e8f0;
+  --border-medium: #d1d5db;
+
+  /* Shadow colors */
+  --shadow-light: rgba(0, 0, 0, 0.1);
+
+  /* Status colors */
+  --status-active: #22c55e;
+  --status-inactive: #64748b;
+  --status-pending: #f59e0b;
+  --status-error: #ef4444;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,7 +69,6 @@ body {
 }
 
 body {
-  color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
