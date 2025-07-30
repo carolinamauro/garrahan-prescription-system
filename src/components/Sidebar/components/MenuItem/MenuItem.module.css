@@ -1,0 +1,86 @@
+.menuItem {
+  margin: 0;
+}
+
+.menuLink {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: #475569;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+  margin: 0 0.5rem;
+  border-radius: 8px;
+}
+
+.menuLink:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.menuLink.active {
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-weight: 500;
+}
+
+.menuLink.active::before {
+  content: '';
+  position: absolute;
+  left: -0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 20px;
+  background: #2563eb;
+  border-radius: 0 2px 2px 0;
+}
+
+.icon {
+  font-size: 1.25rem;
+  margin-right: 0.75rem;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  flex: 1;
+}
+
+.badge {
+  background: #ef4444;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.125rem 0.375rem;
+  border-radius: 10px;
+  min-width: 20px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .menuItem {
+    flex-shrink: 0;
+  }
+  
+  .menuLink {
+    padding: 0.5rem 1rem;
+    flex-direction: column;
+    text-align: center;
+    min-width: 80px;
+    margin: 0 0.25rem;
+  }
+  
+  .icon {
+    margin-right: 0;
+    margin-bottom: 0.25rem;
+  }
+  
+  .label {
+    font-size: 0.75rem;
+  }
+} 

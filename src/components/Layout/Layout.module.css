@@ -4,15 +4,10 @@
 }
 
 .contentWrapper {
-  flex: 1;
   display: flex;
+  flex: 1;
   flex-direction: column;
-  margin-left: 280px;
   transition: margin-left 0.3s ease;
-}
-
-.contentWrapper.sidebarCollapsed {
-  margin-left: 80px;
 }
 
 .mainContent {
