@@ -38,11 +38,11 @@
 }
 
 .icon {
-  font-size: 1.25rem;
-  margin-right: 0.75rem;
-  width: 20px;
-  text-align: center;
-  flex-shrink: 0;
+  color: var(--gray-500);
+}
+
+.activeIcon {
+  color: red;
 }
 
 .label {

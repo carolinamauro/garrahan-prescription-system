@@ -4,19 +4,13 @@ import { usePathname } from 'next/navigation';
 import styles from './Sidebar.module.css';
 import Image from 'next/image';
 import MenuItem from './components/MenuItem';
+import { MENU_ITEMS } from './constants';
 
 import chevronRight from '../../assets/icons/chevron-right.png';
 import chevronLeft from '../../assets/icons/chevron-left.png';
 
 export default function Sidebar({ isCollapsed, onToggle }) {
   const pathname = usePathname();
-
-  const menuItems = [
-    { id: 'home', label: 'Inicio', icon: '🏠', href: '/' },
-    { id: 'patients', label: 'Pacientes', icon: '👥', href: '/patients' },
-    { id: 'alerts', label: 'Alertas', icon: '🔔', href: '/alerts', badge: 3 },
-    { id: 'prescriptions', label: 'Recetas', icon: '📄', href: '/prescriptions' },
-  ];
 
   return (
     <aside className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ''}`}>
@@ -42,7 +36,7 @@ export default function Sidebar({ isCollapsed, onToggle }) {
 
       <nav className={styles.nav}>
         <ul className={styles.menu}>
-          {menuItems.map((item) => {
+          {MENU_ITEMS.map((item) => {
             const isActive = pathname === item.href;
             return (
               <MenuItem

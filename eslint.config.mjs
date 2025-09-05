@@ -29,7 +29,7 @@ export default [
       'comma-spacing': ['error', { before: false, after: true }],
       'no-mixed-spaces-and-tabs': 'error',
       'max-len': ['error', { 
-        'code': 80, 
+        'code': 100, 
         'ignoreUrls': true, 
         'ignoreStrings': false,
         'ignoreTemplateLiterals': false,
