@@ -1,4 +1,4 @@
-// src/app/page.js
+import { Clipboard, Search } from 'lucide-react';
 import styles from './page.module.css';
 import ActionCard from '../components/ActionCard';
 import SearchInput from '../components/SearchInput';
@@ -15,13 +15,13 @@ export default function Home() {
       {/* Action Cards */}
       <div className={styles.actionCards}>
         <ActionCard
-          icon="📋"
+          icon={<Clipboard size={32} />}
           title="Ver panel de pacientes"
           description="Listado de todos tus pacientes"
         />
 
         <ActionCard
-          icon="🔍"
+          icon={<Search size={32} />}
           title="Buscar paciente"
           description="Busca un paciente por su historia clínica, nombre o DNI"
         >
