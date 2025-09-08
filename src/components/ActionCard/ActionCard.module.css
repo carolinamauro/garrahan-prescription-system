@@ -1,0 +1,39 @@
+.card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.cardIcon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.card h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.card p {
+    margin: 0 0 1.5rem 0;
+    color: #64748b;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .card {
+        padding: 1.5rem;
+    }
+}

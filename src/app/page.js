@@ -1,53 +1,36 @@
+// src/app/page.js
 import styles from './page.module.css';
+import ActionCard from '../components/ActionCard';
+import SearchInput from '../components/SearchInput';
+import PatientsTable from '../components/PatientsTable';
 
 export default function Home() {
+  const patients = [
+    { id: 'ABO152', name: 'Juan Perez', status: 'En curso' },
+    { id: 'ZSO152', name: 'Lucía Salto', status: 'En curso' },
+  ];
+
   return (
     <div className={styles.container}>
       {/* Action Cards */}
       <div className={styles.actionCards}>
-        <div className={styles.card}>
-          <div className={styles.cardIcon}>📋</div>
-          <h3>Ver panel de pacientes</h3>
-          <p>Listado de todos tus pacientes</p>
-        </div>
+        <ActionCard
+          icon="📋"
+          title="Ver panel de pacientes"
+          description="Listado de todos tus pacientes"
+        />
 
-        <div className={styles.card}>
-          <div className={styles.cardIcon}>🔍</div>
-          <h3>Buscar paciente</h3>
-          <p>Busca un paciente por su historia clínica, nombre o DNI</p>
-          <div className={styles.searchInput}>
-            <input type="text"
-              placeholder="Buscar..." />
-            <span className={styles.searchIcon}>🔍</span>
-          </div>
-        </div>
+        <ActionCard
+          icon="🔍"
+          title="Buscar paciente"
+          description="Busca un paciente por su historia clínica, nombre o DNI"
+        >
+          <SearchInput placeholder="Buscar..." />
+        </ActionCard>
       </div>
 
       {/* Recent Patients Table */}
-      <div className={styles.tableSection}>
-        <h2>Últimos pacientes modificados</h2>
-        <div className={styles.table}>
-          <div className={styles.tableHeader}>
-            <div className={styles.headerCell}>ID PACIENTE</div>
-            <div className={styles.headerCell}>PACIENTE</div>
-            <div className={styles.headerCell}>ESTADO</div>
-          </div>
-          <div className={styles.tableRow}>
-            <div className={styles.cell}>ABO152</div>
-            <div className={styles.cell}>Juan Perez</div>
-            <div className={styles.cell}>
-              <span className={styles.statusBadge}>En curso</span>
-            </div>
-          </div>
-          <div className={styles.tableRow}>
-            <div className={styles.cell}>ZSO152</div>
-            <div className={styles.cell}>Lucía Salto</div>
-            <div className={styles.cell}>
-              <span className={styles.statusBadge}>En curso</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PatientsTable patients={patients} />
     </div>
   );
 }
