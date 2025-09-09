@@ -1,4 +1,4 @@
-import {Users, Bell, FileSearch2, LayoutGridIcon} from "lucide-react";
+import {Users, Archive, FileSearch2, LayoutGridIcon} from "lucide-react";
 
 export const MENU_ITEMS = [
     {
@@ -16,7 +16,7 @@ export const MENU_ITEMS = [
     {
         id: "alerts",
         label: "Alertas",
-        icon: Bell,
+        icon: Archive,
         href: "/alerts",
     },
     {
