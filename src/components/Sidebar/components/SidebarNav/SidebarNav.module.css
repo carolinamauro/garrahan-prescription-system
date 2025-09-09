@@ -1,0 +1,22 @@
+.nav {
+    padding: 1rem 0;
+    flex: 1;
+}
+
+.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    .nav {
+        padding: 0.5rem 0;
+    }
+
+    .menu {
+        display: flex;
+        overflow-x: auto;
+        padding: 0 1rem;
+    }
+}

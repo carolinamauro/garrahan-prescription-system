@@ -1,31 +1,28 @@
-import menuIcon from '../../assets/icons/menu.png';
-import patientsIcon from '../../assets/icons/users.png';
-import alertsIcon from '../../assets/icons/bell.png';
-import prescriptionsIcon from '../../assets/icons/pencil-alt.png';
+import {Users, Bell, FileSearch2, LayoutGridIcon} from "lucide-react";
 
 export const MENU_ITEMS = [
-  {
-    id: 'home',
-    label: 'Inicio',
-    icon: menuIcon,
-    href: '/',
-  },
-  {
-    id: 'patients',
-    label: 'Pacientes',
-    icon: patientsIcon,
-    href: '/patients',
-  },
-  {
-    id: 'alerts',
-    label: 'Alertas',
-    icon: alertsIcon,
-    href: '/alerts',
-  },
-  {
-    id: 'prescriptions',
-    label: 'Recetas',
-    icon: prescriptionsIcon,
-    href: '/prescriptions',
-  },
+    {
+        id: "home",
+        label: "Inicio",
+        icon: LayoutGridIcon,
+        href: "/",
+    },
+    {
+        id: "patients",
+        label: "Pacientes",
+        icon: Users,
+        href: "/patients",
+    },
+    {
+        id: "alerts",
+        label: "Alertas",
+        icon: Bell,
+        href: "/alerts",
+    },
+    {
+        id: "prescriptions",
+        label: "Recetas",
+        icon: FileSearch2,
+        href: "/prescriptions",
+    },
 ];

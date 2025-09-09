@@ -21,8 +21,8 @@
 
 .menuLink.active {
   background: #dbeafe;
-  color: #1d4ed8;
-  font-weight: 500;
+  color: #168BD9;
+  font-weight: 1800;
 }
 
 .menuLink.active::before {
@@ -38,15 +38,21 @@
 }
 
 .icon {
-  color: var(--gray-500);
+    color: var(--gray-500);
+    flex-shrink: 0;
+    margin-right: 0.75rem;
+}
+
+.menuLink.collapsed .icon {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .activeIcon {
-  color: red;
+    color: #168BD9;
 }
 
 .label {
-  font-size: 0.875rem;
   font-weight: 500;
   flex: 1;
 }
@@ -66,7 +72,7 @@
   .menuItem {
     flex-shrink: 0;
   }
-  
+
   .menuLink {
     padding: 0.5rem 1rem;
     flex-direction: column;
@@ -74,13 +80,13 @@
     min-width: 80px;
     margin: 0 0.25rem;
   }
-  
+
   .icon {
     margin-right: 0;
     margin-bottom: 0.25rem;
   }
-  
+
   .label {
     font-size: 0.75rem;
   }
-} 
+}
