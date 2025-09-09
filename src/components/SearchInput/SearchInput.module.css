@@ -1,11 +1,12 @@
 .searchInput {
     position: relative;
+    width: 100%;
 }
 
 .searchInput input {
     width: 100%;
-    padding: 0.75rem 1rem 0.75rem 2.5rem;
-    border: 1px solid #d1d5db;
+    padding: 0.75rem 2.5rem 0.75rem 1rem; /* 👈 padding extra a la derecha */
+    border: 1px solid #168BD9;
     border-radius: 8px;
     font-size: 0.875rem;
     background: #f9fafb;
@@ -21,9 +22,9 @@
 
 .searchIcon {
     position: absolute;
-    left: 12px;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
-    color: #64748b;
-    font-size: 1rem;
+    color: #168BD9;
+    pointer-events: none; /* no bloquea clics en el input */
 }

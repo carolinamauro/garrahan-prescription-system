@@ -25,7 +25,7 @@ export default function Home() {
           title="Buscar paciente"
           description="Busca un paciente por su historia clínica, nombre o DNI"
         >
-          <SearchInput placeholder="Buscar..." />
+          <SearchInput placeholder="Buscar" />
         </ActionCard>
       </div>
 
