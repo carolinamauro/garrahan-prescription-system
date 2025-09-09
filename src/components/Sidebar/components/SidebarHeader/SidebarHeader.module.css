@@ -3,47 +3,50 @@
     padding: 16px 19px;
     position: relative;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 7px;
+    justify-content: space-between;
 }
 
 .sidebarHeaderCollapsed {
     padding: 29px 19px;
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+}
+
+.logoIcon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    object-fit: contain;
+}
+
+.logoText h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #0C284F;
+    line-height: 1.2;
+}
+
 .toggleButton {
     background: #f1f5f9;
     border: 1px solid #d1d5db;
     border-radius: 50px;
-    padding: 3px 6px;
+    padding: 6px;
     cursor: pointer;
     color: #64748b;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .toggleButton:hover {
     background: #e2e8f0;
     color: #1e293b;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.logoIcon {
-    font-size: 1.5rem;
-    color: #2563eb;
-    min-width: 44px;
-}
-
-.logoText h2 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 1200;
-    color: #0C284F;
-    line-height: 1.2;
-    padding-left: 10px;
 }
