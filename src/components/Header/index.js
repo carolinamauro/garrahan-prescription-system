@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Header.module.css';
+import SearchInput from "@/components/SearchInput";
 
 export default function Header() {
   return (
@@ -14,12 +15,7 @@ export default function Header() {
 
         <div className={styles.centerSection}>
           <div className={styles.searchBar}>
-            <span className={styles.searchIcon}>🔍</span>
-            <input
-              type="text"
-              placeholder="Buscar"
-              className={styles.searchInput}
-            />
+              <SearchInput placeholder="Buscar" />
           </div>
         </div>
 
