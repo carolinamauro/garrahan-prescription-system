@@ -1,6 +1,6 @@
 .sidebarHeader {
     border-bottom: 1px solid #e2e8f0;
-    padding: 16px 16px;
+    padding: 16px 10px;
     position: relative;
     display: flex;
     align-items: center;
@@ -16,9 +16,8 @@
 }
 
 .logoIcon {
-    width: 48px;
-    height: 48px;
-    min-width: 48px;
+    width: 58px;
+    height: 58px;
     object-fit: contain;
 }
 

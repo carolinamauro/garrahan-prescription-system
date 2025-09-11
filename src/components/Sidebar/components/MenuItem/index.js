@@ -12,7 +12,7 @@ export default function MenuItem({ item, isActive, isCollapsed }) {
           ${isActive ? styles.active : ''} ${isCollapsed ? styles.collapsed : ''}`}
       >
         <Icon
-          size={24}
+          size={22}
           className={`${styles.icon} ${isActive ? styles.activeIcon : ''}`}
         />
         {!isCollapsed && (
