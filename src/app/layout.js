@@ -3,9 +3,9 @@ import './globals.css';
 import Layout from '../components/Layout';
 
 const dmSans = DM_Sans({
-    weight: ['500', '600', "700", "800", "900"], // 600 = Semibold
-    subsets: ['latin'],
-    display: 'swap',
+  weight: ['500', '600', '700', '800', '900'], // 600 = Semibold
+  subsets: ['latin'],
+  display: 'swap',
 });
 
 export default function RootLayout({ children }) {

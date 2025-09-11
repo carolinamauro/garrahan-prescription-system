@@ -1,6 +1,6 @@
 'use client';
-
 import { useState } from 'react';
+import { setTimeout } from 'timers';
 import { useRouter } from 'next/navigation';
 import styles from './SearchInput.module.css';
 import { Search } from 'lucide-react';
