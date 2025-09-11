@@ -1,0 +1,17 @@
+.toggleButton {
+    background: #f1f5f9;
+    border: 1px solid #d1d5db;
+    border-radius: 50px;
+    padding: 6px;
+    cursor: pointer;
+    color: #64748b;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggleButton:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
