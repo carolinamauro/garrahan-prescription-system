@@ -1,6 +1,16 @@
+'use client';
+import { useEffect } from 'react';
+import { useHeader } from '@/app/contexts/HeaderContext';
 import styles from './page.module.css';
 
 export default function PatientsPage() {
+  const { setTitle, setSubtitle } = useHeader();
+
+  useEffect(() => {
+      setTitle('Pacientes');
+      setSubtitle('Gestión de pacientes');
+  }, [setTitle, setSubtitle]);
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>

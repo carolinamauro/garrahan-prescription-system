@@ -1,13 +1,22 @@
+'use client';
+import { useEffect } from 'react';
+import { useHeader } from '@/app/contexts/HeaderContext';
 import styles from './page.module.css';
 
-export default async function PatientDetailPage({params}) {
-    const {id} = await params;
-    const patientId = id;
+export default function PatientDetailPage({params}) {
+    const { setTitle, setSubtitle } = useHeader();
+
+    useEffect(() => {
+        setTitle(`Juan Perez`);
+        setSubtitle('Detalles del paciente');
+    }, [setTitle, setSubtitle]);
+
+    const {id} = params;
 
     return (
         <div className={styles.container}>
             <div className={styles.header}>
-                <h1>Paciente {patientId}</h1>
+                <h1>Paciente {id}</h1>
                 <p>Detalles completos del paciente</p>
             </div>
 

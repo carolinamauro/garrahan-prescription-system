@@ -1,9 +1,14 @@
+'use client';
+
+import { useHeader } from '@/app/contexts/HeaderContext';
 import styles from './Header.module.css';
 import SearchInput from '@/components/SearchInput';
 import {User, Bell} from 'lucide-react';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 
 export default function Header({ isCollapsed, onToggle }) {
+  const { title, subtitle } = useHeader();
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -20,8 +25,8 @@ export default function Header({ isCollapsed, onToggle }) {
 
           <div className={styles.leftSection}>
           <div className={styles.breadcrumb}>
-            <h1>Pacientes</h1>
-            <span>Gestión de Pacientes</span>
+            <h1>{title}</h1>
+            <span>{subtitle}</span>
           </div>
         </div>
 

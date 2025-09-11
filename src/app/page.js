@@ -1,3 +1,7 @@
+'use client';
+import { useEffect } from 'react';
+import { useHeader } from '@/app/contexts/HeaderContext';
+
 import { Clipboard, Search } from 'lucide-react';
 import styles from './page.module.css';
 import ActionCard from '../components/ActionCard';
@@ -9,6 +13,13 @@ export default function Home() {
     { id: 'ABO152', name: 'Juan Perez', status: 'En curso' },
     { id: 'ZSO152', name: 'Lucía Salto', status: 'En curso' },
   ];
+
+  const { setTitle, setSubtitle } = useHeader();
+
+  useEffect(() => {
+      setTitle('Inicio');
+      setSubtitle('Menú principal');
+  }, [setTitle, setSubtitle]);
 
   return (
     <div className={styles.container}>
