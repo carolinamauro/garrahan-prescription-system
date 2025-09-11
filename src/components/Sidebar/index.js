@@ -10,7 +10,9 @@ export default function Sidebar({ isCollapsed }) {
 
   return (
     <aside className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ''}`}>
-      <SidebarHeader />
+      <SidebarHeader
+          isCollapsed={isCollapsed}
+      />
       <SidebarNav
         menuItems={MENU_ITEMS}
         pathname={pathname}

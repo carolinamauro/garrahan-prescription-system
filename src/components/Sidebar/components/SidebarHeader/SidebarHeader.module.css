@@ -1,14 +1,10 @@
 .sidebarHeader {
     border-bottom: 1px solid #e2e8f0;
-    padding: 16px 19px;
+    padding: 16px 16px;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.sidebarHeaderCollapsed {
-    padding: 29px 19px;
 }
 
 .logo {
@@ -32,4 +28,5 @@
     font-weight: 600;
     color: #0C284F;
     line-height: 1.2;
+    min-width: 10rem;
 }

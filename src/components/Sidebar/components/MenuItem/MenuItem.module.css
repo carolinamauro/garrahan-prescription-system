@@ -43,11 +43,6 @@
     margin-right: 0.75rem;
 }
 
-.menuLink.collapsed .icon {
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .activeIcon {
     color: #168BD9;
 }
