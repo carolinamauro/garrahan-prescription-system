@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from './SearchInput.module.css';
 import { Search } from 'lucide-react';
 
@@ -8,6 +9,7 @@ export default function SearchInput({ placeholder, options = [] }) {
   const [query, setQuery] = useState('');
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [showOptions, setShowOptions] = useState(false);
+  const router = useRouter();
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -25,8 +27,9 @@ export default function SearchInput({ placeholder, options = [] }) {
   };
 
   const handleSelect = (option) => {
-    setQuery(option);
+    setQuery(option.name);
     setShowOptions(false);
+    router.push(`/patients/${option.id}`);
   };
 
   return (
@@ -38,7 +41,7 @@ export default function SearchInput({ placeholder, options = [] }) {
           value={query}
           onChange={handleChange}
           onFocus={() => query && setShowOptions(true)}
-          onBlur={() => setTimeout(() => setShowOptions(false), 100)} // retraso para permitir click
+          onBlur={() => setTimeout(() => setShowOptions(false), 100)}
         />
         <span className={styles.searchIcon}>
           <Search size={20} />
@@ -47,11 +50,11 @@ export default function SearchInput({ placeholder, options = [] }) {
 
       {showOptions && filteredOptions.length > 0 && (
         <ul className={styles.optionsList}>
-          {filteredOptions.map((option, index) => (
+          {filteredOptions.map((option) => (
             <li
-              key={index}
+              key={option.id}
               className={styles.optionItem}
-              onClick={() => handleSelect(option)}
+              onMouseDown={() => handleSelect(option)}
             >
               {option.name}
             </li>
