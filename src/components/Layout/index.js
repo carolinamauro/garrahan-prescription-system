@@ -11,11 +11,13 @@ export default function Layout({ children }) {
     <div className={styles.appLayout}>
       <Sidebar
         isCollapsed={isSidebarCollapsed}
-        onToggle={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
       />
       <div className={`${styles.contentWrapper} 
         ${isSidebarCollapsed ? styles.sidebarCollapsed : ''}`}>
-        <Header />
+        <Header
+            isCollapsed={isSidebarCollapsed}
+            onToggle={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+        />
         <main className={styles.mainContent}>
           {children}
         </main>

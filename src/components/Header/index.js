@@ -1,12 +1,24 @@
 import styles from './Header.module.css';
 import SearchInput from '@/components/SearchInput';
 import {User, Bell} from 'lucide-react';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
 
-export default function Header() {
+export default function Header({ isCollapsed, onToggle }) {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <div className={styles.leftSection}>
+          <button className={styles.toggleButton}
+                  onClick={onToggle}>
+              {isCollapsed ? (
+                  <ChevronRight size={20}
+                                strokeWidth={2} />
+              ) : (
+                  <ChevronLeft size={20}
+                               strokeWidth={2} />
+              )}
+          </button>
+
+          <div className={styles.leftSection}>
           <div className={styles.breadcrumb}>
             <h1>Pacientes</h1>
             <span>Gestión de Pacientes</span>
