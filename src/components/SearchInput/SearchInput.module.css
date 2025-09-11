@@ -34,3 +34,54 @@
     color: #168BD9;
     pointer-events: none; /* no bloquea clics en el input */
 }
+
+.searchInputWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.searchInput input {
+    width: 100%;
+    padding: 8px 32px 8px 8px;
+}
+
+.searchIcon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.optionsList {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px; /* <-- agrega bordes redondeados */
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+    padding: 0;
+    margin: 4px 0 0 0; /* pequeño espacio desde el input */
+}
+
+.optionItem {
+    padding: 8px;
+    cursor: pointer;
+    color: #111827;
+    list-style: none;
+    border-bottom: 1px solid #eee; /* opcional, separación entre items */
+    /* border-radius: 8px; */ /* si querés bordes redondeados individuales */
+}
+
+.optionItem:last-child {
+    border-bottom: none; /* quitar línea en el último item */
+}
+
+.optionItem:hover {
+    background-color: #f0f0f0;
+}
+
+
