@@ -2,8 +2,10 @@
 import { useEffect } from 'react';
 import { useHeader } from '@/app/contexts/HeaderContext';
 import styles from './page.module.css';
+import InfoItem from '../../../components/InfoItem';
+import Button from '../../../components/Button';
 
-export default function PatientDetailPage({params}) {
+export default function PatientDetailPage({ params }) {
     const { setTitle, setSubtitle } = useHeader();
 
     useEffect(() => {
@@ -20,31 +22,12 @@ export default function PatientDetailPage({params}) {
             <div className={styles.patientInfo}>
                 <div className={styles.infoCard}>
                     <div className={styles.infoGrid}>
-                        <div className={styles.infoItem}>
-                            <span className={styles.label}>Edad:</span>
-                            <span className={styles.value}>10 años</span>
-                        </div>
-                        <div className={styles.infoItem}>
-                            <span className={styles.label}>Peso:</span>
-                            <span className={styles.value}>-</span>
-                        </div>
-                        <div className={styles.infoItem}>
-                            <span className={styles.label}>Superficie corporal:</span>
-                            <span className={styles.value}>-</span>
-                        </div>
-                        <div className={styles.infoItem}>
-                            <span className={styles.label}>Obra social:</span>
-                            <span className={styles.value}>-</span>
-                        </div>
-                        <div className={styles.infoItem}>
-                            <span className={styles.label}>Historia clínica:</span>
-                            <span className={styles.value}>{params.id}</span>
-                        </div>
-                        <div className={styles.actions}>
-                            <button className={styles.editButton}>
-                                Ver más / Editar
-                            </button>
-                        </div>
+                        <InfoItem label="Edad" value="10 años" />
+                        <InfoItem label="Peso" value="-" />
+                        <InfoItem label="Superficie corporal" value="-" />
+                        <InfoItem label="Obra social" value="-" />
+                        <InfoItem label="Historia clínica" value={params.id} />
+                        <Button>Ver más / Editar</Button>
                     </div>
                 </div>
             </div>
