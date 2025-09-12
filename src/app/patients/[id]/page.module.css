@@ -21,8 +21,8 @@
 }
 
 .protocolInfo {
-    gap: 2rem;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     max-width: 100%;
@@ -34,10 +34,12 @@
     justify-content: space-between;
     flex: 1;
     background: #ffffff;
-    border-radius: 12px;
+    border-radius: 12px 12px 0 0;
     padding: 2rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     border: 1px solid #e2e8f0;
+    width: 100%;
+    border-bottom: 0;
 }
 
 .protocolCard h3 {
@@ -49,9 +51,9 @@
 
 .buttonsGrid {
     display: flex;
-    justify-content: space-between;
     gap: 1rem;
     flex: 1;
+    justify-content: flex-end;
 }
 
 .protocolGrid {
@@ -80,6 +82,69 @@
 .value.protocolo {
     color: #1e293b;
 }
+
+.tabs {
+    background: #fff;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid #e2e8f0;
+    width: 100%;
+    border-top: 0;
+}
+
+.tabHeaders {
+    display: flex;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.tabButton {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: transparent;
+    border: none;
+    font-weight: 500;
+    color: #64748b;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.tabButton:hover {
+    background: #f1f5f9;
+}
+
+.tabButton.active {
+    color: #1e293b;
+    border-bottom: 3px solid #007bff;
+}
+
+.tabContent {
+    padding: 1.5rem;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    text-align: left;
+    font-weight: 600;
+    color: #1e293b;
+    padding: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+}
+
+.detalle {
+    color: #334155;
+    font-size: 0.95rem;
+}
+
 
 @media (max-width: 768px) {
   .infoItem {
