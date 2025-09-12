@@ -70,8 +70,15 @@
 
 .value {
     font-weight: 500;
-    color: var(--error-500);
     font-size: 0.8rem;
+}
+
+.value.noProtocolo {
+    color: var(--error-500);
+}
+
+.value.protocolo {
+    color: #1e293b;
 }
 
 @media (max-width: 768px) {

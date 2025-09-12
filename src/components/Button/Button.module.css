@@ -19,6 +19,20 @@
     justify-self: center;
 }
 
-.editButton:hover {
-    background: #0171ba;
+.editButton:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+.disabled {
+    background: #cbd5e1;
+    color: #64748b;
+    cursor: not-allowed;
+}
+
+.editButton:hover:not(:disabled) {
+    background: #0056b3;
+}
+
+.disabled:hover {
+    background: #94a3b8;
 }
