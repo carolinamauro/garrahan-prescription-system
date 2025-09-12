@@ -5,7 +5,7 @@
 }
 
 .editButton {
-    background: var(--primary-600);
+    background: #168BD9;
     color: white;
     font-family: inherit;
     font-size: 0.8rem;
@@ -15,8 +15,10 @@
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
+    align-self: center;
+    justify-self: center;
 }
 
 .editButton:hover {
-    background: var(--primary-700);
+    background: #0171ba;
 }
