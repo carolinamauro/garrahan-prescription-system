@@ -1,23 +1,75 @@
-import { usePathname } from 'next/navigation';
-import styles from './Sidebar.module.css';
-import { MENU_ITEMS } from './constants';
+"use client"
 
-import SidebarHeader from './components/SidebarHeader';
-import SidebarNav from './components/SidebarNav';
+import * as React from "react"
+import { Users, Archive, FileSearch2, LayoutGridIcon } from 'lucide-react';
+import { NavMain } from '@/components/Sidebar/NavMain'
+import Link from "next/link"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from '@/components/ui/sidebar'
 
-export default function Sidebar({ isCollapsed }) {
-  const pathname = usePathname();
+const NAV_MAIN_ITEMS = [
+    {
+      title: "Inicio",
+      url: "#",
+      icon: LayoutGridIcon,
+    },
+    {
+      title: "Pacientes",
+      url: "#",
+      icon: Users,
+    },
+    {
+      title: "Alertas",
+      url: "#",
+      icon: Archive,
+    },
+    {
+      title: "Recetas",
+      url: "#",
+      icon: FileSearch2,
+    }
+  ]
 
+export function AppSidebar({
+   side = "left",
+   variant = "sidebar",
+   collapsible = "icon",
+   className,
+   children,
+   ...rest
+}) {
   return (
-    <aside className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ''}`}>
-      <SidebarHeader
-          isCollapsed={isCollapsed}
-      />
-      <SidebarNav
-        menuItems={MENU_ITEMS}
-        pathname={pathname}
-        isCollapsed={isCollapsed}
-      />
-    </aside>
-  );
+      <Sidebar
+          side={side}
+          variant={variant}
+          collapsible={collapsible}
+          className={className}
+          {...rest}
+      >
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              className="data-[slot=sidebar-menu-button]:!p-1.5"
+            >
+              <Link href="/" aria-label="Home">
+                  <img src="/menu_icon.svg"  alt="logo"/>
+                  <span className="text-base font-semibold">Sistema recetas oncológicas</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarContent>
+        <NavMain items={NAV_MAIN_ITEMS} />
+      </SidebarContent>
+    </Sidebar>
+  )
 }

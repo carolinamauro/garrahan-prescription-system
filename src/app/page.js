@@ -1,50 +1,26 @@
-'use client';
-import { useEffect } from 'react';
-import { useHeader } from '@/app/contexts/HeaderContext';
+import { AppSidebar } from '@/components/Sidebar'
+import { DataTable } from '@/components/DataTable'
+import { SectionCards } from '@/components/SectionCards'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 
-import { Clipboard, Search } from 'lucide-react';
-import styles from './page.module.css';
-import ActionCard from '../components/ActionCard';
-import SearchInput from '../components/SearchInput';
-import PatientsTable from '../components/PatientsTable';
+import data from "./data.json"
 
-export default function Home() {
-  const patients = [
-    { id: 'ABO152', name: 'Juan Perez', status: 'En curso' },
-    { id: 'ZSO152', name: 'Lucía Salto', status: 'En curso' },
-  ];
-
-  const { setTitle, setSubtitle } = useHeader();
-
-  useEffect(() => {
-      setTitle('Inicio');
-      setSubtitle('Menú principal');
-  }, [setTitle, setSubtitle]);
-
+export default function Page() {
   return (
-    <div className={styles.container}>
-      {/* Action Cards */}
-      <div className={styles.actionCards}>
-        <ActionCard
-          icon={<Clipboard size={32} />}
-          title="Ver panel de pacientes"
-          description="Listado de todos tus pacientes"
-        />
-
-        <ActionCard
-          icon={<Search size={32} />}
-          title="Buscar paciente"
-          description="Busca un paciente por su historia clínica, nombre o DNI"
-        >
-          <SearchInput
-            placeholder="Buscar"
-            options={patients}
-          />
-        </ActionCard>
-      </div>
-
-      {/* Recent Patients Table */}
-      <PatientsTable patients={patients} />
-    </div>
-  );
+    <SidebarProvider>
+      <AppSidebar variant="inset" />
+      <SidebarInset>
+        <SiteHeader user={data.user}/>
+        <div className="flex flex-1 flex-col">
+          <div className="@container/main flex flex-1 flex-col gap-2">
+            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+              <SectionCards />
+              <DataTable data={data} tabsList={[]} />
+            </div>
+          </div>
+        </div>
+      </SidebarInset>
+    </SidebarProvider>
+  )
 }

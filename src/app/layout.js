@@ -1,24 +1,21 @@
-import { DM_Sans } from 'next/font/google';
-import './globals.css';
-import Layout from '../components/Layout';
-import { HeaderProvider } from '@/app/contexts/HeaderContext';
+import { ThemeProvider } from "@/components/ThemeProvider"
+import { Suspense } from "react"
+import "./globals.css"
 
-const dmSans = DM_Sans({
-    weight: ['500', '600', '700', '800', '900'],
-    subsets: ['latin'],
-    display: 'swap',
-});
+export const metadata = {
+  title: "Sistema recetas oncológicas",
+}
 
 export default function RootLayout({ children }) {
-    return (
-        <html lang="es">
-        <body className={dmSans.className}>
-        <HeaderProvider>
-            <Layout>
-                {children}
-            </Layout>
-        </HeaderProvider>
-        </body>
-        </html>
-    );
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <Suspense fallback={null}>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            {children}
+          </ThemeProvider>
+        </Suspense>
+      </body>
+    </html>
+  )
 }
