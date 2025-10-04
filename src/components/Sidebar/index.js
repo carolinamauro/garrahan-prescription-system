@@ -1,9 +1,8 @@
-"use client"
+'use client';
 
-import * as React from "react"
 import { Users, Archive, FileSearch2, LayoutGridIcon } from 'lucide-react';
-import { NavMain } from '@/components/Sidebar/NavMain'
-import Link from "next/link"
+import { NavMain } from '@/components/Sidebar/NavMain';
+import Link from 'next/link';
 import {
   Sidebar,
   SidebarContent,
@@ -11,47 +10,46 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar'
+} from '@/components/ui/sidebar';
 
 const NAV_MAIN_ITEMS = [
-    {
-      title: "Inicio",
-      url: "#",
-      icon: LayoutGridIcon,
-    },
-    {
-      title: "Pacientes",
-      url: "#",
-      icon: Users,
-    },
-    {
-      title: "Alertas",
-      url: "#",
-      icon: Archive,
-    },
-    {
-      title: "Recetas",
-      url: "#",
-      icon: FileSearch2,
-    }
-  ]
+  {
+    title: 'Inicio',
+    url: '#',
+    icon: LayoutGridIcon,
+  },
+  {
+    title: 'Pacientes',
+    url: '#',
+    icon: Users,
+  },
+  {
+    title: 'Alertas',
+    url: '#',
+    icon: Archive,
+  },
+  {
+    title: 'Recetas',
+    url: '#',
+    icon: FileSearch2,
+  }
+];
 
 export function AppSidebar({
-   side = "left",
-   variant = "sidebar",
-   collapsible = "icon",
-   className,
-   children,
-   ...rest
+  side = 'left',
+  variant = 'sidebar',
+  collapsible = 'icon',
+  className,
+  ...rest
 }) {
   return (
-      <Sidebar
-          side={side}
-          variant={variant}
-          collapsible={collapsible}
-          className={className}
-          {...rest}
-      >
+    <Sidebar
+      side={side}
+      variant={variant}
+      collapsible={collapsible}
+      className={className}
+      {...rest}
+    >
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -59,9 +57,11 @@ export function AppSidebar({
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <Link href="/" aria-label="Home">
-                  <img src="/menu_icon.svg"  alt="logo"/>
-                  <span className="text-base font-semibold">Sistema recetas oncológicas</span>
+              <Link href="/"
+                aria-label="Home">
+                <img src="/menu_icon.svg"
+                  alt="logo"/>
+                <span className="text-base font-semibold">Sistema recetas oncológicas</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -71,5 +71,5 @@ export function AppSidebar({
         <NavMain items={NAV_MAIN_ITEMS} />
       </SidebarContent>
     </Sidebar>
-  )
+  );
 }

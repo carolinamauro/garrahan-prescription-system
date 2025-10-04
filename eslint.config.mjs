@@ -71,6 +71,7 @@ export default [
       'dist/**',
       'build/**',
       'coverage/**',
+      'src/components/ui/**'
     ],
   },
 ];

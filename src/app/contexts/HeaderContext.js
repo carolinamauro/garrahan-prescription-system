@@ -4,16 +4,16 @@ import { createContext, useState, useContext } from 'react';
 const HeaderContext = createContext();
 
 export function HeaderProvider({ children }) {
-    const [title, setTitle] = useState('Inicio');
-    const [subtitle, setSubtitle] = useState('Menú principal');
+  const [title, setTitle] = useState('Inicio');
+  const [subtitle, setSubtitle] = useState('Menú principal');
 
-    return (
-        <HeaderContext.Provider value={{ title, setTitle, subtitle, setSubtitle }}>
-            {children}
-        </HeaderContext.Provider>
-    );
+  return (
+    <HeaderContext.Provider value={{ title, setTitle, subtitle, setSubtitle }}>
+      {children}
+    </HeaderContext.Provider>
+  );
 }
 
 export function useHeader() {
-    return useContext(HeaderContext);
+  return useContext(HeaderContext);
 }

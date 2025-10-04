@@ -7,8 +7,8 @@ export default function PatientsPage() {
   const { setTitle, setSubtitle } = useHeader();
 
   useEffect(() => {
-      setTitle('Pacientes');
-      setSubtitle('Gestión de pacientes');
+    setTitle('Pacientes');
+    setSubtitle('Gestión de pacientes');
   }, [setTitle, setSubtitle]);
 
   return (
