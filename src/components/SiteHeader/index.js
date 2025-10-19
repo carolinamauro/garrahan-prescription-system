@@ -3,7 +3,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { NavUser } from '@/components/SiteHeader/NavUser';
 
-export function SiteHeader() {
+export function SiteHeader({ title }) {
   const user = {
     name: 'Dr Amirul Haque',
     email: 'Oncólogo - Prescriptor',
@@ -18,7 +18,7 @@ export function SiteHeader() {
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical"
           className="mx-2 data-[orientation=vertical]:h-4" />
-        <h1 className="text-base font-medium">Inicio</h1>
+        <h1 className="text-base font-medium">{title}</h1>
         <div className="ml-auto flex items-center gap-2">
           <ThemeToggle />
           <NavUser user={user} />
