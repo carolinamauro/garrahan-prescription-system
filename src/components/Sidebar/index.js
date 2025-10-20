@@ -15,22 +15,22 @@ import {
 const NAV_MAIN_ITEMS = [
   {
     title: 'Inicio',
-    url: '#',
+    url: '/',
     icon: LayoutGridIcon,
   },
   {
     title: 'Pacientes',
-    url: '#',
+    url: '/pacientes',
     icon: Users,
   },
   {
     title: 'Alertas',
-    url: '#',
+    url: '/alertas',
     icon: Archive,
   },
   {
     title: 'Recetas',
-    url: '#',
+    url: '/recetas',
     icon: FileSearch2,
   }
 ];
