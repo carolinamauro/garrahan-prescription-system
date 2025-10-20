@@ -1,13 +1,22 @@
 [
-  {
-    "id": 1,
-    "nombre": "Martín Palermo",
-    "anios": 10,
-    "dias": 11,
-    "peso": "",
-    "ultima_mod": "",
-    "sup_corporal": "",
-    "obra_social": "",
-    "historia_clinica": "AB0001"
-  }
+  { "id": "FER001", "nombre": "Martin Palermo", "anios": 10, "dias": 11, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "FER001", "protocolo": "" },
+  { "id": "LUC002", "nombre": "Miguel Merentiel", "anios": 12, "dias": 5, "peso": "10 kg", "ultima_mod": "2024-12-09", "sup_corporal": "1.7 m2", "obra_social": "", "historia_clinica": "LUC002", "protocolo": "" },
+  { "id": "JAV003", "nombre": "Edinson Cavani", "anios": 9, "dias": 23, "peso": "1o kg", "ultima_mod": "2024-12-12", "sup_corporal": "1.7 m2", "obra_social": "", "historia_clinica": "JAV003", "protocolo": "Leucemia linfoblástica aguda (LLA)" },
+  { "id": "CAM004", "nombre": "Carlos Tévez", "anios": 15, "dias": 3, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "CAM004", "protocolo": "" },
+  { "id": "SAN005", "nombre": "Raúl Cascini", "anios": 8, "dias": 16, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "SAN005", "protocolo": "" },
+  { "id": "VAL006", "nombre": "Valentina Perez", "anios": 7, "dias": 12, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "VAL006", "protocolo": "" },
+  { "id": "MAT007", "nombre": "Matias Fernandez", "anios": 14, "dias": 8, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "MAT007", "protocolo": "" },
+  { "id": "ISA008", "nombre": "Isabella Gomez", "anios": 5, "dias": 29, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "ISA008", "protocolo": "" },
+  { "id": "DIE009", "nombre": "Diego Rojas", "anios": 11, "dias": 6, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "DIE009", "protocolo": "" },
+  { "id": "JUL010", "nombre": "Julieta Castillo", "anios": 6, "dias": 18, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "JUL010", "protocolo": "" },
+  { "id": "NIC011", "nombre": "Nicolas Herrera", "anios": 9, "dias": 10, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "NIC011", "protocolo": "" },
+  { "id": "ANA012", "nombre": "Ana Suarez", "anios": 13, "dias": 27, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "ANA012", "protocolo": "" },
+  { "id": "MAR013", "nombre": "Martin Aguirre", "anios": 10, "dias": 4, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "MAR013", "protocolo": "" },
+  { "id": "CAM014", "nombre": "Camilo Vega", "anios": 8, "dias": 22, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "CAM014", "protocolo": "" },
+  { "id": "LAU015", "nombre": "Laura Paredes", "anios": 12, "dias": 14, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "LAU015", "protocolo": "" },
+  { "id": "FAC016", "nombre": "Facundo Molina", "anios": 11, "dias": 9, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "FAC016", "protocolo": "" },
+  { "id": "SOF017", "nombre": "Sofia Medina", "anios": 9, "dias": 19, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "SOF017", "protocolo": "" },
+  { "id": "TOM018", "nombre": "Tomás Castillo", "anios": 7, "dias": 7, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "TOM018", "protocolo": "" },
+  { "id": "LUC019", "nombre": "Luciana Diaz", "anios": 8, "dias": 25, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "LUC019", "protocolo": "" },
+  { "id": "AGU020", "nombre": "Agustin Rios", "anios": 10, "dias": 2, "peso": "", "ultima_mod": "", "sup_corporal": "", "obra_social": "", "historia_clinica": "AGU020", "protocolo": "" }
 ]

@@ -16,7 +16,7 @@ export function PatientProtocolCard({ patient, tieneProtocolo }) {
         <CardHeader>
           <CardTitle>Protocolo de tratamiento</CardTitle>
           <CardDescription className={!tieneProtocolo ? 'text-red-500' : ''}>
-            {tieneProtocolo ? 'Protocolo asignado' : 'No tiene protocolo asignado'}
+            {tieneProtocolo ? `${patient.protocolo}` : 'No tiene protocolo asignado'}
           </CardDescription>
         </CardHeader>
         <CardContent>

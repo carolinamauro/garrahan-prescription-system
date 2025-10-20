@@ -5,9 +5,14 @@ import data from './data.json';
 import { PatientSummaryCard } from '@/components/PatientSummaryCard';
 import { PatientProtocolCard } from '@/components/PatientProtocolCard';
 
-export default function PatientPage() {
-  const patient = data[0];
-  const tieneProtocolo = false;
+function pacienteTieneProtocolo(protocolo) {
+  return Boolean(protocolo && String(protocolo).trim() !== '');
+}
+
+export default function PatientPage({ params }) {
+  const { id } = params;
+  const patient = data.find((p) => String(p.id) === String(id));
+  const tieneProtocolo = pacienteTieneProtocolo(patient.protocolo);
 
   return (
     <SidebarProvider>
