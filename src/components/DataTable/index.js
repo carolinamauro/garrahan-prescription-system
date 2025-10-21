@@ -30,7 +30,7 @@ import { TableColumnSelector } from '@/components/DataTable/TableColumnSelector'
 
 const columns = getColumns();
 
-export function DataTable({ data: initialData, tabsList }) {
+export function DataTable({ data: initialData, tabsList, withActionButtons }) {
   const [data, setData] = React.useState(() => initialData);
   const table = useTableConfig(columns, data);
 
@@ -75,7 +75,10 @@ export function DataTable({ data: initialData, tabsList }) {
             </div>
         }
 
-        <TableColumnSelector table={table} />
+        <TableColumnSelector
+          table={table}
+          withActionButtons={withActionButtons}
+        />
       </div>
 
       {/* Table Content */}

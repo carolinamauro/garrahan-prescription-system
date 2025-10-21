@@ -21,17 +21,17 @@ export const getColumns = () => [
     enableHiding: false,
   },
   {
-    accessorKey: 'id',
+    accessorKey: 'ID Paciente',
     header: 'ID Paciente',
     cell: IdCell,
   },
   {
-    accessorKey: 'header',
+    accessorKey: 'Paciente',
     header: 'Paciente',
     cell: ({ row }) => { return <TableCellViewer item={row.original} />; },
   },
   {
-    accessorKey: 'status',
+    accessorKey: 'estado',
     header: 'Estado',
     cell: StatusCell,
   },

@@ -1,8 +1,16 @@
-import { IconChevronDown, IconLayoutColumns } from '@tabler/icons-react';
+import { IconChevronDown,
+  IconLayoutColumns,
+  IconPlus,
+  IconAdjustmentsAlt
+} from '@tabler/icons-react';
 import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
 
-export function TableColumnSelector({ table }) {
+export function TableColumnSelector({ table, withActionButtons }) {
   return (
     <div className="flex items-center gap-2">
       <DropdownMenu>
@@ -40,6 +48,20 @@ export function TableColumnSelector({ table }) {
             })}
         </DropdownMenuContent>
       </DropdownMenu>
+
+      {withActionButtons && (
+        <>
+          <Button size="sm">
+            <IconPlus />
+            <span className="hidden lg:inline">Agregar paciente</span>
+          </Button>
+
+          <Button size="sm">
+            <IconAdjustmentsAlt />
+            <span className="hidden lg:inline">Filtrar</span>
+          </Button>
+        </>
+      )}
     </div>
   );
 }
