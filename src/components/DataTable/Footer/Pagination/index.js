@@ -1,5 +1,10 @@
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
 
 export function Pagination({ table }) {
   let pageSize = table.getState().pagination.pageSize;
@@ -9,7 +14,7 @@ export function Pagination({ table }) {
     <div className="hidden items-center gap-2 lg:flex">
       <Label htmlFor="rows-per-page"
         className="text-sm font-medium">
-                Rows per page
+                Filas por página
       </Label>
       <Select
         value={`${pageSize}`}

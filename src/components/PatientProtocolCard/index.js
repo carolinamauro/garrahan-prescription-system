@@ -12,7 +12,7 @@ export function PatientProtocolCard({ patient, tieneProtocolo }) {
 
   return (
     <div className="px-4 lg:px-6">
-      <Card>
+      <Card className="bg-gradient-to-t from-primary/5 to-card shadow-xs">
         <CardHeader>
           <CardTitle>Protocolo de tratamiento</CardTitle>
           <CardDescription className={!tieneProtocolo ? 'text-red-500' : ''}>

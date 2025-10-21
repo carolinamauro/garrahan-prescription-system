@@ -14,7 +14,7 @@ export function TableCellViewer({ item }) {
           className="text-foreground w-fit px-0 text-left">
           <Link href={`/pacientes/${item.id}`}
             aria-label="Home">
-            <span>{item.header}</span>
+            <span>{item.nombre}</span>
           </Link>
         </Button>
       </DrawerTrigger>

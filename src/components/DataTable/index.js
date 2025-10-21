@@ -1,14 +1,26 @@
 'use client';
 
 import * as React from 'react';
-import { closestCenter, DndContext, KeyboardSensor, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { closestCenter,
+  DndContext,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors
+} from '@dnd-kit/core';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { flexRender } from '@tanstack/react-table';
-
 import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { Label } from '@/components/ui/label';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from '@/components/ui/table';
 import { DraggableRow } from '@/components/DataTable/DraggableRow';
 import { getColumns } from '@/components/DataTable/TableColumns';
 import { useTableConfig } from '@/components/DataTable/tableHooks';
@@ -53,14 +65,14 @@ export function DataTable({ data: initialData, tabsList }) {
       {/* Table Options */}
       <div className="flex items-center justify-between px-4 lg:px-6">
         {tabsList && tabsList.length > 0 &&
-                    <div>
-                      <Label htmlFor="view-selector"
-                        className="sr-only">
-                            View
-                      </Label>
+            <div>
+              <Label htmlFor="view-selector"
+                className="sr-only">
+                    View
+              </Label>
 
-                      <TabOptions tabsList={tabsList} />
-                    </div>
+              <TabOptions tabsList={tabsList} />
+            </div>
         }
 
         <TableColumnSelector table={table} />

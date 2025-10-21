@@ -70,7 +70,7 @@ export function PatientEditCard({ patient }) {
     <div className="px-4 lg:px-6">
       <h2 className="mb-4 text-xl font-semibold">Editar</h2>
 
-      <Card>
+      <Card className="bg-gradient-to-t from-primary/5 to-card shadow-xs">
         <CardContent className="pt-2">
           <div className="grid gap-8 md:grid-cols-[1.5fr_1fr_1.5fr]">
             {fields.map(({ id, label, placeholder, savedLabel, savedValue, hasInput, form }) => (

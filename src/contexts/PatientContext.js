@@ -1,6 +1,6 @@
 'use client';
 import { createContext, useContext, useState } from 'react';
-import data from '../app/pacientes/data.json';
+import data from '../app/data.json';
 
 const PatientsContext = createContext();
 

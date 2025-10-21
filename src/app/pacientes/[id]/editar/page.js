@@ -1,4 +1,5 @@
 'use client';
+import React from 'react';
 import { AppSidebar } from '@/components/Sidebar';
 import { SiteHeader } from '@/components/SiteHeader';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
@@ -6,8 +7,8 @@ import { usePatients } from '@/contexts/PatientContext';
 import { PatientSummaryCard } from '@/components/PatientSummaryCard';
 import { PatientEditCard } from '@/components/PatientEditCard';
 
-export default function PatientPage({ params }) {
-  const { id } = params;
+export default function PatientEditPage({ params }) {
+  const { id } = React.use(params);
   const { patients } = usePatients();
   const patient = patients.find((p) => String(p.id) === String(id));
 

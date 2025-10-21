@@ -10,8 +10,8 @@ export function TableColumnSelector({ table }) {
           <Button variant="outline"
             size="sm">
             <IconLayoutColumns />
-            <span className="hidden lg:inline">Customize Columns</span>
-            <span className="lg:hidden">Columns</span>
+            <span className="hidden lg:inline">Seleccionar columnas</span>
+            <span className="lg:hidden">Columnas</span>
             <IconChevronDown />
           </Button>
         </DropdownMenuTrigger>
