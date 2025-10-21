@@ -14,6 +14,7 @@ import {
   AlertDialogTitle
 } from '@/components/ui/alert-dialog';
 
+// TODO: Refactorizar el código en componentes
 export function PatientEditCard({ patient }) {
   const defaultValue = 'No informa';
   const [showDialog, setShowDialog] = useState(false);
