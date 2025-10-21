@@ -16,7 +16,7 @@ export function PatientSummaryCard({ patient, withEditButton }) {
           <div className={gridClass}>
             <PatientInfoItem label="Edad"
               value={`${patient.anios} años y ${patient.dias} días`} />
-            <PatientInfoItem label="Peso"
+            <PatientInfoItem label="Peso (en kg)"
               value={patient.peso} />
             <PatientInfoItem label="Superficie corporal"
               value={patient.sup_corporal} />

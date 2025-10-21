@@ -1,6 +1,6 @@
 'use client';
 import { useEffect } from 'react';
-import { useHeader } from '@/app/contexts/HeaderContext';
+import { useHeader } from '@/contexts/HeaderContext';
 import styles from './page.module.css';
 
 export default function PatientsPage() {

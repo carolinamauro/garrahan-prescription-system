@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@/components/ThemeProvider';
+import { PatientsProvider } from '@/contexts/PatientContext';
 import { Suspense } from 'react';
 import './globals.css';
 
@@ -16,7 +17,9 @@ export default function RootLayout({ children }) {
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange>
-            {children}
+            <PatientsProvider>
+              {children}
+            </PatientsProvider>
           </ThemeProvider>
         </Suspense>
       </body>

@@ -1,9 +1,10 @@
+'use client';
 import { AppSidebar } from '@/components/Sidebar';
 import { SiteHeader } from '@/components/SiteHeader';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import data from './data.json';
 import { PatientSummaryCard } from '@/components/PatientSummaryCard';
 import { PatientProtocolCard } from '@/components/PatientProtocolCard';
+import { usePatients } from '@/contexts/PatientContext';
 
 function pacienteTieneProtocolo(protocolo) {
   return Boolean(protocolo && String(protocolo).trim() !== '');
@@ -11,7 +12,8 @@ function pacienteTieneProtocolo(protocolo) {
 
 export default function PatientPage({ params }) {
   const { id } = params;
-  const patient = data.find((p) => String(p.id) === String(id));
+  const { patients } = usePatients();
+  const patient = patients.find((p) => String(p.id) === String(id));
   const tieneProtocolo = pacienteTieneProtocolo(patient.protocolo);
 
   return (

@@ -3,9 +3,38 @@ import Link from 'next/link';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { usePatients } from '@/contexts/PatientContext';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import {
+  AlertDialog, AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle
+} from '@/components/ui/alert-dialog';
 
 export function PatientEditCard({ patient }) {
   const defaultValue = 'No informa';
+  const [showDialog, setShowDialog] = useState(false);
+
+  const { updatePatient } = usePatients();
+  const [form, setForm] = useState({
+    peso: patient.peso || '',
+    obra_social: patient.obra_social || '',
+  });
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setForm((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleSave = async () => {
+    await updatePatient(patient.id, form);
+    setShowDialog(true);
+  };
+
+  const router = useRouter();
 
   const fields = [
     {
@@ -14,7 +43,8 @@ export function PatientEditCard({ patient }) {
       placeholder: 'Ingresa el peso del paciente (en kg)',
       savedLabel: 'Peso guardado',
       savedValue: patient.peso || defaultValue,
-      hasInput: true
+      hasInput: true,
+      form: form.peso
     },
     {
       id: 'superficie',
@@ -25,12 +55,13 @@ export function PatientEditCard({ patient }) {
       hasInput: false
     },
     {
-      id: 'obra-social',
+      id: 'obra_social',
       label: 'Obra social',
       placeholder: 'Ingresa obra social del paciente',
       savedLabel: 'Obra social guardada',
       savedValue: patient.obra_social || defaultValue,
-      hasInput: true
+      hasInput: true,
+      form: form.obra_social
     },
   ];
 
@@ -41,7 +72,7 @@ export function PatientEditCard({ patient }) {
       <Card>
         <CardContent className="pt-2">
           <div className="grid gap-8 md:grid-cols-[1.5fr_1fr_1.5fr]">
-            {fields.map(({ id, label, placeholder, savedLabel, savedValue, hasInput }) => (
+            {fields.map(({ id, label, placeholder, savedLabel, savedValue, hasInput, form }) => (
               <div key={id}
                 className="space-y-4">
                 <div>
@@ -52,6 +83,8 @@ export function PatientEditCard({ patient }) {
                   {hasInput ? (
                     <Input id={id}
                       placeholder={placeholder}
+                      value={form}
+                      onChange={handleChange}
                       className="mt-2" />
                   ) : (
                     <p className="mt-2 text-sm text-muted-foreground">{placeholder}</p>
@@ -72,7 +105,8 @@ export function PatientEditCard({ patient }) {
 
       {/* Action Buttons */}
       <div className="fixed bottom-6 right-6 flex gap-3 px-4 lg:px-2">
-        <Button size="lg">
+        <Button size="lg"
+          onClick={handleSave}>
                     Guardar
         </Button>
         <Link href={`/pacientes/${patient.id}`}>
@@ -82,6 +116,26 @@ export function PatientEditCard({ patient }) {
           </Button>
         </Link>
       </div>
+
+      <AlertDialog open={showDialog}
+        onOpenChange={setShowDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Datos guardados</AlertDialogTitle>
+            <AlertDialogDescription>
+                        Los datos del paciente se guardaron correctamente.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={() => {
+              setShowDialog(false);
+              router.push(`/pacientes/${patient.id}`);
+            }}>
+                        Aceptar
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
