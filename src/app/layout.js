@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import './globals.css';
 
 export const metadata = {
-  title: 'Sistema recetas oncológicas',
+  title: 'Garrahan',
 };
 
 export default function RootLayout({ children }) {

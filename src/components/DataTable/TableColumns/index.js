@@ -37,6 +37,6 @@ export const getColumns = () => [
   },
   {
     id: 'actions',
-    cell: ActionCell,
+    cell: ({ row }) => { return <ActionCell item={row.original} />; },
   },
 ];

@@ -6,8 +6,15 @@ import { DropdownMenu,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { IconDotsVertical } from '@tabler/icons-react';
+import { useRouter } from 'next/navigation';
 
-export const ActionCell = () => {
+export const ActionCell = ({ item }) => {
+  const router = useRouter();
+
+  const handleEdit = () => {
+    router.push(`/pacientes/${item.id}/editar`);
+  };
+
   return (
     <div className="flex justify-end pr-0">
       <DropdownMenu>
@@ -23,7 +30,7 @@ export const ActionCell = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end"
           className="w-32">
-          <DropdownMenuItem>Editar</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleEdit}>Editar</DropdownMenuItem>
           <DropdownMenuItem>Duplicar</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem variant="destructive">Eliminar</DropdownMenuItem>

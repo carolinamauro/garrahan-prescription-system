@@ -61,7 +61,7 @@ export function AppSidebar({
                 aria-label="Home">
                 <img src="/menu_icon.svg"
                   alt="logo"/>
-                <span className="text-base font-semibold">Sistema recetas oncológicas</span>
+                <span className="text-base font-semibold">Garrahan</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
