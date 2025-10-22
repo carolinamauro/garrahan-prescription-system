@@ -40,7 +40,7 @@
   --sidebar-ring: oklch(0.708 0 0);
   --sidebar-width: 16rem;
   --sidebar-width-icon: 3rem;
-  --header-height: calc(var(--spacing) * 12);
+  --header-height: calc(var(--spacing) * 16);
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
 }
