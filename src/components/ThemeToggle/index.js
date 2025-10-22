@@ -30,15 +30,15 @@ export function ThemeToggle() {
         align="start">
         <DropdownMenuItem className="dropdown-item"
           onClick={() => setTheme('light')}>
-                    Light
+                    Claro
         </DropdownMenuItem>
         <DropdownMenuItem className="dropdown-item"
           onClick={() => setTheme('dark')}>
-                    Dark
+                    Oscuro
         </DropdownMenuItem>
         <DropdownMenuItem className="dropdown-item"
           onClick={() => setTheme('system')}>
-                    System
+                    Sistema
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

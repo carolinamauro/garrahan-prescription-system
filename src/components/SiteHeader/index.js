@@ -1,8 +1,9 @@
 import { Separator } from '@/components/ui/separator';
-import { SidebarTrigger } from '@/components/ui/sidebar';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { NavUser } from '@/components/SiteHeader/NavUser';
 import { Input } from '@/components/ui/input';
+import { NotificationsDropdown } from '@/components/NotificationsDropdown';
+import Link from 'next/link';
 
 export function SiteHeader({ title }) {
   const user = {
@@ -16,7 +17,15 @@ export function SiteHeader({ title }) {
       <div className="flex w-full items-center justify-between px-4 lg:px-6">
 
         <div className="flex items-center gap-2">
-          <SidebarTrigger className="-ml-1" />
+          <Link href="/"
+            aria-label="Home">
+            <img
+              src="/menu_icon.svg"
+              alt="logo"
+              className="w-8 h-8"
+            />
+          </Link>
+
           <Separator orientation="vertical"
             className="mx-2 data-[orientation=vertical]:h-4" />
           <h1 className="text-base font-medium">{title}</h1>
@@ -29,6 +38,7 @@ export function SiteHeader({ title }) {
         </div>
 
         <div className="flex items-center gap-2">
+          <NotificationsDropdown />
           <ThemeToggle />
           <NavUser user={user} />
         </div>
