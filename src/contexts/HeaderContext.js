@@ -4,7 +4,7 @@ import { createContext, useState, useContext } from 'react';
 const HeaderContext = createContext();
 
 export function HeaderProvider({ children }) {
-  const [title, setTitle] = useState('Inicio');
+  const [title, setTitle] = useState('Pacientes');
   return (
     <HeaderContext.Provider value={{ title, setTitle }}>
       {children}
