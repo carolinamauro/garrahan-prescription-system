@@ -5,14 +5,12 @@ export default [
       ecmaVersion: 2022,
       sourceType: 'module',
       parserOptions: { ecmaFeatures: { jsx: true } },
-      env: {
-          browser: true,
-          es2022: true,
-      },
       globals: {
         process: 'readonly',
         require: 'readonly',
         module: 'readonly',
+        window: 'readonly',
+        document: 'readonly',
       },
     },
     plugins: {
@@ -37,9 +35,9 @@ export default [
       'keyword-spacing': ['error', { before: true, after: true }],
       'comma-spacing': ['error', { before: false, after: true }],
       'no-mixed-spaces-and-tabs': 'error',
-      'max-len': ['error', { 
-        'code': 100, 
-        'ignoreUrls': true, 
+      'max-len': ['error', {
+        'code': 100,
+        'ignoreUrls': true,
         'ignoreStrings': false,
         'ignoreTemplateLiterals': false,
         'ignoreRegExpLiterals': true
