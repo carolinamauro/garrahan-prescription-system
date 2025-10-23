@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PatientSummaryCard } from '@/components/PatientSummaryCard';
 import { PatientProtocolCard } from '@/components/PatientProtocolCard';
 import { usePatients } from '@/contexts/PatientContext';
@@ -16,7 +16,9 @@ export default function PatientPage({ params }) {
   const patient = patients.find((p) => String(p.id) === String(id));
   const tieneProtocolo = pacienteTieneProtocolo(patient.protocolo);
 
-  setTitle(`Paciente: ${patient.nombre}`);
+  useEffect(() => {
+    setTitle(`Paciente: ${patient.nombre}`);
+  }, [setTitle]);
 
   return (
     <>

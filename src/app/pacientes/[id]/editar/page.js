@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { usePatients } from '@/contexts/PatientContext';
 import { useHeader } from '@/contexts/HeaderContext';
 import { PatientSummaryCard } from '@/components/PatientSummaryCard';
@@ -11,7 +11,9 @@ export default function PatientEditPage({ params }) {
   const { setTitle } = useHeader();
   const patient = patients.find((p) => String(p.id) === String(id));
 
-  setTitle(`Paciente: ${patient.nombre}`);
+  useEffect(() => {
+    setTitle(`Paciente: ${patient.nombre}`);
+  }, [setTitle]);
 
   return (
     <>
