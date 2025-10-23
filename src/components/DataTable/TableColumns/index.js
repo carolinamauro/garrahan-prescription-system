@@ -27,7 +27,7 @@ export const getColumns = () => [
     cell: ({row}) => { return <IdCell content={row.original.id} />; },
   },
   {
-    accessorKey: 'historia_clinica',
+    accessorKey: 'historia clinica',
     header: 'Historia Clínica',
     cell: ({row}) => { return <IdCell content={row.original.historia_clinica} />; },
   },

@@ -5,10 +5,8 @@ const HeaderContext = createContext();
 
 export function HeaderProvider({ children }) {
   const [title, setTitle] = useState('Inicio');
-  const [subtitle, setSubtitle] = useState('Menú principal');
-
   return (
-    <HeaderContext.Provider value={{ title, setTitle, subtitle, setSubtitle }}>
+    <HeaderContext.Provider value={{ title, setTitle }}>
       {children}
     </HeaderContext.Provider>
   );

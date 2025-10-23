@@ -1,9 +1,13 @@
 'use client';
 import { DataTable } from '@/components/DataTable';
 import { usePatients } from '@/contexts/PatientContext';
+import { useHeader } from '@/contexts/HeaderContext';
 
 export default function Page() {
   const { patients } = usePatients();
+  const { setTitle } = useHeader();
+
+  setTitle('Pacientes');
 
   return (
     <>

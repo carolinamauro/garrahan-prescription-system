@@ -1,5 +1,6 @@
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { PatientsProvider } from '@/contexts/PatientContext';
+import { HeaderProvider } from '@/contexts/HeaderContext';
 import { Suspense } from 'react';
 import './globals.css';
 import { SiteHeader } from '@/components/SiteHeader';
@@ -19,10 +20,13 @@ export default function RootLayout({ children }) {
             enableSystem
             disableTransitionOnChange>
             <PatientsProvider>
-              <div className="bg-background relative flex flex-1 flex-col m-4 rounded-xl shadow-sm">
-                <SiteHeader title={'Pacientes'}/>
-                {children}
-              </div>
+              <HeaderProvider>
+                <div className="bg-background relative flex
+                flex-1 flex-col m-4 rounded-xl shadow-sm">
+                  <SiteHeader />
+                  {children}
+                </div>
+              </HeaderProvider>
             </PatientsProvider>
           </ThemeProvider>
         </Suspense>

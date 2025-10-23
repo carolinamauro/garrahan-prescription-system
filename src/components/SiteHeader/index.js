@@ -1,16 +1,21 @@
+'use client';
+
 import { Separator } from '@/components/ui/separator';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { NavUser } from '@/components/SiteHeader/NavUser';
 import { Input } from '@/components/ui/input';
 import { NotificationsDropdown } from '@/components/NotificationsDropdown';
+import { useHeader } from '@/contexts/HeaderContext';
 import Link from 'next/link';
 
-export function SiteHeader({ title }) {
+export function SiteHeader() {
   const user = {
     name: 'Amirul Haque',
     email: 'Oncólogo - Prescriptor',
     avatar: '/avatars/shadcn.jpg',
   };
+
+  const { title } = useHeader();
 
   return (
     <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b">
