@@ -5,6 +5,7 @@ import { SelectHeader } from '@/components/DataTable/TableColumns/SelectColumn/S
 import { IdCell } from '@/components/DataTable/TableColumns/IdColumn/IdCell';
 import { StatusCell } from '@/components/DataTable/TableColumns/StatusColumn/StatusCell';
 import { ActionCell } from '@/components/DataTable/TableColumns/ActionCell/ActionCell';
+import {DataCell} from '@/components/DataTable/TableColumns/DataCell';
 
 // Definition of columns for @tanstack/react-table
 export const getColumns = () => [
@@ -23,12 +24,29 @@ export const getColumns = () => [
   {
     accessorKey: 'ID Paciente',
     header: 'ID Paciente',
-    cell: IdCell,
+    cell: ({row}) => { return <IdCell content={row.original.id} />; },
+  },
+  {
+    accessorKey: 'historia_clinica',
+    header: 'Historia Clínica',
+    cell: ({row}) => { return <IdCell content={row.original.historia_clinica} />; },
   },
   {
     accessorKey: 'Paciente',
     header: 'Paciente',
     cell: ({ row }) => { return <TableCellViewer item={row.original} />; },
+  },
+  {
+    accessorKey: 'edad',
+    header: 'Edad',
+    cell: ({ row }) => {
+      return <DataCell content={`${row.original.anios} años y ${row.original.dias} días`} />;
+    },
+  },
+  {
+    accessorKey: 'diagnostico',
+    header: 'Diagnóstico',
+    cell: ({ row }) => { return <DataCell content={row.original.protocolo} />; },
   },
   {
     accessorKey: 'estado',
