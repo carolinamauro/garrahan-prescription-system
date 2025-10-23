@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
-import { IconChevronLeft, IconChevronRight, IconChevronsLeft, IconChevronsRight } from '@tabler/icons-react';
+import { IconChevronLeft, IconChevronRight, IconChevronsLeft,
+  IconChevronsRight } from '@tabler/icons-react';
 
 export function NavTable({ table }) {
   const initialPage = 0;
