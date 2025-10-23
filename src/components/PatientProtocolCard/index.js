@@ -26,7 +26,7 @@ export function PatientProtocolCard({ patient, tieneProtocolo }) {
                             Seleccionar protocolo
             </Button>
             <Button variant="outline"
-              disabled={!tieneProtocolo}>
+              disabled={!tieneProtocolo || !canSelectProtocol}>
               <FileText className="mr-2 h-4 w-4" />
                             Generar receta
             </Button>
