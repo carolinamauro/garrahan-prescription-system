@@ -24,7 +24,13 @@ export default function RootLayout({ children }) {
                 <div className="bg-background relative flex
                 flex-1 flex-col m-4 rounded-xl shadow-sm">
                   <SiteHeader />
-                  {children}
+                  <div className="flex flex-1 flex-col min-h-[84vh]">
+                    <div className="@container/main flex flex-1 flex-col gap-2">
+                      <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
+                        {children}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </HeaderProvider>
             </PatientsProvider>
