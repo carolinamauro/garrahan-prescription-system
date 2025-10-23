@@ -6,11 +6,12 @@ import { useEffect } from 'react';
 
 export default function Page() {
   const { patients } = usePatients();
-  const { setTitle } = useHeader();
+  const { setTitle, setSubtitle } = useHeader();
 
   useEffect(() => {
     setTitle('Pacientes');
-  }, [setTitle]);
+    setSubtitle('Menú Principal');
+  }, []);
 
   return (
     <>

@@ -2,8 +2,6 @@
 import React, { useEffect } from 'react';
 import { usePatients } from '@/contexts/PatientContext';
 import { useHeader } from '@/contexts/HeaderContext';
-import { PatientSummaryCard } from '@/components/PatientSummaryCard';
-import { PatientEditCard } from '@/components/PatientEditCard';
 
 export default function PatientEditPage({ params }) {
   const { id } = React.use(params);
@@ -13,14 +11,11 @@ export default function PatientEditPage({ params }) {
 
   useEffect(() => {
     setTitle(`${patient.nombre}`);
-    setSubtitle('Editar');
+    setSubtitle('Protocolo');
   }, []);
 
   return (
     <>
-      <PatientSummaryCard patient={patient}
-        withEditButton={false} />
-      <PatientEditCard patient={patient} />
     </>
   );
 }

@@ -20,6 +20,7 @@ export function PatientProtocolCard({ patient, tieneProtocolo }) {
         </CardHeader>
         <CardContent>
           <ActionButtonsProtocol
+            patientId={patient.id}
             tieneProtocolo={tieneProtocolo}
             tieneSupCorporal={tieneSupCorporal}
           />

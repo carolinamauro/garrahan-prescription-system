@@ -19,7 +19,7 @@ export function PatientSummaryCard({ patient, withEditButton }) {
 
   return (
     <div className="px-4 lg:px-6">
-      <h2 className="mb-4 text-xl font-semibold">{`${patient.nombre}`}</h2>
+      <h2 className="mb-4 text-xl font-semibold">Información general</h2>
       <Card className="bg-gradient-to-t from-primary/5 to-card shadow-xs">
         <CardContent className="pt-2">
           <div className={gridClass}>

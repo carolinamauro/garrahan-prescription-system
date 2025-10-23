@@ -12,13 +12,14 @@ function pacienteTieneProtocolo(protocolo) {
 export default function PatientPage({ params }) {
   const { id } = React.use(params);
   const { patients } = usePatients();
-  const { setTitle } = useHeader();
+  const { setTitle, setSubtitle } = useHeader();
   const patient = patients.find((p) => String(p.id) === String(id));
   const tieneProtocolo = pacienteTieneProtocolo(patient.protocolo);
 
   useEffect(() => {
-    setTitle('Resumen');
-  }, [setTitle]);
+    setTitle(`${patient.nombre}`);
+    setSubtitle('Resumen');
+  }, []);
 
   return (
     <>

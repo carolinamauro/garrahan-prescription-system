@@ -16,7 +16,7 @@ export function SiteHeader() {
     avatar: '/avatars/shadcn.jpg',
   };
 
-  const { title } = useHeader();
+  const { title, subtitle } = useHeader();
   const { patients } = usePatients();
 
   return (
@@ -35,7 +35,10 @@ export function SiteHeader() {
 
           <Separator orientation="vertical"
             className="mx-2 data-[orientation=vertical]:h-4" />
-          <h1 className="text-base font-medium">{title}</h1>
+          <div>
+            <h1 className="text-xl font-semibold">{title}</h1>
+            <p className="text-sm text-blue-500">{subtitle}</p>
+          </div>
         </div>
 
         <div className="flex justify-center flex-1">

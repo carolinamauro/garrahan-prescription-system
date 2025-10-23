@@ -22,6 +22,7 @@ export function PatientEditCard({ patient }) {
   const { updatePatient } = usePatients();
   const [form, setForm] = useState({
     peso: patient.peso || '',
+    ultima_mod: patient.ultima_mod || '',
     obra_social: patient.obra_social || '',
   });
 
@@ -31,6 +32,7 @@ export function PatientEditCard({ patient }) {
   };
 
   const handleSave = async () => {
+    form.ultima_mod = new Date();
     await updatePatient(patient.id, form);
     setShowDialog(true);
   };
@@ -105,7 +107,7 @@ export function PatientEditCard({ patient }) {
       </Card>
 
       {/* Action Buttons */}
-      <div className="fixed bottom-10 right-6 flex gap-3 px-4 lg:px-4">
+      <div className="fixed bottom-8 right-6 flex gap-3 px-4 lg:px-4">
         <Button size="lg"
           onClick={handleSave}>
                     Guardar
