@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { usePatients } from '@/contexts/PatientContext';
 import { useHeader } from '@/contexts/HeaderContext';
+import { PatientProtocolSelection } from '@/components/PatientProtocolSelection';
 
 export default function PatientEditPage({ params }) {
   const { id } = React.use(params);
@@ -16,6 +17,7 @@ export default function PatientEditPage({ params }) {
 
   return (
     <>
+      <PatientProtocolSelection patient={patient} />
     </>
   );
 }
