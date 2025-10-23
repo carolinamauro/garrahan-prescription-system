@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 export function SiteHeader({ title }) {
   const user = {
-    name: 'Dr Amirul Haque',
+    name: 'Amirul Haque',
     email: 'Oncólogo - Prescriptor',
     avatar: '/avatars/shadcn.jpg',
   };

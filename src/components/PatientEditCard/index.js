@@ -105,7 +105,7 @@ export function PatientEditCard({ patient }) {
       </Card>
 
       {/* Action Buttons */}
-      <div className="fixed bottom-6 right-6 flex gap-3 px-4 lg:px-2">
+      <div className="fixed bottom-6 right-6 flex gap-3 px-4 lg:px-4">
         <Button size="lg"
           onClick={handleSave}>
                     Guardar
