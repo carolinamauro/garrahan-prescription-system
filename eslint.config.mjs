@@ -5,6 +5,10 @@ export default [
       ecmaVersion: 2022,
       sourceType: 'module',
       parserOptions: { ecmaFeatures: { jsx: true } },
+      env: {
+          browser: true,
+          es2022: true,
+      },
       globals: {
         process: 'readonly',
         require: 'readonly',

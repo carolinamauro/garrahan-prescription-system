@@ -3,9 +3,10 @@
 import { Separator } from '@/components/ui/separator';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { NavUser } from '@/components/SiteHeader/NavUser';
-import { Input } from '@/components/ui/input';
+import SearchInput from '@/components/SearchInput';
 import { NotificationsDropdown } from '@/components/NotificationsDropdown';
 import { useHeader } from '@/contexts/HeaderContext';
+import { usePatients } from '@/contexts/PatientContext';
 import Link from 'next/link';
 
 export function SiteHeader() {
@@ -16,6 +17,7 @@ export function SiteHeader() {
   };
 
   const { title } = useHeader();
+  const { patients } = usePatients();
 
   return (
     <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b">
@@ -38,7 +40,10 @@ export function SiteHeader() {
 
         <div className="flex justify-center flex-1">
           <div className="w-full max-w-sm">
-            <Input placeholder="Buscar paciente..." />
+            <SearchInput
+              placeholder="Buscar paciente..."
+              options={patients}
+            />
           </div>
         </div>
 
