@@ -17,7 +17,7 @@ export default function PatientPage({ params }) {
   const tieneProtocolo = pacienteTieneProtocolo(patient.protocolo);
 
   useEffect(() => {
-    setTitle(`Paciente: ${patient.nombre}`);
+    setTitle('Resumen');
   }, [setTitle]);
 
   return (

@@ -12,7 +12,7 @@ export default function PatientEditPage({ params }) {
   const patient = patients.find((p) => String(p.id) === String(id));
 
   useEffect(() => {
-    setTitle(`Paciente: ${patient.nombre}`);
+    setTitle('Resumen');
   }, [setTitle]);
 
   return (
