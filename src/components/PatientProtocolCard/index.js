@@ -40,13 +40,16 @@ export function PatientProtocolCard({ patient, tieneProtocolo }) {
             </TabsList>
             <TabsContent value="detalle"
               className="mt-6">
-              <div className="flex min-h-[300px] items-center justify-center rounded-lg border border-dashed">
+              <div className="flex min-h-[300px] items-center
+              justify-center rounded-lg border border-dashed">
                 <div className="text-center">
                   <p className="text-lg font-medium text-muted-foreground">
                                         Aún no hay información para mostrar
                   </p>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                                        Selecciona un miembro del equipo para ver información detallada
+                  <p className="mt-2 text-sm text-muted-foreground max-w-[28vw]
+                  text-center mx-auto break-words whitespace-normal">
+                      Una vez selecciones un protocolo de tratamiento,
+                      verás acá un resumen de ciclos, semanas y estado del tratamiento
                   </p>
                 </div>
               </div>
