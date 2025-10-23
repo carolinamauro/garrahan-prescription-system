@@ -4,6 +4,7 @@ import { IconChevronDown,
   IconAdjustmentsAlt
 } from '@tabler/icons-react';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 import { DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
@@ -51,9 +52,14 @@ export function TableColumnSelector({ table, withActionButtons }) {
 
       {withActionButtons && (
         <>
-          <Button size="sm">
-            <IconPlus />
-            <span className="hidden lg:inline">Agregar paciente</span>
+          <Button size="sm"
+            asChild>
+            <Link href="/pacientes/new">
+              <>
+                <IconPlus />
+                <span className="hidden lg:inline">Agregar paciente</span>
+              </>
+            </Link>
           </Button>
 
           <Button size="sm">
