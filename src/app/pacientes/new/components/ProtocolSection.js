@@ -30,9 +30,9 @@ export default function ProtocolSection({
           <SelectContent>
             <SelectGroup>
               {protocolos.map((p) => (
-                <SelectItem key={p.id}
-                  value={String(p.id)}>
-                  {p.nombre || p.id}
+                <SelectItem key={p.protocolo_id}
+                  value={String(p.protocolo_id)}>
+                  {p.nombre || p.protocolo_id}
                 </SelectItem>
               ))}
             </SelectGroup>
@@ -49,9 +49,9 @@ export default function ProtocolSection({
           <SelectContent>
             <SelectGroup>
               {ciclos.map((c) => (
-                <SelectItem key={c.id}
-                  value={String(c.id)}>
-                  {c.nombre || c.id}
+                <SelectItem key={c.ciclo_id}
+                  value={String(c.ciclo_id)}>
+                  {c.nombre || c.ciclo_id}
                 </SelectItem>
               ))}
             </SelectGroup>
