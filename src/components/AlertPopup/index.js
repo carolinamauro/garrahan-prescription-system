@@ -6,7 +6,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from '@/components/ui/alert-dialog';
-import { useState } from 'react';
 
 export function AlertPopup({
   title,

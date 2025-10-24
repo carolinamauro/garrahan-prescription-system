@@ -13,7 +13,7 @@ import { usePatientCreation } from './hooks/usePatientCreation';
 import PatientSearchSection from './components/PatientSearchSection';
 import PatientDataSection from './components/PatientDataSection';
 import ProtocolSection from './components/ProtocolSection';
-import SuccessDialog from './components/SuccessDialog';
+import { AlertPopup } from '@/components/AlertPopup';
 
 export default function NewPatientPage() {
   const router = useRouter();
@@ -91,10 +91,12 @@ export default function NewPatientPage() {
         </CardContent>
       </Card>
 
-      <SuccessDialog
-        open={showDialog}
-        onOpenChange={setShowDialog}
-        onAccept={() => router.push('/pacientes')}
+      <AlertPopup
+        title="Paciente creado"
+        description="El paciente fue creado correctamente."
+        showDialog={showDialog}
+        setShowDialog={setShowDialog}
+        handleOnClick={() => router.push('/pacientes')}
       />
     </div>
   );
