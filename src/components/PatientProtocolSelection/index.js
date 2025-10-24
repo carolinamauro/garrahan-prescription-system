@@ -6,9 +6,11 @@ import SearchProtocol from '@/components/SearchProtocol';
 import { EditButtons } from '@/components/EditButtons';
 import { AlertPopup } from '@/components/AlertPopup';
 import { useProtocolos } from '@/app/pacientes/new/hooks/useProtocolos';
+import { ProtocolInfo } from '@/components/Protocollnfo';
 
 export function PatientProtocolSelection({ patient }) {
   const [showDialog, setShowDialog] = useState(false);
+  const [showProtocolInfo, setShowProtocolInfo] = useState(false);
   const router = useRouter();
   const { protocolos} = useProtocolos();
   const [searchValue, setSearchValue] = useState('');
@@ -40,7 +42,12 @@ export function PatientProtocolSelection({ patient }) {
               options={protocolos}
               searchValue={searchValue}
               setSearchValue={setSearchValue}
+              setShowProtocolInfo={setShowProtocolInfo}
             />
+
+            {showProtocolInfo && (
+              <ProtocolInfo protocolo={searchValue} />
+            )}
           </div>
         </CardContent>
       </Card>

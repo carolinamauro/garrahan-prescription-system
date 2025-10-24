@@ -7,9 +7,11 @@ export default function SearchProtocol({
   searchValue,
   setSearchValue,
   placeholder = 'Buscar protocolo...',
+  setShowProtocolInfo
 }) {
   const handleSelect = (protocol) => {
     setSearchValue(protocol.nombre);
+    setShowProtocolInfo(true);
   };
 
   return (
