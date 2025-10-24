@@ -17,8 +17,17 @@ export function PatientEditCard({ patient }) {
   });
 
   const handleSave = async () => {
-    form.ultima_mod = new Date();
-    await updatePatient(patient.id, form);
+    const pesoCambiado = form.peso !== '' && form.peso !== patient.peso;
+
+    const updatedForm = {
+      ...form,
+      peso: form.peso === '' ? patient.peso : form.peso,
+      obra_social: form.obra_social === '' ? patient.obra_social : form.obra_social,
+      ultima_mod: pesoCambiado ? new Date() : patient.ultima_mod,
+    };
+
+    await updatePatient(patient.id, updatedForm);
+    setForm(updatedForm);
     setShowDialog(true);
   };
 
