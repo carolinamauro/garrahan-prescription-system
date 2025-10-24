@@ -14,7 +14,7 @@ export function ProtocolInfo({ protocolo }) {
         <>
           <div className="mt-6">
             <h3 className="mb-3 text-lg font-semibold">Protocolo seleccionado</h3>
-            <p className="text-sm text-foreground">{protocolo}</p>
+            <p className="text-sm text-foreground">{protocolo.nombre}</p>
           </div>
 
           <div className="mt-6">

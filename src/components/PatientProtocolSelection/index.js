@@ -13,7 +13,7 @@ export function PatientProtocolSelection({ patient }) {
   const [showProtocolInfo, setShowProtocolInfo] = useState(false);
   const router = useRouter();
   const { protocolos} = useProtocolos();
-  const [searchValue, setSearchValue] = useState('');
+  const [selectedProtocol, setSelectedProtocol] = useState('');
   const [saveBtnDisabled, setSaveBtnDisabled] = useState(true);
 
   const { updatePatient } = usePatients();
@@ -22,7 +22,7 @@ export function PatientProtocolSelection({ patient }) {
   });
 
   const handleSave = async () => {
-    form.protocolo = searchValue;
+    form.protocolo = selectedProtocol.nombre;
     await updatePatient(patient.id, form);
     setShowDialog(true);
   };
@@ -41,14 +41,13 @@ export function PatientProtocolSelection({ patient }) {
             <SearchProtocol
               placeholder="Buscar protocolos..."
               options={protocolos}
-              searchValue={searchValue}
-              setSearchValue={setSearchValue}
+              setSelectedValue={setSelectedProtocol}
               setShowProtocolInfo={setShowProtocolInfo}
               setSaveBtnDisabled={setSaveBtnDisabled}
             />
 
             {showProtocolInfo && (
-              <ProtocolInfo protocolo={searchValue} />
+              <ProtocolInfo protocolo={selectedProtocol} />
             )}
           </div>
         </CardContent>
@@ -64,7 +63,6 @@ export function PatientProtocolSelection({ patient }) {
         title="Datos guardados"
         description="El protocolo del paciente se guardó correctamente."
         handleOnClick={() => {
-          setSearchValue('');
           router.push(`/pacientes/${patient.id}`);
         }}
         showDialog={showDialog}
