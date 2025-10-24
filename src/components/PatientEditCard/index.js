@@ -40,6 +40,7 @@ export function PatientEditCard({ patient }) {
       <EditButtons
         handleSave={handleSave}
         href={`/pacientes/${patient.id}`}
+        saveBtnDisabled={false}
       />
 
       <AlertPopup

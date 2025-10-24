@@ -21,6 +21,7 @@ export default function SearchInput({
   value,
   setValue,
   onSelect,
+  onChange,
   filterFn = defaultFilter,
   getId,
   className
@@ -38,6 +39,7 @@ export default function SearchInput({
       setFilteredOptions(filtered);
       setShowOptions(true);
       setActiveIndex(-1);
+      onChange?.();
     } else {
       setShowOptions(false);
     }

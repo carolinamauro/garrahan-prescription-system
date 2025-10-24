@@ -14,6 +14,7 @@ export function PatientProtocolSelection({ patient }) {
   const router = useRouter();
   const { protocolos} = useProtocolos();
   const [searchValue, setSearchValue] = useState('');
+  const [saveBtnDisabled, setSaveBtnDisabled] = useState(true);
 
   const { updatePatient } = usePatients();
   const [form] = useState({
@@ -43,6 +44,7 @@ export function PatientProtocolSelection({ patient }) {
               searchValue={searchValue}
               setSearchValue={setSearchValue}
               setShowProtocolInfo={setShowProtocolInfo}
+              setSaveBtnDisabled={setSaveBtnDisabled}
             />
 
             {showProtocolInfo && (
@@ -55,6 +57,7 @@ export function PatientProtocolSelection({ patient }) {
       <EditButtons
         handleSave={handleSave}
         href={`/pacientes/${patient.id}`}
+        saveBtnDisabled={saveBtnDisabled}
       />
 
       <AlertPopup
