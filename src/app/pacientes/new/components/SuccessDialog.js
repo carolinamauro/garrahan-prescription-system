@@ -10,6 +10,7 @@ import {
   AlertDialogAction
 } from '@/components/ui/alert-dialog';
 
+// TODO: Usar AlertPopup
 export default function SuccessDialog({ open, onOpenChange, onAccept }) {
   return (
     <AlertDialog open={open}

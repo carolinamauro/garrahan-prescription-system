@@ -19,6 +19,7 @@ export default function SearchProtocol({
       value={searchValue}
       setValue={setSearchValue}
       onSelect={handleSelect}
+      getId={(protocol) => protocol.protocolo_id}
     />
   );
 }

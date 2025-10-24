@@ -22,6 +22,7 @@ export default function SearchInput({
   setValue,
   onSelect,
   filterFn = defaultFilter,
+  getId,
   className
 }) {
   const [filteredOptions, setFilteredOptions] = useState([]);
@@ -91,7 +92,7 @@ export default function SearchInput({
         border border-border bg-background shadow-md">
           {filteredOptions.map((option, index) => (
             <li
-              key={option.id}
+              key={getId(option)}
               className={mergeTwClassNames(
                 'cursor-pointer px-3 py-2 text-sm',
                 index === activeIndex

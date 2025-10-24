@@ -20,6 +20,7 @@ export default function SearchPatient({ options = [], placeholder = 'Buscar paci
       value={searchValue}
       setValue={setSearchValue}
       onSelect={handleSelect}
+      getId={(patient) => patient.id}
     />
   );
 }

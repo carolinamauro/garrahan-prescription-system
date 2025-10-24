@@ -5,14 +5,12 @@ import { usePatients } from '@/contexts/PatientContext';
 import SearchProtocol from '@/components/SearchProtocol';
 import { EditButtons } from '@/components/EditButtons';
 import { AlertPopup } from '@/components/AlertPopup';
-
-// TODO: Extraer a un service que haga una request al back
-import data from '../../app/protocolos.json';
+import { useProtocolos } from '@/app/pacientes/new/hooks/useProtocolos';
 
 export function PatientProtocolSelection({ patient }) {
   const [showDialog, setShowDialog] = useState(false);
   const router = useRouter();
-  const [protocolos] = useState(data);
+  const { protocolos} = useProtocolos();
   const [searchValue, setSearchValue] = useState('');
 
   const { updatePatient } = usePatients();
