@@ -68,7 +68,7 @@ export default function SearchProtocol({
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full max-w-sm">
       <div className="relative">
         <Input
           type="text"
