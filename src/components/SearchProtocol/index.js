@@ -24,6 +24,17 @@ export default function SearchProtocol({
       setValue={setSearchValue}
       onSelect={handleSelect}
       onChange={() => setSaveBtnDisabled(true)}
+      filterFn={(protocols, query) => {
+        if (!query) return [];
+        const lowerQuery = query.toLowerCase();
+
+        return protocols.filter(option => {
+          const words = option.normalized.split(' ');
+          return words.some(word => word.toLowerCase().startsWith(lowerQuery)) ||
+              option.normalized.toLowerCase().startsWith(lowerQuery);
+        }
+        );
+      }}
       getId={(protocol) => protocol.protocolo_id}
     />
   );

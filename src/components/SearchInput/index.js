@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { mergeTwClassNames } from '@/lib/utils';
@@ -10,9 +10,16 @@ function defaultFilter(options, query) {
   const lowerQuery = query.toLowerCase();
 
   return options.filter(option => {
-    const words = option.nombre.split(' ');
+    const words = option.normalized.split(' ');
     return words.some(word => word.toLowerCase().startsWith(lowerQuery));
   });
+}
+
+function normalizeText(str) {
+  return str
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
 }
 
 export default function SearchInput({
@@ -30,12 +37,19 @@ export default function SearchInput({
   const [showOptions, setShowOptions] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
 
+  const normalizedOptions = useMemo(() => {
+    return options.map(option => ({
+      ...option,
+      normalized: normalizeText(option.nombre),
+    }));
+  }, [options]);
+
   const handleChange = (e) => {
     const currValue = e.target.value;
     setValue(currValue);
 
     if (currValue) {
-      const filtered = filterFn(options, currValue);
+      const filtered = filterFn(normalizedOptions, normalizeText(currValue));
       setFilteredOptions(filtered);
       setShowOptions(true);
       setActiveIndex(-1);
