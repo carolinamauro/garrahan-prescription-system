@@ -3,7 +3,7 @@
 import { Separator } from '@/components/ui/separator';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { NavUser } from '@/components/SiteHeader/NavUser';
-import SearchInput from '@/components/SearchInput';
+import SearchPatient from '@/components/SearchPatient';
 import { NotificationsDropdown } from '@/components/NotificationsDropdown';
 import { useHeader } from '@/contexts/HeaderContext';
 import { usePatients } from '@/contexts/PatientContext';
@@ -43,7 +43,7 @@ export function SiteHeader() {
 
         <div className="flex justify-center flex-1">
           <div className="w-full max-w-sm">
-            <SearchInput
+            <SearchPatient
               placeholder="Buscar paciente..."
               options={patients}
             />

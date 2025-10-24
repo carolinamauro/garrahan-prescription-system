@@ -1,14 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { mergeTwClassNames } from '@/lib/utils';
 
-function filterPatientsByPrefix(options, query) {
+function defaultFilter(options, query) {
   if (!query) return [];
-
   const lowerQuery = query.toLowerCase();
 
   return options.filter(option => {
@@ -18,36 +16,37 @@ function filterPatientsByPrefix(options, query) {
 }
 
 export default function SearchInput({
-  placeholder = 'Buscar paciente...',
+  placeholder = 'Buscar...',
   options = [],
+  value,
+  setValue,
+  onSelect,
+  filterFn = defaultFilter,
   className
 }) {
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [showOptions, setShowOptions] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
   const [activeIndex, setActiveIndex] = useState(-1);
-  const router = useRouter();
 
   const handleChange = (e) => {
-    const currSearchValue = e.target.value;
-    setSearchValue(currSearchValue);
+    const currValue = e.target.value;
+    setValue(currValue);
 
-    if (currSearchValue) {
-      const filtered = filterPatientsByPrefix(options, currSearchValue);
+    if (currValue) {
+      const filtered = filterFn(options, currValue);
       setFilteredOptions(filtered);
       setShowOptions(true);
-      setActiveIndex(-1);           // reset index
+      setActiveIndex(-1);
     } else {
       setShowOptions(false);
     }
   };
 
   const handleSelect = (option) => {
-    setSearchValue(option.nombre);
+    setValue(option.nombre);
     setShowOptions(false);
-    router.push(`/pacientes/${option.id}`);
-    setSearchValue('');
     setActiveIndex(-1);
+    onSelect?.(option);
   };
 
   const handleKeyDown = (e) => {
@@ -61,9 +60,7 @@ export default function SearchInput({
       setActiveIndex(prev => (prev - 1 + filteredOptions.length) % filteredOptions.length);
     } else if (e.key === 'Enter') {
       e.preventDefault();
-      if (activeIndex >= 0 && activeIndex < filteredOptions.length) {
-        handleSelect(filteredOptions[activeIndex]);
-      }
+      if (activeIndex >= 0) handleSelect(filteredOptions[activeIndex]);
     } else if (e.key === 'Escape') {
       setShowOptions(false);
       setActiveIndex(-1);
@@ -71,14 +68,14 @@ export default function SearchInput({
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full max-w-sm">
       <div className="relative">
         <Input
           type="text"
           placeholder={placeholder}
-          value={searchValue}
+          value={value}
           onChange={handleChange}
-          onFocus={() => searchValue && setShowOptions(true)}
+          onFocus={() => value && setShowOptions(true)}
           onBlur={() => window.setTimeout(() => setShowOptions(false), 100)}
           onKeyDown={handleKeyDown}
           className={mergeTwClassNames('pr-9', className)}
@@ -102,7 +99,7 @@ export default function SearchInput({
                   : 'hover:bg-accent hover:text-accent-foreground'
               )}
               onMouseDown={() => handleSelect(option)}
-              onMouseEnter={() => setActiveIndex(index)}    // cambiar índice al pasar el mouse
+              onMouseEnter={() => setActiveIndex(index)}
             >
               {option.nombre}
             </li>
