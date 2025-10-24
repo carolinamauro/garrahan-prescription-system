@@ -1,19 +1,13 @@
 import { Card, CardContent } from '@/components/ui/card';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import {
-  AlertDialog, AlertDialogAction,
-  AlertDialogContent,
-  AlertDialogDescription, AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle
-} from '@/components/ui/alert-dialog';
+import { usePatients } from '@/contexts/PatientContext';
 import SearchProtocol from '@/components/SearchProtocol';
+import { EditButtons } from '@/components/EditButtons';
+import { AlertPopup } from '@/components/AlertPopup';
 
+// TODO: Extraer a un service que haga una request al back
 import data from '../../app/protocolos.json';
-import {usePatients} from '@/contexts/PatientContext';
 
 export function PatientProtocolSelection({ patient }) {
   const [showDialog, setShowDialog] = useState(false);
@@ -53,40 +47,21 @@ export function PatientProtocolSelection({ patient }) {
         </CardContent>
       </Card>
 
-      {/* Action Buttons */}
-      <div className="fixed bottom-8 right-6 flex gap-3 px-4 lg:px-4">
-        <Button size="lg"
-          onClick={handleSave}>
-                    Guardar
-        </Button>
-        <Link href={`/pacientes/${patient.id}`}>
-          <Button size="lg"
-            variant="outline">
-                        Salir
-          </Button>
-        </Link>
-      </div>
+      <EditButtons
+        handleSave={handleSave}
+        href={`/pacientes/${patient.id}`}
+      />
 
-      <AlertDialog open={showDialog}
-        onOpenChange={setShowDialog}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Datos guardados</AlertDialogTitle>
-            <AlertDialogDescription>
-                            El protocolo del paciente se guardó correctamente.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogAction onClick={() => {
-              setShowDialog(false);
-              setSearchValue('');
-              router.push(`/pacientes/${patient.id}`);
-            }}>
-                            Aceptar
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <AlertPopup
+        title="Datos guardados"
+        description="El protocolo del paciente se guardó correctamente."
+        handleOnClick={() => {
+          setSearchValue('');
+          router.push(`/pacientes/${patient.id}`);
+        }}
+        showDialog={showDialog}
+        setShowDialog={setShowDialog}
+      />
     </div>
   );
 }
