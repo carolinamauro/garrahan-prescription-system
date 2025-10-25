@@ -1,4 +1,4 @@
-import { FileText, MousePointerClick } from 'lucide-react';
+import { FileText, MousePointerClick, FilePen } from 'lucide-react';
 import { LinkButton } from '@/components/LinkButton';
 
 export function ActionButtonsProtocol({ patientId, tieneProtocolo, tieneSupCorporal }) {
@@ -19,6 +19,16 @@ export function ActionButtonsProtocol({ patientId, tieneProtocolo, tieneSupCorpo
         icon={FileText}
         variant="outline"
       />
+
+      {tieneProtocolo && (
+        <LinkButton
+          href={`/pacientes/${patientId}/editar-protocolo`}
+          disabled={!tieneProtocolo}
+          btnText="Editar protocolo"
+          icon={FilePen}
+          variant="outline"
+        />
+      )}
     </div>
   );
 }

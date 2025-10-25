@@ -45,13 +45,15 @@ export function PatientProtocolSelection({ patient }) {
                     Buscar protocolos de tratamiento
             </p>
 
-            <SearchProtocol
-              placeholder="Buscar protocolos..."
-              options={protocolos}
-              setSelectedValue={setSelectedProtocol}
-              setShowProtocolInfo={setShowProtocolInfo}
-              setSaveBtnDisabled={setSaveBtnDisabled}
-            />
+            <div className="mb-6">
+              <SearchProtocol
+                placeholder="Buscar protocolos..."
+                options={protocolos}
+                setSelectedValue={setSelectedProtocol}
+                setShowProtocolInfo={setShowProtocolInfo}
+                setSaveBtnDisabled={setSaveBtnDisabled}
+              />
+            </div>
 
             {showProtocolInfo && (
               <ProtocolInfo

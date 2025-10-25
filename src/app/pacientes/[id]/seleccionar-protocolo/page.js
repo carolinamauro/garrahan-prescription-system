@@ -4,7 +4,7 @@ import { usePatients } from '@/contexts/PatientContext';
 import { useHeader } from '@/contexts/HeaderContext';
 import { PatientProtocolSelection } from '@/components/PatientProtocolSelection';
 
-export default function PatientEditPage({ params }) {
+export default function PatientSelectProtocol({ params }) {
   const { id } = React.use(params);
   const { patients } = usePatients();
   const { setTitle, setSubtitle } = useHeader();

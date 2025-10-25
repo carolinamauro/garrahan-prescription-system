@@ -13,7 +13,7 @@ export function ProtocolInfo({
     <div className="flex flex-col max-w-4xl">
       {protocolo && (
         <>
-          <div className="mt-6">
+          <div>
             <h3 className="mb-3 text-lg font-semibold">Protocolo seleccionado</h3>
             <p className="text-sm text-foreground">{protocolo.nombre}</p>
           </div>
