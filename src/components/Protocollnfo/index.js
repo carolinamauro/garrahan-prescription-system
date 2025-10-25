@@ -1,7 +1,6 @@
 'use client';
 
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Label } from '@/components/ui/label';
+import { RadioSelector } from '@/components/RadioSelector';
 
 export function ProtocolInfo({
   protocolo,
@@ -19,49 +18,25 @@ export function ProtocolInfo({
             <p className="text-sm text-foreground">{protocolo.nombre}</p>
           </div>
 
-          <div className="mt-6">
-            <h3 className="mb-4 text-lg font-semibold">Etapas del protocolo / Línea</h3>
-            <RadioGroup value={selectedLine}
-              onValueChange={setSelectedLine}>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value={1}
-                  id="linea-1" />
-                <Label htmlFor="linea-1"
-                  className="cursor-pointer font-normal">
-                    Primera línea
-                </Label>
+          <RadioSelector
+            title="Etapas del protocolo / Línea"
+            value={selectedLine}
+            onChange={setSelectedLine}
+            options={[
+              { value: 1, label: 'Primera línea' },
+              { value: 2, label: 'Segunda línea' },
+            ]}
+          />
 
-                <RadioGroupItem value={2}
-                  id="linea-2" />
-                <Label htmlFor="linea-2"
-                  className="cursor-pointer font-normal">
-                    Segunda línea
-                </Label>
-              </div>
-            </RadioGroup>
-          </div>
-
-          <div className="mt-6">
-            <h3 className="mb-4 text-lg font-semibold">Régimen</h3>
-            <RadioGroup value={selectedRegimen}
-              onValueChange={setSelectedRegimen}>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value={1}
-                  id="regimen-1" />
-                <Label htmlFor="regimen-1"
-                  className="cursor-pointer font-normal">
-                    Régimen 1
-                </Label>
-
-                <RadioGroupItem value={2}
-                  id="regimen-2" />
-                <Label htmlFor="regimen-2"
-                  className="cursor-pointer font-normal">
-                    Régimen 2
-                </Label>
-              </div>
-            </RadioGroup>
-          </div>
+          <RadioSelector
+            title="Régimen"
+            value={selectedRegimen}
+            onChange={setSelectedRegimen}
+            options={[
+              { value: 1, label: 'Régimen 1' },
+              { value: 2, label: 'Régimen 2' },
+            ]}
+          />
 
           <div className="mt-6">
             <h3 className="mb-4 text-lg font-semibold">Esquema de tratamiento</h3>
