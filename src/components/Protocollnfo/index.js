@@ -1,13 +1,15 @@
 'use client';
 
-import { useState } from 'react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 
-export function ProtocolInfo({ protocolo }) {
-  const [selectedLine, setSelectedLine] = useState('primera');
-  const [selectedRegimen, setSelectedRegimen] = useState('primer');
-
+export function ProtocolInfo({
+  protocolo,
+  selectedLine,
+  setSelectedLine,
+  selectedRegimen,
+  setSelectedRegimen
+}) {
   return (
     <div className="flex flex-col max-w-4xl">
       {protocolo && (
@@ -22,16 +24,16 @@ export function ProtocolInfo({ protocolo }) {
             <RadioGroup value={selectedLine}
               onValueChange={setSelectedLine}>
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value="primera"
-                  id="primera" />
-                <Label htmlFor="primera"
+                <RadioGroupItem value={1}
+                  id="linea-1" />
+                <Label htmlFor="linea-1"
                   className="cursor-pointer font-normal">
-                                            Primera línea
+                    Primera línea
                 </Label>
 
-                <RadioGroupItem value="segunda"
-                  id="segunda" />
-                <Label htmlFor="segunda"
+                <RadioGroupItem value={2}
+                  id="linea-2" />
+                <Label htmlFor="linea-2"
                   className="cursor-pointer font-normal">
                     Segunda línea
                 </Label>
@@ -44,16 +46,16 @@ export function ProtocolInfo({ protocolo }) {
             <RadioGroup value={selectedRegimen}
               onValueChange={setSelectedRegimen}>
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value="primer"
-                  id="primer" />
-                <Label htmlFor="primer"
+                <RadioGroupItem value={1}
+                  id="regimen-1" />
+                <Label htmlFor="regimen-1"
                   className="cursor-pointer font-normal">
-                            Régimen 1
+                    Régimen 1
                 </Label>
 
-                <RadioGroupItem value="segundo"
-                  id="segundo" />
-                <Label htmlFor="segundo"
+                <RadioGroupItem value={2}
+                  id="regimen-2" />
+                <Label htmlFor="regimen-2"
                   className="cursor-pointer font-normal">
                     Régimen 2
                 </Label>

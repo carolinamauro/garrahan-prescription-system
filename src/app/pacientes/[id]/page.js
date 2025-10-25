@@ -6,7 +6,12 @@ import { usePatients } from '@/contexts/PatientContext';
 import { useHeader } from '@/contexts/HeaderContext';
 
 function pacienteTieneProtocolo(protocolo) {
-  return Boolean(protocolo && String(protocolo).trim() !== '');
+  return Boolean(
+    protocolo &&
+        typeof protocolo === 'object' &&
+        protocolo.nombre &&
+        protocolo.nombre.trim() !== ''
+  );
 }
 
 export default function PatientPage({ params }) {

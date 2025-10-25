@@ -15,6 +15,8 @@ export function PatientProtocolSelection({ patient }) {
   const { protocolos} = useProtocolos();
   const [selectedProtocol, setSelectedProtocol] = useState('');
   const [saveBtnDisabled, setSaveBtnDisabled] = useState(true);
+  const [selectedLine, setSelectedLine] = useState(1);
+  const [selectedRegimen, setSelectedRegimen] = useState(1);
 
   const { updatePatient } = usePatients();
   const [form] = useState({
@@ -22,7 +24,12 @@ export function PatientProtocolSelection({ patient }) {
   });
 
   const handleSave = async () => {
-    form.protocolo = selectedProtocol.nombre;
+    form.protocolo = {
+      ...selectedProtocol,
+      linea: selectedLine,
+      regimen: selectedRegimen,
+    };
+
     await updatePatient(patient.id, form);
     setShowDialog(true);
   };
@@ -47,7 +54,13 @@ export function PatientProtocolSelection({ patient }) {
             />
 
             {showProtocolInfo && (
-              <ProtocolInfo protocolo={selectedProtocol} />
+              <ProtocolInfo
+                protocolo={selectedProtocol}
+                selectedLine={selectedLine}
+                selectedRegimen={selectedRegimen}
+                setSelectedLine={setSelectedLine}
+                setSelectedRegimen={setSelectedRegimen}
+              />
             )}
           </div>
         </CardContent>

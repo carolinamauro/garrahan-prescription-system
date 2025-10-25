@@ -2,6 +2,6 @@
 
 export function DataCell({ content }) {
   return (
-    <span>{content}</span>
+    <span>{content ?? '-'}</span>
   );
 }

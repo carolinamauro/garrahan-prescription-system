@@ -46,7 +46,7 @@ export const getColumns = () => [
   {
     accessorKey: 'Diagnóstico',
     header: 'Diagnóstico',
-    cell: ({ row }) => { return <DataCell content={row.original.protocolo} />; },
+    cell: ({ row }) => { return <DataCell content={row.original.protocolo.nombre} />; },
   },
   {
     accessorKey: 'estado',
