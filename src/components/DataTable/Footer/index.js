@@ -1,7 +1,7 @@
 import { NavTable } from '@/components/DataTable/Footer/NavTable';
 import { Pagination } from '@/components/DataTable/Footer/Pagination';
 
-export function Footer({ table }) {
+export function Footer({ table, withSelectedRowsCount }) {
   const amountPages = table.getPageCount();
   let amountSelectedRows = table.getFilteredSelectedRowModel().rows.length;
   let amountTotalRows = table.getFilteredRowModel().rows.length;
@@ -11,11 +11,19 @@ export function Footer({ table }) {
   function getCurrPage() { return table.getState().pagination.pageIndex + 1; }
 
   return (
-    <div className="flex items-center justify-between px-4">
+    <div className="flex items-center justify-between px-1">
       {/* Selected Rows Count */}
-      <div className="text-muted-foreground hidden flex-1 text-sm lg:flex">
-        {`${amountSelectedRows} de ${amountTotalRows} ${totalRowsText} ${totalSelectedRowsText}.`}
-      </div>
+      {withSelectedRowsCount ?
+        <div className="text-muted-foreground hidden flex-1 text-sm lg:flex">
+          {`${amountSelectedRows} de ${amountTotalRows} ${totalRowsText} ${totalSelectedRowsText}`}
+        </div>
+
+        :
+
+        <div className="text-muted-foreground hidden flex-1 text-sm lg:flex">
+          {`${amountTotalRows} ${totalRowsText} en total`}
+        </div>
+      }
 
       <div className="flex w-full items-center gap-8 lg:w-fit">
         <Pagination table={table} />

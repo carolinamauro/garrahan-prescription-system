@@ -29,7 +29,6 @@ export const useTableConfig = (columns, data) => {
       columnFilters,
       pagination,
     },
-    getRowId: (row) => row.id.toString(),
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,

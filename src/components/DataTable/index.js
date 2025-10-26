@@ -22,15 +22,19 @@ import { Table,
   TableRow
 } from '@/components/ui/table';
 import { DraggableRow } from '@/components/DataTable/DraggableRow';
-import { getColumns } from '@/components/DataTable/TableColumns';
 import { useTableConfig } from '@/components/DataTable/tableHooks';
 import { Footer } from '@/components/DataTable/Footer';
 import { TabOptions } from '@/components/DataTable/TabOptions';
 import { TableColumnSelector } from '@/components/DataTable/TableColumnSelector';
 
-const columns = getColumns();
-
-export function DataTable({ data: initialData, tabsList, withActionButtons }) {
+export function DataTable({
+  data: initialData,
+  tabsList,
+  withActionButtons,
+  withTableColumnSelector = true,
+  withSelectedRowsCount = true,
+  columns
+}) {
   const [data, setData] = React.useState(() => initialData);
   const table = useTableConfig(columns, data);
 
@@ -63,23 +67,25 @@ export function DataTable({ data: initialData, tabsList, withActionButtons }) {
       className="w-full flex-col justify-start gap-6"
     >
       {/* Table Options */}
-      <div className="flex items-center justify-between px-4 lg:px-6">
-        {tabsList && tabsList.length > 0 &&
-            <div>
-              <Label htmlFor="view-selector"
-                className="sr-only">
-                    View
-              </Label>
+      {withTableColumnSelector &&
+        <div className="flex items-center justify-between px-4 lg:px-6">
+          {tabsList && tabsList.length > 0 &&
+                <div>
+                  <Label htmlFor="view-selector"
+                    className="sr-only">
+                        View
+                  </Label>
 
-              <TabOptions tabsList={tabsList} />
-            </div>
-        }
+                  <TabOptions tabsList={tabsList} />
+                </div>
+          }
 
-        <TableColumnSelector
-          table={table}
-          withActionButtons={withActionButtons}
-        />
-      </div>
+          <TableColumnSelector
+            table={table}
+            withActionButtons={withActionButtons}
+          />
+        </div>
+      }
 
       {/* Table Content */}
       <TabsContent
@@ -140,7 +146,10 @@ export function DataTable({ data: initialData, tabsList, withActionButtons }) {
           </DndContext>
         </div>
 
-        <Footer table={table} />
+        <Footer
+          table={table}
+          withSelectedRowsCount={withSelectedRowsCount}
+        />
       </TabsContent>
     </Tabs>
   );

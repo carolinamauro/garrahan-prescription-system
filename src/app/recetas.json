@@ -1,0 +1,30 @@
+[
+  {
+    "ciclos_solicitados": "7,8",
+    "protocolo": "GBTO OSTEOSARCOMA 2006",
+    "fecha_inicio_tratamiento": "2025-06-06",
+    "fecha_solicitud_receta": "2025-05-30",
+    "cantidad_ciclos_solicitados": 2
+  },
+  {
+    "ciclos_solicitados": "6",
+    "protocolo": "GBTO OSTEOSARCOMA 2006",
+    "fecha_inicio_tratamiento": "2025-05-07",
+    "fecha_solicitud_receta": "2025-05-04",
+    "cantidad_ciclos_solicitados": 1
+  },
+  {
+    "ciclos_solicitados": "4,5",
+    "protocolo": "GBTO OSTEOSARCOMA 2006",
+    "fecha_inicio_tratamiento": "2025-03-09",
+    "fecha_solicitud_receta": "2025-03-17",
+    "cantidad_ciclos_solicitados": 2
+  },
+  {
+    "ciclos_solicitados": "1,2,3",
+    "protocolo": "GBTO OSTEOSARCOMA 2006",
+    "fecha_inicio_tratamiento": "2025-01-02",
+    "fecha_solicitud_receta": "2025-01-01",
+    "cantidad_ciclos_solicitados": 3
+  }
+]

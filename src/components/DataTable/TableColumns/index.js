@@ -5,10 +5,11 @@ import { SelectHeader } from '@/components/DataTable/TableColumns/SelectColumn/S
 import { IdCell } from '@/components/DataTable/TableColumns/IdColumn/IdCell';
 import { StatusCell } from '@/components/DataTable/TableColumns/StatusColumn/StatusCell';
 import { ActionCell } from '@/components/DataTable/TableColumns/ActionCell/ActionCell';
-import {DataCell} from '@/components/DataTable/TableColumns/DataCell';
+import { DataCell } from '@/components/DataTable/TableColumns/DataCell';
+import { FileText } from 'lucide-react';
 
 // Definition of columns for @tanstack/react-table
-export const getColumns = () => [
+export const getPatientColumns = () => [
   {
     id: 'drag',
     header: () => null,
@@ -56,5 +57,39 @@ export const getColumns = () => [
   {
     id: 'actions',
     cell: ({ row }) => { return <ActionCell item={row.original} />; },
+  },
+];
+
+export const getProtocolColumns = () => [
+  {
+    accessorKey: 'Ciclos solicitados',
+    header: 'Ciclos solicitados',
+    cell: ({ row }) => { return <DataCell content={row.original.ciclos_solicitados} />; },
+    size: '200px'
+  },
+  {
+    accessorKey: 'Protocolo',
+    header: 'Protocolo',
+    cell: ({ row }) => { return <DataCell content={row.original.protocolo} />; },
+  },
+  {
+    accessorKey: 'Fecha de inicio del tratamiento',
+    header: 'Fecha de inicio del tratamiento',
+    cell: ({ row }) => { return <DataCell content={row.original.fecha_inicio_tratamiento} />; },
+  },
+  {
+    accessorKey: 'Fecha de solicitud de receta',
+    header: 'Fecha de solicitud de receta',
+    cell: ({ row }) => { return <DataCell content={row.original.fecha_solicitud_receta} />; },
+  },
+  {
+    accessorKey: 'Cantidad de ciclos solicitados',
+    header: 'Cantidad de ciclos solicitados',
+    cell: ({ row }) => { return <DataCell content={row.original.cantidad_ciclos_solicitados} />; },
+  },
+  {
+    accessorKey: 'Ver receta',
+    header: 'Ver receta',
+    cell: () => { return <FileText className="mr-2 h-4 w-4" />; },
   },
 ];

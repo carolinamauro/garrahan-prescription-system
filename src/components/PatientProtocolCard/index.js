@@ -1,6 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { TabsProtocolCard } from '@/components/PatientProtocolCard/TabsProtocolCard';
 import { ActionButtonsProtocol } from '@/components/PatientProtocolCard/ActionButtonsProtocol';
+import { useState } from 'react';
+import recetas from '../../app/recetas.json';
 
 function tieneSuperficieCorporal(sup_corporal) {
   return Boolean(sup_corporal && String(sup_corporal).trim() !== '');
@@ -22,6 +24,7 @@ export function PatientProtocolCard({ patient, tieneProtocolo }) {
   const tieneSupCorporal = tieneSuperficieCorporal(patient.sup_corporal);
   const textoRegimen = patient.protocolo.regimen ? `Régimen ${patient.protocolo.regimen}` : '';
   const separadorTextos = patient.protocolo.regimen && patient.protocolo.linea ? ' - ' : '';
+  const [recetasSolicitadas] = useState(recetas);
 
   return (
     <div className="px-4 lg:px-6">
@@ -47,7 +50,10 @@ export function PatientProtocolCard({ patient, tieneProtocolo }) {
             tieneProtocolo={tieneProtocolo}
             tieneSupCorporal={tieneSupCorporal}
           />
-          <TabsProtocolCard />
+          <TabsProtocolCard
+            recetasSolicitadas={recetasSolicitadas}
+            tieneProtocolo={tieneProtocolo}
+          />
         </CardContent>
       </Card>
     </div>
