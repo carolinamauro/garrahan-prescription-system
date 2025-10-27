@@ -7,6 +7,8 @@ import { StatusCell } from '@/components/DataTable/TableColumns/StatusColumn/Sta
 import { ActionCell } from '@/components/DataTable/TableColumns/ActionCell/ActionCell';
 import { DataCell } from '@/components/DataTable/TableColumns/DataCell';
 import { FileText } from 'lucide-react';
+import { ButtonsCell } from '@/components/DataTable/TableColumns/ButtonsCell';
+import { DropdownCell } from '@/components/DataTable/TableColumns/DropdownCell';
 
 // Definition of columns for @tanstack/react-table
 export const getPatientColumns = () => [
@@ -91,5 +93,47 @@ export const getProtocolColumns = () => [
     accessorKey: 'Ver receta',
     header: 'Ver receta',
     cell: () => { return <FileText className="mr-2 h-4 w-4" />; },
+  },
+];
+
+export const getMedicationColumns = (handlePresentationChange, handleDelete) => [
+  {
+    accessorKey: 'Nombre genérico',
+    header: 'Nombre genérico',
+    cell: ({ row }) => ( <DataCell content={row.original.genericName} /> ),
+  },
+  {
+    accessorKey: 'Cantidad necesaria',
+    header: 'Cantidad necesaria',
+    cell: ({ row }) => ( <DataCell content={row.original.requiredAmount} /> ),
+  },
+  {
+    accessorKey: 'presentation',
+    header: 'Presentación',
+    cell: ({ row }) => (
+      <DropdownCell
+        row={row}
+        options={[
+          { value: 'FRASCO AMPOLLA', label: 'FRASCO AMPOLLA' },
+          { value: 'COMPRIMIDOS', label: 'COMPRIMIDOS' },
+        ]}
+        onChange={handlePresentationChange}
+      />
+    ),
+  },
+  {
+    accessorKey: 'concentration',
+    header: 'Cantidad × Concentración',
+    cell: ({ row }) => ( <DataCell content={row.original.concentration} /> ),
+  },
+  {
+    id: 'actions',
+    header: 'Acción',
+    cell: ({ row }) => (
+      <ButtonsCell
+        item={row.original}
+        handleDelete={handleDelete}
+      />
+    ),
   },
 ];

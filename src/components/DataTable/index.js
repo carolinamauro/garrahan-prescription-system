@@ -26,6 +26,7 @@ import { useTableConfig } from '@/components/DataTable/tableHooks';
 import { Footer } from '@/components/DataTable/Footer';
 import { TabOptions } from '@/components/DataTable/TabOptions';
 import { TableColumnSelector } from '@/components/DataTable/TableColumnSelector';
+import { useEffect } from 'react';
 
 export function DataTable({
   data: initialData,
@@ -33,10 +34,15 @@ export function DataTable({
   withActionButtons,
   withTableColumnSelector = true,
   withSelectedRowsCount = true,
+  withFooter = true,
   columns
 }) {
   const [data, setData] = React.useState(() => initialData);
   const table = useTableConfig(columns, data);
+
+  useEffect(() => {
+    setData(initialData);
+  }, [initialData]);
 
   const sortableId = React.useId();
   const sensors = useSensors(
@@ -146,10 +152,12 @@ export function DataTable({
           </DndContext>
         </div>
 
-        <Footer
-          table={table}
-          withSelectedRowsCount={withSelectedRowsCount}
-        />
+        {withFooter && (
+          <Footer
+            table={table}
+            withSelectedRowsCount={withSelectedRowsCount}
+          />
+        )}
       </TabsContent>
     </Tabs>
   );
