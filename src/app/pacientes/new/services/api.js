@@ -2,7 +2,7 @@
 const API_BASE_URL = 'http://localhost:3000';
 
 export async function fetchProtocolos() {
-  const res = await fetch(`${API_BASE_URL}/protocolo`, {
+  const res = await fetch(`${API_BASE_URL}/protocolos`, {
     credentials: 'include'
   });
   if (!res.ok) throw new Error('Error fetching protocolos');
@@ -10,7 +10,7 @@ export async function fetchProtocolos() {
 }
 
 export async function fetchCiclos(protocoloId) {
-  const res = await fetch(`${API_BASE_URL}/protocolo/${protocoloId}/ciclo`, {
+  const res = await fetch(`${API_BASE_URL}/protocolos/${protocoloId}/ciclos`, {
     credentials: 'include'
   });
   if (!res.ok) throw new Error('Error fetching ciclos');
