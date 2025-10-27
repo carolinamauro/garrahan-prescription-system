@@ -4,15 +4,21 @@ import { usePatients } from '@/contexts/PatientContext';
 import { useHeader } from '@/contexts/HeaderContext';
 import { useEffect } from 'react';
 import { getPatientColumns } from '@/components/DataTable/TableColumns';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
   const { patients } = usePatients();
   const { setTitle, setSubtitle } = useHeader();
+  const router = useRouter();
 
   useEffect(() => {
     setTitle('Pacientes');
     setSubtitle('Menú Principal');
   }, []);
+
+  const handleEdit = (rowId) => () => {
+    router.push(`/pacientes/${rowId}/editar`);
+  };
 
   return (
     <>
@@ -20,7 +26,7 @@ export default function Page() {
         data={patients}
         tabsList={[]}
         withActionButtons={true}
-        columns={getPatientColumns()}
+        columns={getPatientColumns(handleEdit)}
       />
     </>
   );

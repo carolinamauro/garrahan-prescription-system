@@ -10,8 +10,12 @@ import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-export function DropdownCell({ row, options = [], onChange }) {
-  const initialValue = row.original.presentation || 'Elegir presentación';
+export function DropdownCell({
+  row,
+  options = [],
+  initialValue,
+  onChange
+}) {
   const [currentValue, setCurrentValue] = useState('');
 
   useEffect(() => {
@@ -33,13 +37,13 @@ export function DropdownCell({ row, options = [], onChange }) {
       <DropdownMenuContent className="w-[200px]">
         {options.map((option) => (
           <DropdownMenuItem
-            key={option.value}
+            key={option}
             onClick={() => {
-              setCurrentValue(option.value);
-              onChange(row.original.id, option.value);
+              setCurrentValue(option);
+              onChange(row.original.id, option);
             }}
           >
-            {option.label}
+            {option}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

@@ -7,11 +7,10 @@ import { StatusCell } from '@/components/DataTable/TableColumns/StatusColumn/Sta
 import { ActionCell } from '@/components/DataTable/TableColumns/ActionCell/ActionCell';
 import { DataCell } from '@/components/DataTable/TableColumns/DataCell';
 import { FileText } from 'lucide-react';
-import { ButtonsCell } from '@/components/DataTable/TableColumns/ButtonsCell';
 import { DropdownCell } from '@/components/DataTable/TableColumns/DropdownCell';
 
 // Definition of columns for @tanstack/react-table
-export const getPatientColumns = () => [
+export const getPatientColumns = (handleEdit) => [
   {
     id: 'drag',
     header: () => null,
@@ -58,7 +57,7 @@ export const getPatientColumns = () => [
   },
   {
     id: 'actions',
-    cell: ({ row }) => { return <ActionCell item={row.original} />; },
+    cell: ({ row }) => { return <ActionCell handleEdit={handleEdit(row.original.id)} />; },
   },
 ];
 
@@ -96,7 +95,11 @@ export const getProtocolColumns = () => [
   },
 ];
 
-export const getMedicationColumns = (handlePresentationChange, handleDelete) => [
+export const getMedicationColumns = (
+  handlePresentationChange,
+  handleDelete,
+  handleConcentrationChange
+) => [
   {
     accessorKey: 'Nombre genérico',
     header: 'Nombre genérico',
@@ -113,27 +116,26 @@ export const getMedicationColumns = (handlePresentationChange, handleDelete) => 
     cell: ({ row }) => (
       <DropdownCell
         row={row}
-        options={[
-          { value: 'FRASCO AMPOLLA', label: 'FRASCO AMPOLLA' },
-          { value: 'COMPRIMIDOS', label: 'COMPRIMIDOS' },
-        ]}
+        options={row.original.presentations}
         onChange={handlePresentationChange}
+        initialValue={row.original.presentation || 'Elegir presentación'}
       />
     ),
   },
   {
     accessorKey: 'concentration',
     header: 'Cantidad × Concentración',
-    cell: ({ row }) => ( <DataCell content={row.original.concentration} /> ),
+    cell: ({ row }) => (
+      <DropdownCell
+        row={row}
+        options={row.original.concentrations}
+        onChange={handleConcentrationChange}
+        initialValue={row.original.concentration}
+      />
+    )
   },
   {
     id: 'actions',
-    header: 'Acción',
-    cell: ({ row }) => (
-      <ButtonsCell
-        item={row.original}
-        handleDelete={handleDelete}
-      />
-    ),
+    cell: ({ row }) => ( <ActionCell handleDelete={handleDelete(row.original.id)} /> ),
   },
 ];
