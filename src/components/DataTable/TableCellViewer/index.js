@@ -12,9 +12,9 @@ export function TableCellViewer({ item }) {
       <DrawerTrigger asChild>
         <Button variant="link"
           className="text-foreground w-fit px-0 text-left">
-          <Link href={`/pacientes/${item.id}`}
+          <Link href={`/pacientes/${item.paciente_id}`}
             aria-label="Home">
-            <span>{item.nombre}</span>
+            <span>{item.nombre} {item.apellido}</span>
           </Link>
         </Button>
       </DrawerTrigger>

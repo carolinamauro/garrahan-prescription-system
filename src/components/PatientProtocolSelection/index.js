@@ -30,7 +30,7 @@ export function PatientProtocolSelection({ patient }) {
       regimen: selectedRegimen,
     };
 
-    await updatePatient(patient.id, form);
+    await updatePatient(patient.paciente_id, form);
     setShowDialog(true);
   };
 
@@ -70,7 +70,7 @@ export function PatientProtocolSelection({ patient }) {
 
       <EditButtons
         handleSave={handleSave}
-        href={`/pacientes/${patient.id}`}
+        href={`/pacientes/${patient.paciente_id}`}
         saveBtnDisabled={saveBtnDisabled}
       />
 
@@ -78,7 +78,7 @@ export function PatientProtocolSelection({ patient }) {
         title="Datos guardados"
         description="El protocolo del paciente se guardó correctamente."
         handleOnClick={() => {
-          router.push(`/pacientes/${patient.id}`);
+          router.push(`/pacientes/${patient.paciente_id}`);
         }}
         showDialog={showDialog}
         setShowDialog={setShowDialog}

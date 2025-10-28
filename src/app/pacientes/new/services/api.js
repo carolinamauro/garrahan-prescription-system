@@ -1,12 +1,32 @@
 /* global fetch */
 const API_BASE_URL = 'http://localhost:3000';
 
+export async function fetchPacientes() {
+  const res = await fetch(`${API_BASE_URL}/pacientes`, {
+    credentials: 'include'
+  });
+  if (!res.ok) throw new Error('Error fetching pacientes');
+  return res.json();
+}
+
 export async function fetchProtocolos() {
   const res = await fetch(`${API_BASE_URL}/protocolos`, {
     credentials: 'include'
   });
   if (!res.ok) throw new Error('Error fetching protocolos');
   return res.json();
+}
+
+export async function fetchProtocoloPaciente(idPaciente) {
+  const res = await fetch(`${API_BASE_URL}/pacientes/${idPaciente}/protocolo-actual`, {
+    credentials: 'include'
+  });
+
+  if (!res.ok) {
+    throw new Error(`Error fetching protocolo para el paciente de ID:${idPaciente}`);
+  }
+
+  return await res.json();
 }
 
 export async function fetchCiclos(protocoloId) {

@@ -13,7 +13,7 @@ export default function Page() {
 
   useEffect(() => {
     setTitle('Pacientes');
-    setSubtitle('Menú Principal');
+    setSubtitle('Menú principal');
   }, []);
 
   const handleEdit = (rowId) => () => {

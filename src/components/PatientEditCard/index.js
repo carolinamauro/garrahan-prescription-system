@@ -26,7 +26,7 @@ export function PatientEditCard({ patient }) {
       ultima_mod: pesoCambiado ? new Date() : patient.ultima_mod,
     };
 
-    await updatePatient(patient.id, updatedForm);
+    await updatePatient(patient.paciente_id, updatedForm);
     setForm(updatedForm);
     setShowDialog(true);
   };
@@ -48,7 +48,7 @@ export function PatientEditCard({ patient }) {
 
       <EditButtons
         handleSave={handleSave}
-        href={`/pacientes/${patient.id}`}
+        href={`/pacientes/${patient.paciente_id}`}
         saveBtnDisabled={false}
       />
 
@@ -56,7 +56,7 @@ export function PatientEditCard({ patient }) {
         title="Datos guardados"
         description="Los datos del paciente se guardaron correctamente."
         handleOnClick={() => {
-          router.push(`/pacientes/${patient.id}`);
+          router.push(`/pacientes/${patient.paciente_id}`);
         }}
         showDialog={showDialog}
         setShowDialog={setShowDialog}

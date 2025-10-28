@@ -8,10 +8,10 @@ export default function PatientSelectProtocol({ params }) {
   const { id } = React.use(params);
   const { patients } = usePatients();
   const { setTitle, setSubtitle } = useHeader();
-  const patient = patients.find((p) => String(p.id) === String(id));
+  const patient = patients.find((p) => String(p.paciente_id) === String(id));
 
   useEffect(() => {
-    setTitle(`${patient.nombre}`);
+    setTitle(`${patient.nombre} ${patient.apellido}`);
     setSubtitle('Protocolo');
   }, []);
 

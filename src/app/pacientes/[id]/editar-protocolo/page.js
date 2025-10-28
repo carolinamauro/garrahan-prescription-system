@@ -13,7 +13,7 @@ export default function PatientEditProtocol({ params }) {
   const { id } = React.use(params);
   const { patients } = usePatients();
   const { setTitle, setSubtitle } = useHeader();
-  const patient = patients.find((p) => String(p.id) === String(id));
+  const patient = patients.find((p) => String(p.paciente_id) === String(id));
 
   const [showDialog, setShowDialog] = useState(false);
   const router = useRouter();
@@ -21,7 +21,7 @@ export default function PatientEditProtocol({ params }) {
   const [selectedRegimen, setSelectedRegimen] = useState(patient.protocolo.regimen);
 
   useEffect(() => {
-    setTitle(`${patient.nombre}`);
+    setTitle(`${patient.nombre} ${patient.apellido}`);
     setSubtitle('Editar protocolo');
   }, []);
 
@@ -37,7 +37,7 @@ export default function PatientEditProtocol({ params }) {
       regimen: selectedRegimen,
     };
 
-    await updatePatient(patient.id, form);
+    await updatePatient(patient.paciente_id, form);
     setShowDialog(true);
   };
 
@@ -59,7 +59,7 @@ export default function PatientEditProtocol({ params }) {
 
       <EditButtons
         handleSave={handleSave}
-        href={`/pacientes/${patient.id}`}
+        href={`/pacientes/${patient.paciente_id}`}
         saveBtnDisabled={false}
       />
 
@@ -67,7 +67,7 @@ export default function PatientEditProtocol({ params }) {
         title="Datos guardados"
         description="El protocolo del paciente se actualizó correctamente."
         handleOnClick={() => {
-          router.push(`/pacientes/${patient.id}`);
+          router.push(`/pacientes/${patient.paciente_id}`);
         }}
         showDialog={showDialog}
         setShowDialog={setShowDialog}

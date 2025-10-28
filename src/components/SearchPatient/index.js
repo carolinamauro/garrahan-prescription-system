@@ -9,7 +9,7 @@ export default function SearchPatient({ options = [], placeholder = 'Buscar paci
   const router = useRouter();
 
   const handleSelect = (patient) => {
-    router.push(`/pacientes/${patient.id}`);
+    router.push(`/pacientes/${patient.paciente_id}`);
     setSearchValue('');
   };
 
@@ -20,7 +20,8 @@ export default function SearchPatient({ options = [], placeholder = 'Buscar paci
       value={searchValue}
       setValue={setSearchValue}
       onSelect={handleSelect}
-      getId={(patient) => patient.id}
+      getId={(patient) => patient.paciente_id}
+      showedValue={(patient) => `${patient.nombre} ${patient.apellido}` }
     />
   );
 }

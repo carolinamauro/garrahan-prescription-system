@@ -20,10 +20,18 @@ function lineaNumeroATexto(linea) {
   return map[linea] || `Línea ${linea}`;
 }
 
+function getTextoRegimen(tieneProtocolo, patient) {
+  return tieneProtocolo && patient.protocolo.regimen ? `Régimen ${patient.protocolo.regimen}` : '';
+}
+
+function getSeparadorTextos(tieneProtocolo, patient) {
+  return tieneProtocolo && patient.protocolo.regimen && patient.protocolo.linea ? ' - ' : '';
+}
+
 export function PatientProtocolCard({ patient, tieneProtocolo }) {
   const tieneSupCorporal = tieneSuperficieCorporal(patient.sup_corporal);
-  const textoRegimen = patient.protocolo.regimen ? `Régimen ${patient.protocolo.regimen}` : '';
-  const separadorTextos = patient.protocolo.regimen && patient.protocolo.linea ? ' - ' : '';
+  const textoRegimen = getTextoRegimen(tieneProtocolo, patient);
+  const separadorTextos = getSeparadorTextos(tieneProtocolo, patient);
   const [recetasSolicitadas] = useState(recetas);
 
   return (
@@ -46,7 +54,7 @@ export function PatientProtocolCard({ patient, tieneProtocolo }) {
         </CardHeader>
         <CardContent>
           <ActionButtonsProtocol
-            patientId={patient.id}
+            patientId={patient.paciente_id}
             tieneProtocolo={tieneProtocolo}
             tieneSupCorporal={tieneSupCorporal}
           />

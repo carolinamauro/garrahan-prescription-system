@@ -8,6 +8,8 @@ import { ActionCell } from '@/components/DataTable/TableColumns/ActionCell/Actio
 import { DataCell } from '@/components/DataTable/TableColumns/DataCell';
 import { FileText } from 'lucide-react';
 import { DropdownCell } from '@/components/DataTable/TableColumns/DropdownCell';
+import { AgeCell } from '@/components/DataTable/TableColumns/AgeCell';
+import { ProtocolCell } from '@/components/DataTable/TableColumns/ProtocolCell';
 
 // Definition of columns for @tanstack/react-table
 export const getPatientColumns = (handleEdit) => [
@@ -26,12 +28,12 @@ export const getPatientColumns = (handleEdit) => [
   {
     accessorKey: 'ID Paciente',
     header: 'ID Paciente',
-    cell: ({row}) => { return <IdCell content={row.original.id} />; },
+    cell: ({ row }) => { return <IdCell content={row.original.paciente_id} />; },
   },
   {
     accessorKey: 'Historia Clínica',
     header: 'Historia Clínica',
-    cell: ({row}) => { return <IdCell content={row.original.historia_clinica} />; },
+    cell: ({ row }) => { return <IdCell content={row.original.id_hospitalario} />; },
   },
   {
     accessorKey: 'Paciente',
@@ -41,19 +43,22 @@ export const getPatientColumns = (handleEdit) => [
   {
     accessorKey: 'edad',
     header: 'Edad',
-    cell: ({ row }) => {
-      return <DataCell content={`${row.original.anios} años y ${row.original.dias} días`} />;
-    },
+    cell: ({ row }) => { return <AgeCell anios={row.original.anios}
+      dias={row.original.dias} />; },
   },
   {
     accessorKey: 'Diagnóstico',
     header: 'Diagnóstico',
-    cell: ({ row }) => { return <DataCell content={row.original.protocolo.nombre} />; },
+    cell: ({ row }) => {
+      return <ProtocolCell activeProtocol={row.original.protocolo} />;
+    },
   },
   {
     accessorKey: 'estado',
     header: 'Estado',
-    cell: StatusCell,
+    cell: ({ row }) => {
+      return <StatusCell activeProtocol={row.original.protocolo} />;
+    },
   },
   {
     id: 'actions',

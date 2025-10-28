@@ -27,6 +27,7 @@ export default function SearchInput({
   options = [],
   value,
   setValue,
+  showedValue,
   onSelect,
   onChange,
   filterFn = defaultFilter,
@@ -118,7 +119,7 @@ export default function SearchInput({
               onMouseDown={() => handleSelect(option)}
               onMouseEnter={() => setActiveIndex(index)}
             >
-              {option.nombre}
+              {showedValue(option)}
             </li>
           ))}
         </ul>

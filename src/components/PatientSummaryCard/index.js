@@ -25,7 +25,8 @@ export function PatientSummaryCard({ patient, withEditButton }) {
           <div className={gridClass}>
             <PatientInfoItem
               label="Edad"
-              value={`${patient.anios} años y ${patient.dias} días`}
+              value={patient.anios === null || patient.dias === null
+                ? 'No informa' : `${patient.anios} años y ${patient.dias} días`}
             />
             <div className="flex flex-col">
               <PatientInfoItem label="Peso (en kg)"
@@ -45,9 +46,9 @@ export function PatientSummaryCard({ patient, withEditButton }) {
               <div className="flex items-end">
                 <Button>
                   <Link
-                    href={`/pacientes/${patient.id}/editar`}
+                    href={`/pacientes/${patient.paciente_id}/editar`}
                     className="flex items-center gap-2"
-                    aria-label={`${patient.nombre} - Editar`}
+                    aria-label={`${patient.paciente_id} - Editar`}
                   >
                     <FilePen className="mr-2 h-4 w-4" />
                               Editar
