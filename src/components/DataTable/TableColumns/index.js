@@ -100,30 +100,112 @@ export const getProtocolColumns = () => [
   },
 ];
 
+const MedicationPresentationCell = ({ 
+  row, 
+  handlePresentationChange, 
+  presentationsByDrug 
+}) => {
+  const presentations = presentationsByDrug[row.original.droga_id] || [];
+  // Usamos un Map para mantener un único valor por forma farmacéutica
+  const formsMap = new Map();
+  presentations.forEach(p => {
+    if (!formsMap.has(p.forma_farmaceutica_nombre)) {
+      formsMap.set(p.forma_farmaceutica_nombre, p.forma_farmaceutica_id);
+    }
+  });
+  
+  const options = Array.from(formsMap).map(([form, id]) => ({
+    label: form,
+    value: form,
+    uniqueId: `${id}-${form}`
+  }));
+
+  const initialValue = row.original.presentation || 'Elegir presentación';
+
+  const handleChange = (id, selectedValue) => {
+    handlePresentationChange(id, selectedValue);
+  };
+
+  return (
+    <DropdownCell
+      key={`presentation-${row.original.id}`}
+      row={row}
+      options={options}
+      onChange={handleChange}
+      initialValue={initialValue}
+    />
+  );
+};
+
+const MedicationConcentrationCell = ({
+  row,
+  selectedForms,
+  availableConcentrations,
+  handleConcentrationChange
+}) => {
+  const selectedForm = selectedForms[row.original.id];
+  if (!selectedForm) return <DataCell content="" />;
+
+  const presentations = availableConcentrations[row.original.id] || [];
+  
+  if (presentations.length === 1) {
+    const presentation = presentations[0];
+    return (
+      <DataCell 
+        content={`${presentation.fuerza_valor} ${presentation.fuerza_unidad}`} 
+      />
+    );
+  }
+  
+  if (presentations.length > 1) {
+    const options = presentations.map(p => ({
+      label: `${p.fuerza_valor} ${p.fuerza_unidad}`,
+      value: p,
+      // Añadimos un ID único compuesto
+      uniqueId: `${p.presentacion_id}-${p.fuerza_valor}-${p.fuerza_unidad}`
+    }));
+
+    const initialValue = row.original.concentration || 'Elegir concentración';
+
+    const handleChange = (id, selectedPresentation) => {
+      handleConcentrationChange(id, selectedPresentation);
+    };
+
+    return (
+      <DropdownCell
+        key={`concentration-${row.original.id}`}
+        row={row}
+        options={options}
+        onChange={handleChange}
+        initialValue={initialValue}
+      />
+    );
+  }
+  
+  return <DataCell content="" />;
+};
+
 export const getMedicationColumns = (
   handlePresentationChange,
   handleDelete,
-  handleConcentrationChange
+  presentationsByDrug,
+  handleConcentrationChange,
+  selectedForms,
+  availableConcentrations
 ) => [
   {
-    accessorKey: 'Nombre genérico',
+    accessorKey: 'nombre',
     header: 'Nombre genérico',
-    cell: ({ row }) => ( <DataCell content={row.original.genericName} /> ),
-  },
-  {
-    accessorKey: 'Cantidad necesaria',
-    header: 'Cantidad necesaria',
-    cell: ({ row }) => ( <DataCell content={row.original.requiredAmount} /> ),
+    cell: ({ row }) => <DataCell content={row.original.nombre} />,
   },
   {
     accessorKey: 'presentation',
     header: 'Presentación',
     cell: ({ row }) => (
-      <DropdownCell
+      <MedicationPresentationCell
         row={row}
-        options={row.original.presentations}
-        onChange={handlePresentationChange}
-        initialValue={row.original.presentation || 'Elegir presentación'}
+        handlePresentationChange={handlePresentationChange}
+        presentationsByDrug={presentationsByDrug}
       />
     ),
   },
@@ -131,16 +213,16 @@ export const getMedicationColumns = (
     accessorKey: 'concentration',
     header: 'Cantidad × Concentración',
     cell: ({ row }) => (
-      <DropdownCell
+      <MedicationConcentrationCell
         row={row}
-        options={row.original.concentrations}
-        onChange={handleConcentrationChange}
-        initialValue={row.original.concentration}
+        selectedForms={selectedForms}
+        availableConcentrations={availableConcentrations}
+        handleConcentrationChange={handleConcentrationChange}
       />
-    )
+    ),
   },
   {
     id: 'actions',
-    cell: ({ row }) => ( <ActionCell handleDelete={handleDelete(row.original.id)} /> ),
+    cell: ({ row }) => <ActionCell handleDelete={handleDelete(row.original.id)} />,
   },
 ];
