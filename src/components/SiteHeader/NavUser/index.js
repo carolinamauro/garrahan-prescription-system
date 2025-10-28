@@ -32,7 +32,7 @@ export function NavUser({user}) {
         <DropdownMenuLabel className="p-0 font-normal">
           <div className="flex items-center gap-2 px-2 py-1.5">
             <Avatar className="h-8 w-8">
-              <AvatarImage src={user.avatar || '/placeholder.svg'}
+              <AvatarImage src={user.avatar}
                 alt={user.name} />
               <AvatarFallback>{fallback}</AvatarFallback>
             </Avatar>

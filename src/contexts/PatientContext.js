@@ -1,65 +1,72 @@
 'use client';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { fetchPacientes, fetchProtocoloPaciente } from '@/app/pacientes/new/services/api';
+import { calcularEdad } from '@/lib/utils';
 
 const PatientsContext = createContext();
-
-function calcularEdad(fechaNacimientoStr) {
-  if (!fechaNacimientoStr) return { anios: null, dias: null };
-
-  const nacimiento = new Date(fechaNacimientoStr);
-  const hoy = new Date();
-
-  // Años completos
-  let edadAnios = hoy.getFullYear() - nacimiento.getFullYear();
-
-  // Resto uno si no pasó el cumpleaños este año
-  const cumpleEsteAno = new Date(hoy.getFullYear(), nacimiento.getMonth(), nacimiento.getDate());
-  if (hoy < cumpleEsteAno) {
-    edadAnios--;
-  }
-
-  // Calculo días restantes desde el último cumpleaños
-  const ultimoCumple = new Date(hoy.getFullYear(), nacimiento.getMonth(), nacimiento.getDate());
-  if (hoy < ultimoCumple) {
-    ultimoCumple.setFullYear(ultimoCumple.getFullYear() - 1);
-  }
-  const diffMs = hoy - ultimoCumple;
-  const msPerDay = 1000 * 60 * 60 * 24;
-  const diffDias = Math.floor(diffMs / msPerDay);
-
-  return { anios: edadAnios, dias: diffDias };
-}
+const STORAGE_KEY = 'patientsData';
+const SYNC_INTERVAL_MS = 60 * 60 * 1000; // 1 hora
 
 export function PatientsProvider({ children }) {
   const [patients, setPatients] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const checkAndSync = async (timestamp) => {
+    if (!timestamp || Date.now() - timestamp > SYNC_INTERVAL_MS) {
+      await fetchAndStorePatients();
+    }
+  };
+
+  const loadProtocols = async (pacientes) => {
+    const updatedPatients = await Promise.all(
+      pacientes.map(async (p) => {
+        const { anios, dias } = calcularEdad(p.fecha_nacimiento);
+        try {
+          const protocolo = await fetchProtocoloPaciente(p.paciente_id);
+          return { ...p, protocolo, anios, dias };
+        } catch {
+          return { ...p, protocolo: null, anios, dias };
+        }
+      })
+    );
+    setPatients(updatedPatients);
+
+    window.localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ pacientes: updatedPatients, timestamp: Date.now() })
+    );
+
+    setLoading(false);
+  };
+
+  const fetchAndStorePatients = async () => {
+    setLoading(true);
+    let pacientes = await fetchPacientes().catch(() => null);
+    if (!pacientes || pacientes.length === 0) {
+      setPatients([]);
+      return;
+    }
+    void loadProtocols(pacientes);
+  };
 
   useEffect(() => {
-    fetchPacientes()
-      .then(setPatients)
-      .catch(() => setPatients([]));
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        setPatients(parsed.pacientes);
+        checkAndSync(parsed.timestamp);
+        setLoading(false);
+      } catch {
+        window.localStorage.removeItem(STORAGE_KEY);
+        fetchAndStorePatients();
+      }
+    } else {
+      fetchAndStorePatients();
+    }
+
   }, []);
-
-  useEffect(() => {
-    if (patients.length === 0) return;
-
-    const loadProtocols = async () => {
-      const updatedPatients = await Promise.all(
-        patients.map(async (p) => {
-          const { anios, dias } = calcularEdad(p.fecha_nacimiento);
-          try {
-            const protocolo = await fetchProtocoloPaciente(p.paciente_id);
-            return { ...p, protocolo, anios, dias };
-          } catch {
-            return { ...p, protocolo: null, anios, dias };
-          }
-        })
-      );
-      setPatients(updatedPatients);
-    };
-
-    void loadProtocols();
-  }, [patients.length]);
 
   const updatePatient = (id, updates) => {
     setPatients((prev) =>
@@ -68,7 +75,7 @@ export function PatientsProvider({ children }) {
   };
 
   return (
-    <PatientsContext.Provider value={{ patients, updatePatient }}>
+    <PatientsContext.Provider value={{ patients, updatePatient, loading }}>
       {children}
     </PatientsContext.Provider>
   );

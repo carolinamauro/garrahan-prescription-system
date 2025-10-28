@@ -21,6 +21,12 @@ export default function PatientPage({ params }) {
   const patient = patients.find((p) => String(p.paciente_id) === String(id));
   const tieneProtocolo = pacienteTieneProtocolo(patient?.protocolo);
 
+  // if (!patient) {
+  //   return (
+  //     <LoaderPage />
+  //   );
+  // }
+
   useEffect(() => {
     setTitle(`${patient.nombre} ${patient.apellido}`);
     setSubtitle('Resumen');

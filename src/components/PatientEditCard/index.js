@@ -12,7 +12,7 @@ export function PatientEditCard({ patient }) {
 
   const [form, setForm] = useState({
     peso: patient.peso || '',
-    ultima_mod: patient.ultima_mod || '',
+    ultima_modificacion: patient.ultima_modificacion || '',
     obra_social: patient.obra_social || '',
   });
 
@@ -23,7 +23,7 @@ export function PatientEditCard({ patient }) {
       ...form,
       peso: form.peso === '' ? patient.peso : form.peso,
       obra_social: form.obra_social === '' ? patient.obra_social : form.obra_social,
-      ultima_mod: pesoCambiado ? new Date() : patient.ultima_mod,
+      ultima_modificacion: pesoCambiado ? new Date() : patient.ultima_modificacion,
     };
 
     await updatePatient(patient.paciente_id, updatedForm);

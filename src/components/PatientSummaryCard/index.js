@@ -32,7 +32,7 @@ export function PatientSummaryCard({ patient, withEditButton }) {
               <PatientInfoItem label="Peso (en kg)"
                 value={patient.peso} />
               <span className="text-xs text-muted-foreground mt-1">
-                Última modificación: {formatDate(patient.ultima_mod)}
+                Última modificación: {formatDate(patient.ultima_modificacion)}
               </span>
             </div>
             <PatientInfoItem label="Superficie corporal"
