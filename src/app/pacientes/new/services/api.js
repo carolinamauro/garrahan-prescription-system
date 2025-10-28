@@ -18,7 +18,7 @@ export async function fetchCiclos(protocoloId) {
 }
 
 export async function searchExternalPatient(id) {
-  const res = await fetch(`${API_BASE_URL}/paciente/${encodeURIComponent(id)}/externo`, {
+  const res = await fetch(`${API_BASE_URL}/pacientes/${encodeURIComponent(id)}/externo`, {
     credentials: 'include'
   });
   if (!res.ok) throw new Error('Paciente no encontrado');
@@ -26,7 +26,7 @@ export async function searchExternalPatient(id) {
 }
 
 export async function createPatient(patientData) {
-  const res = await fetch(`${API_BASE_URL}/paciente`, {
+  const res = await fetch(`${API_BASE_URL}/pacientes`, {
     method: 'POST',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
