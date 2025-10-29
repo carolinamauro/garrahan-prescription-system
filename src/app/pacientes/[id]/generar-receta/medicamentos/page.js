@@ -1,5 +1,5 @@
 'use client';
-
+/* global fetch */
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { DataTable } from '@/components/DataTable';
@@ -8,6 +8,7 @@ import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { RecetaButtons } from '@/components/RecetaButtons';
 import { useHeader } from '@/contexts/HeaderContext';
 import { usePatients } from '@/contexts/PatientContext';
+import { useRecipeGenerator } from '@/app/pacientes/new/hooks/useRecipeGenerator';
 import { Button } from '@/components/ui/button';
 
 function shouldEnableExportButton(medications) {
@@ -17,10 +18,10 @@ function shouldEnableExportButton(medications) {
 export default function MedicamentosPage({ params }) {
   const searchParams = useSearchParams();
   const { setTitle, setSubtitle } = useHeader();
+  const { generateRecipe } = useRecipeGenerator();
   const { patients } = usePatients();
   const { id } = React.use(params);
   const patient = patients.find((p) => String(p.paciente_id) === String(id));
-
   const cycles = searchParams.get('ciclos') || '1';
   const [medications, setMedications] = useState([]);
   const [exportBtnDisabled, setExportBtnDisabled] = useState(true);
@@ -32,7 +33,6 @@ export default function MedicamentosPage({ params }) {
     setTitle(`${patient.nombre} ${patient.apellido}`);
     setSubtitle('Generar receta');
   }, []);
-
   useEffect(() => {
     const fetchProtocoloActual = async () => {
       try {
@@ -136,7 +136,7 @@ export default function MedicamentosPage({ params }) {
     setExportBtnDisabled(!shouldEnableExportButton(updated));
   };
 
-    const handleDelete = (id) => () => {
+  const handleDelete = (id) => () => {
     setMedications((prev) => prev.filter((m) => m.id !== id));
   };
 
@@ -161,12 +161,13 @@ export default function MedicamentosPage({ params }) {
       }
 
       const result = await response.json();
-      
+
       setMedications(prev => prev.map(med => {
         if (med.id === medication.id) {
           return {
             ...med,
-            needed_amount: `${result.cantidad_total} ${result.fuerza_unidad} (${result.unidades} unidades)`
+            needed_amount:
+              `${result.cantidad_total} ${result.fuerza_unidad} (${result.unidades} unidades)`
           };
         }
         return med;
@@ -185,6 +186,10 @@ export default function MedicamentosPage({ params }) {
     selectedForms,
     availableConcentrations
   );
+
+  const onExport = async () => {
+    await generateRecipe(patient, medications, 'hospitalaria');
+  };
 
   return (
     <div className="px-5 lg:px-5">
@@ -207,7 +212,8 @@ export default function MedicamentosPage({ params }) {
             />
           </div>
 
-          <RecetaButtons exportBtnDisabled={exportBtnDisabled} />
+          <RecetaButtons exportBtnDisabled={exportBtnDisabled}
+            onPressExport={onExport} />
 
         </CardContent>
       </Card>

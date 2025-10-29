@@ -33,7 +33,9 @@ export function PatientsProvider({ children }) {
 
   const fetchAndStorePatients = async () => {
     setLoading(true);
-    let pacientes = await fetchPacientes().catch(() => null);
+    let pacientes = await fetchPacientes().catch((e) => {
+      return null;
+    });
     if (!pacientes || pacientes.length === 0) {
       setPatients([]);
       return;
@@ -52,7 +54,6 @@ export function PatientsProvider({ children }) {
 
   useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY);
-
     if (stored) {
       try {
         const parsed = JSON.parse(stored);

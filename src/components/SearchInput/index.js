@@ -27,7 +27,7 @@ export default function SearchInput({
   options = [],
   value,
   setValue,
-  showedValue,
+  showedValue = () => {},
   onSelect,
   onChange,
   filterFn = defaultFilter,

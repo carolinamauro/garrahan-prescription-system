@@ -5,16 +5,7 @@ import { useRouter } from 'next/navigation';
 import { AlertPopup } from '@/components/AlertPopup';
 import { EditButtons } from '@/components/EditButtons';
 import { EditFields } from '@/components/PatientEditCard/EditFields';
-
-const calculateBodySurface = (peso, altura) => {
-  if (!peso || !altura) return null;
-  const pesoNum = parseFloat(peso);
-  const alturaCm = parseFloat(altura);
-  if (isNaN(pesoNum) || isNaN(alturaCm) || alturaCm <= 0) return null;
-  // Fórmula de Mosteller: SC (m²) = √((peso × altura)/3600)
-  const superficie = Math.sqrt((pesoNum * alturaCm) / 3600);
-  return superficie.toFixed(2);
-};
+import { calculateBodySurface } from '@/lib/utils';
 
 export function PatientEditCard({ patient }) {
   const [showDialog, setShowDialog] = useState(false);

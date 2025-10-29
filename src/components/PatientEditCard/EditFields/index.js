@@ -1,20 +1,12 @@
 import { EditField } from '@/components/PatientEditCard/EditFields/EditField';
+import { calculateBodySurface } from '@/lib/utils';
 
-const calculateBodySurface = (peso, altura) => {
-  if (!peso || !altura) return null;
-  const pesoNum = parseFloat(peso);
-  const alturaCm = parseFloat(altura);
-  if (isNaN(pesoNum) || isNaN(alturaCm) || alturaCm <= 0) return null;
-  // Fórmula de Mosteller: SC (m²) = √((peso × altura)/3600)
-  const superficie = Math.sqrt((pesoNum * alturaCm) / 3600);
-  return superficie.toFixed(2);
-};
 
 export function EditFields({form, setForm, patient}) {
   const defaultValue = 'No informa';
-  
+
   const currentBodySurface = calculateBodySurface(
-    form.peso || patient.peso, 
+    form.peso || patient.peso,
     form.altura || patient.altura
   );
 
