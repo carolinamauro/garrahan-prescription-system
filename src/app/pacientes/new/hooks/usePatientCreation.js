@@ -3,9 +3,11 @@
 
 import { useState } from 'react';
 import { createPatient } from '../services/api';
+import { usePatients } from '@/contexts/PatientContext';
 
 export function usePatientCreation() {
   const [showDialog, setShowDialog] = useState(false);
+  const { addPatient } = usePatients();
 
   const createNewPatient = async (patientData) => {
     const payload = {
@@ -14,7 +16,8 @@ export function usePatientCreation() {
     };
 
     try {
-      await createPatient(payload);
+      const newPatient = await createPatient(payload);
+      addPatient(newPatient);
       setShowDialog(true);
       return true;
     } catch {

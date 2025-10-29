@@ -96,7 +96,7 @@ export default function NewPatientPage() {
         description="El paciente fue creado correctamente."
         showDialog={showDialog}
         setShowDialog={setShowDialog}
-        handleOnClick={() => router.push('/pacientes')}
+        handleOnClick={() => router.push('/')}
       />
     </div>
   );

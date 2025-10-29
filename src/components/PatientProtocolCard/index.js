@@ -31,9 +31,9 @@ function getSeparadorTextos(tieneProtocolo, regimen, linea) {
 
 export function PatientProtocolCard({ patient, tieneProtocolo }) {
   const tieneSupCorporal = tieneSuperficieCorporal(patient.sup_corporal);
-  const textoRegimen = getTextoRegimen(tieneProtocolo, patient.protocolo.regimen);
+  const textoRegimen = getTextoRegimen(tieneProtocolo, patient.protocolo?.regimen);
   const separadorTextos = getSeparadorTextos(tieneProtocolo,
-    patient.protocolo.regimen, patient.protocolo.linea);
+    patient.protocolo?.regimen, patient.protocolo?.linea);
   const [recetasSolicitadas] = useState(recetas);
 
   return (

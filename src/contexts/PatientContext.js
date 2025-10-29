@@ -1,7 +1,7 @@
 'use client';
-import { createContext, useContext, useEffect, useState } from 'react';
-import { fetchPacientes, fetchProtocoloPaciente } from '@/app/pacientes/new/services/api';
-import { calcularEdad } from '@/lib/utils';
+import {createContext, useContext, useEffect, useState} from 'react';
+import {fetchPacientes, fetchProtocoloPaciente} from '@/app/pacientes/new/services/api';
+import {calcularEdad} from '@/lib/utils';
 
 const PatientsContext = createContext();
 const STORAGE_KEY = 'patientsData';
@@ -18,25 +18,17 @@ export function PatientsProvider({ children }) {
   };
 
   const loadProtocols = async (pacientes) => {
-    const updatedPatients = await Promise.all(
+    return Promise.all(
       pacientes.map(async (p) => {
-        const { anios, dias } = calcularEdad(p.fecha_nacimiento);
+        const {anios, dias} = calcularEdad(p.fecha_nacimiento);
         try {
           const protocolo = await fetchProtocoloPaciente(p.paciente_id);
-          return { ...p, protocolo, anios, dias };
+          return {...p, protocolo, anios, dias};
         } catch {
-          return { ...p, protocolo: null, anios, dias };
+          return {...p, protocolo: null, anios, dias};
         }
       })
     );
-    setPatients(updatedPatients);
-
-    window.localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({ pacientes: updatedPatients, timestamp: Date.now() })
-    );
-
-    setLoading(false);
   };
 
   const fetchAndStorePatients = async () => {
@@ -46,7 +38,16 @@ export function PatientsProvider({ children }) {
       setPatients([]);
       return;
     }
-    void loadProtocols(pacientes);
+    const updatedPatients = await loadProtocols(pacientes);
+
+    setPatients(updatedPatients);
+
+    window.localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ pacientes: updatedPatients, timestamp: Date.now() })
+    );
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -85,8 +86,25 @@ export function PatientsProvider({ children }) {
     });
   };
 
+  const addPatient = async (patient) => {
+    const updatedPatient = await loadProtocols([patient]);
+
+    setPatients((prev) => {
+      const updated = [...prev, updatedPatient[0]];
+      try {
+        window.localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({ pacientes: updated, timestamp: Date.now() })
+        );
+      } catch (e) {
+        console.error('Failed to write patients to localStorage', e);
+      }
+      return updated;
+    });
+  };
+
   return (
-    <PatientsContext.Provider value={{ patients, updatePatient, loading }}>
+    <PatientsContext.Provider value={{ patients, updatePatient, addPatient, loading }}>
       {children}
     </PatientsContext.Provider>
   );
