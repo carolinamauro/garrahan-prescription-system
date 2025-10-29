@@ -1,7 +1,7 @@
 'use client';
 /* global fetch */
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import {useRouter, useSearchParams} from 'next/navigation';
 import { DataTable } from '@/components/DataTable';
 import { getMedicationColumns } from '@/components/DataTable/TableColumns';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
@@ -190,8 +190,11 @@ export default function MedicamentosPage({ params }) {
     availableConcentrations
   );
 
+  const router = useRouter();
+
   const onExport = async () => {
     await generateRecipe(patient, medications, 'hospitalaria');
+    router.push(`/pacientes/${patient.paciente_id}`);
   };
 
   return (
