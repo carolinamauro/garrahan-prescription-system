@@ -1,19 +1,25 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useSearchParams, useParams } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { DataTable } from '@/components/DataTable';
 import { getMedicationColumns } from '@/components/DataTable/TableColumns';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { RecetaButtons } from '@/components/RecetaButtons';
+import { useHeader } from '@/contexts/HeaderContext';
+import { usePatients } from '@/contexts/PatientContext';
 
 function shouldEnableExportButton(medications) {
-  return medications.every((m) => (m.presentation ?? '') !== '');
+  return medications.every((m) => (m.presentation ?? '') !== '' && (m.concentration ?? '') !== '');
 }
 
-export default function MedicamentosPage() {
+export default function MedicamentosPage({ params }) {
   const searchParams = useSearchParams();
-  const params = useParams();
+  const { setTitle, setSubtitle } = useHeader();
+  const { patients } = usePatients();
+  const { id } = React.use(params);
+  const patient = patients.find((p) => String(p.paciente_id) === String(id));
+
   const cycles = searchParams.get('ciclos') || '1';
   const [medications, setMedications] = useState([]);
   const [exportBtnDisabled, setExportBtnDisabled] = useState(true);
@@ -22,9 +28,14 @@ export default function MedicamentosPage() {
   const [availableConcentrations, setAvailableConcentrations] = useState({});
 
   useEffect(() => {
+    setTitle(`${patient.nombre} ${patient.apellido}`);
+    setSubtitle('Generar receta');
+  }, []);
+
+  useEffect(() => {
     const fetchProtocoloActual = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/pacientes/${params.id}/protocolo-actual`, {credentials: 'include'});
+        const response = await fetch(`http://localhost:3000/pacientes/${id}/protocolo-actual`, {credentials: 'include'});
         const protocolo = await response.json();
 
         // Transform administraciones into the medications format we need
@@ -67,7 +78,7 @@ export default function MedicamentosPage() {
     };
 
     fetchProtocoloActual();
-  }, [params.id]);
+  }, [id]);
 
   const handlePresentationChange = (id, forma_farmaceutica_nombre) => {
     // Get the drug from medications
