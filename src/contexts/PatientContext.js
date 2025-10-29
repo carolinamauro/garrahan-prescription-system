@@ -68,10 +68,21 @@ export function PatientsProvider({ children }) {
 
   }, []);
 
-  const updatePatient = (id, updates) => {
-    setPatients((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, ...updates } : p))
-    );
+  const updatePatient = async (id, updates) => {
+    setPatients((prev) => {
+      const updated = prev.map((p) =>
+        (p.paciente_id ?? p.id) === id ? { ...p, ...updates } : p
+      );
+      try {
+        window.localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({ pacientes: updated, timestamp: Date.now() })
+        );
+      } catch (e) {
+        console.error('Failed to write patients to localStorage', e);
+      }
+      return updated;
+    });
   };
 
   return (

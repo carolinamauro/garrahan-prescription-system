@@ -40,7 +40,7 @@ export function PatientSummaryCard({ patient, withEditButton }) {
             <PatientInfoItem label="Obra social"
               value={patient.obra_social} />
             <PatientInfoItem label="Historia clínica"
-              value={patient.historia_clinica} />
+              value={patient.id_hospitalario} />
 
             {withEditButton && (
               <div className="flex items-end">
