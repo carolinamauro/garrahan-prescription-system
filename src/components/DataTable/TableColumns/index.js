@@ -100,10 +100,10 @@ export const getProtocolColumns = () => [
   },
 ];
 
-const MedicationPresentationCell = ({ 
-  row, 
-  handlePresentationChange, 
-  presentationsByDrug 
+const MedicationPresentationCell = ({
+  row,
+  handlePresentationChange,
+  presentationsByDrug
 }) => {
   const presentations = presentationsByDrug[row.original.droga_id] || [];
   // Usamos un Map para mantener un único valor por forma farmacéutica
@@ -113,7 +113,7 @@ const MedicationPresentationCell = ({
       formsMap.set(p.forma_farmaceutica_nombre, p.forma_farmaceutica_id);
     }
   });
-  
+
   const options = Array.from(formsMap).map(([form, id]) => ({
     label: form,
     value: form,
@@ -144,19 +144,23 @@ const MedicationConcentrationCell = ({
   handleConcentrationChange
 }) => {
   const selectedForm = selectedForms[row.original.id];
-  if (!selectedForm) return <DataCell content="" />;
+  if (!selectedForm) return <DropdownCell
+    initialValue={'Elegir concentración'}
+    options={['Elegir concentración']}
+    disabled={true}
+  />;
 
   const presentations = availableConcentrations[row.original.id] || [];
-  
+
   if (presentations.length === 1) {
     const presentation = presentations[0];
     return (
-      <DataCell 
-        content={`${presentation.fuerza_valor} ${presentation.fuerza_unidad}`} 
+      <DataCell
+        content={`${presentation.fuerza_valor} ${presentation.fuerza_unidad}`}
       />
     );
   }
-  
+
   if (presentations.length > 1) {
     const options = presentations.map(p => ({
       label: `${p.fuerza_valor} ${p.fuerza_unidad}`,
@@ -181,7 +185,7 @@ const MedicationConcentrationCell = ({
       />
     );
   }
-  
+
   return <DataCell content="" />;
 };
 

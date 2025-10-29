@@ -10,7 +10,7 @@ export function GenerarRecetaInfo({ paciente }) {
         <CardContent className="pt-2">
           <div className={gridClass}>
             <PatientInfoItem label="Cantidad de ciclos ya solicitados"
-              value={paciente.protocolo.ciclos.length} />
+              value={paciente.protocolo.ciclos?.length} />
             <PatientInfoItem label="Protocolo aplicado"
               value={paciente.protocolo.nombre} />
             <PatientInfoItem label="Historia clínica"

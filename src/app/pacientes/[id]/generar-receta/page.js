@@ -20,7 +20,7 @@ export default function GenerarRecetaPage({ params }) {
   return (
     <div className="flex-1 min-h-screen flex-col p-6 gap-3">
       <GenerarRecetaInfo paciente={patient} />
-      <GenerarRecetaSelector pacienteId={id} />
+      <GenerarRecetaSelector paciente={patient} />
     </div>
   );
 }

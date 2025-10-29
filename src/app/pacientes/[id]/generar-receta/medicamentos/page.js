@@ -14,7 +14,7 @@ function shouldEnableExportButton(medications) {
 export default function MedicamentosPage() {
   const searchParams = useSearchParams();
   const params = useParams();
-  const cycles = searchParams.get('cycles') || '1';
+  const cycles = searchParams.get('ciclos') || '1';
   const [medications, setMedications] = useState([]);
   const [exportBtnDisabled, setExportBtnDisabled] = useState(true);
   const [presentationsByDrug, setPresentationsByDrug] = useState({});
@@ -26,7 +26,7 @@ export default function MedicamentosPage() {
       try {
         const response = await fetch(`http://localhost:3000/pacientes/${params.id}/protocolo-actual`, {credentials: 'include'});
         const protocolo = await response.json();
-        
+
         // Transform administraciones into the medications format we need
         const meds = protocolo.administraciones.map(admin => ({
           id: admin.admin_id,
@@ -35,17 +35,17 @@ export default function MedicamentosPage() {
           presentation: '',
           concentration: ''
         }));
-        
+
         setMedications(meds);
-        
+
         // Fetch presentations for each drug
-        const presentationsPromises = meds.map(med => 
+        const presentationsPromises = meds.map(med =>
           fetch(`http://localhost:3000/drogas/${med.droga_id}/presentaciones`, {credentials: 'include'})
             .then(res => res.json())
         );
-        
+
         const allPresentations = await Promise.all(presentationsPromises);
-        
+
         // Create a map of drug_id to its presentations
         const presentationsMap = {};
         meds.forEach((med, index) => {
@@ -53,13 +53,13 @@ export default function MedicamentosPage() {
           // Group presentations by forma_farmaceutica_nombre
           const uniqueForms = [...new Set(presentations.map(p => p.forma_farmaceutica_nombre))];
           presentationsMap[med.droga_id] = presentations;
-          
+
           // If there's only one form and one concentration, select it automatically
           if (uniqueForms.length === 1 && presentations.length === 1) {
             handlePresentationChange(med.id, uniqueForms[0]);
           }
         });
-        
+
         setPresentationsByDrug(presentationsMap);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -85,7 +85,7 @@ export default function MedicamentosPage() {
       ...prev,
       [id]: forma_farmaceutica_nombre
     }));
-    
+
     setAvailableConcentrations(prev => ({
       ...prev,
       [id]: presentationsForForm
@@ -93,23 +93,23 @@ export default function MedicamentosPage() {
 
     // Update medications state
     const updated = medications.map((med) =>
-      med.id === id ? { 
-        ...med, 
+      med.id === id ? {
+        ...med,
         presentation: forma_farmaceutica_nombre,
         // If there's only one concentration, select it automatically
-        concentration: presentationsForForm.length === 1 
+        concentration: presentationsForForm.length === 1
           ? `${presentationsForForm[0].fuerza_valor} ${presentationsForForm[0].fuerza_unidad}`
           : ''
       } : med
     );
-    
+
     setMedications(updated);
     setExportBtnDisabled(!shouldEnableExportButton(updated));
   };
 
   const handleConcentrationChange = (id, presentacion) => {
     const updated = medications.map((med) =>
-      med.id === id ? { 
+      med.id === id ? {
         ...med,
         concentration: `${presentacion.fuerza_valor} ${presentacion.fuerza_unidad}`
       } : med

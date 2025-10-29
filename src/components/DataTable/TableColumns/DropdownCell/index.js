@@ -14,7 +14,8 @@ export function DropdownCell({
   row,
   options = [],
   initialValue = '',
-  onChange
+  onChange,
+  disabled = false,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(initialValue);
@@ -30,12 +31,14 @@ export function DropdownCell({
         className="w-[200px] justify-between"
         disabled
       >
-        Sin opciones disponibles
+                Sin opciones disponibles
       </Button>
     );
   }
 
   const handleSelect = (option) => {
+    if (disabled) return;
+
     const displayValue = option?.label || option;
     const value = option?.value || option;
     setSelectedValue(displayValue);
@@ -44,33 +47,39 @@ export function DropdownCell({
   };
 
   return (
-    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+    <DropdownMenu
+      open={!disabled && isOpen}
+      onOpenChange={(open) => !disabled && setIsOpen(open)}
+    >
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
           className="w-[200px] justify-between"
+          disabled={disabled}
         >
           <span className="truncate">{selectedValue}</span>
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent 
-        className="w-[200px]" 
-        align="start"
-        side="bottom"
-      >
-        {options.map((option) => (
-          <DropdownMenuItem
-            key={typeof option === 'object' ? 
-              `${option.label}-${option.value?.presentacion_id || option.value}` : 
-              option}
-            onSelect={() => handleSelect(option)}
-          >
-            {option?.label || option}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
+      {!disabled && (
+        <DropdownMenuContent
+          className="w-[200px]"
+          align="start"
+          side="bottom"
+        >
+          {options.map((option) => (
+            <DropdownMenuItem
+              key={typeof option === 'object'
+                ? `${option.label}-${option.value?.presentacion_id || option.value}`
+                : option}
+              onSelect={() => handleSelect(option)}
+            >
+              {option?.label || option}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      )}
     </DropdownMenu>
   );
 }
