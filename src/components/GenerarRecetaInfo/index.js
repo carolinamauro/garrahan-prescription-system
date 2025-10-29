@@ -13,8 +13,8 @@ export function GenerarRecetaInfo({ paciente }) {
               value={paciente.protocolo.ciclos?.length} />
             <PatientInfoItem label="Protocolo aplicado"
               value={paciente.protocolo.nombre} />
-            <PatientInfoItem label="Historia clínica"
-              value={paciente.sup_corporal} />
+            <PatientInfoItem label="Superficie corporal"
+              value={`${paciente.sup_corporal} m²`} />
           </div>
         </CardContent>
       </Card>
