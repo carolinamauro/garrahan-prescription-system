@@ -14,12 +14,13 @@ export function EditFields({form, setForm, patient}) {
       form: form.peso
     },
     {
-      id: 'superficie',
-      label: 'Superficie corporal calculada',
-      placeholder: '-',
-      savedLabel: null,
-      savedValue: patient.sup_corporal || '-',
-      hasInput: false
+      id: 'altura',
+      label: 'Altura',
+      placeholder: 'Ingresa la altura del paciente (en cm)',
+      savedLabel: 'Altura guardada',
+      savedValue: patient.altura || defaultValue,
+      hasInput: true,
+      form: form.altura
     },
     {
       id: 'obra_social',

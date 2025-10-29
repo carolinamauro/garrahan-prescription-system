@@ -70,20 +70,42 @@ export function PatientsProvider({ children }) {
   }, []);
 
   const updatePatient = async (id, updates) => {
-    setPatients((prev) => {
-      const updated = prev.map((p) =>
-        (p.paciente_id ?? p.id) === id ? { ...p, ...updates } : p
-      );
-      try {
-        window.localStorage.setItem(
-          STORAGE_KEY,
-          JSON.stringify({ pacientes: updated, timestamp: Date.now() })
-        );
-      } catch (e) {
-        console.error('Failed to write patients to localStorage', e);
+    try {
+      const response = await fetch(`http://localhost:3000/pacientes/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          peso: updates.peso,
+          altura: updates.altura,
+          obra_social: updates.obra_social
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al actualizar el paciente');
       }
-      return updated;
-    });
+
+      setPatients((prev) => {
+        const updated = prev.map((p) =>
+          (p.paciente_id ?? p.id) === id ? { ...p, ...updates } : p
+        );
+        try {
+          window.localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify({ pacientes: updated, timestamp: Date.now() })
+          );
+        } catch (e) {
+          console.error('Failed to write patients to localStorage', e);
+        }
+        return updated;
+      });
+    } catch (error) {
+      console.error('Error al actualizar el paciente:', error);
+      throw error;
+    }
   };
 
   const addPatient = async (patient) => {

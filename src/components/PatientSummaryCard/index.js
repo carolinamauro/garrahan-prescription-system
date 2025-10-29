@@ -35,8 +35,8 @@ export function PatientSummaryCard({ patient, withEditButton }) {
                 Última modificación: {formatDate(patient.ultima_modificacion)}
               </span>
             </div>
-            <PatientInfoItem label="Superficie corporal"
-              value={patient.sup_corporal} />
+            <PatientInfoItem label="Altura (en cm)"
+              value={patient.altura} />
             <PatientInfoItem label="Obra social"
               value={patient.obra_social} />
             <PatientInfoItem label="Historia clínica"

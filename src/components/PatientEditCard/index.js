@@ -12,18 +12,22 @@ export function PatientEditCard({ patient }) {
 
   const [form, setForm] = useState({
     peso: patient.peso || '',
+    altura: patient.altura || '',
     ultima_modificacion: patient.ultima_modificacion || '',
     obra_social: patient.obra_social || '',
   });
 
   const handleSave = async () => {
     const pesoCambiado = form.peso !== '' && form.peso !== patient.peso;
+    const alturaCambiada = form.altura !== '' && form.altura !== patient.altura;
+    const datosModificados = pesoCambiado || alturaCambiada;
 
     const updatedForm = {
       ...form,
       peso: form.peso === '' ? patient.peso : form.peso,
+      altura: form.altura === '' ? patient.altura : form.altura,
       obra_social: form.obra_social === '' ? patient.obra_social : form.obra_social,
-      ultima_modificacion: pesoCambiado ? new Date() : patient.ultima_modificacion,
+      ultima_modificacion: datosModificados ? new Date() : patient.ultima_modificacion,
     };
 
     await updatePatient(patient.paciente_id, updatedForm);
