@@ -6,6 +6,14 @@ import { AlertPopup } from '@/components/AlertPopup';
 import { EditButtons } from '@/components/EditButtons';
 import { EditFields } from '@/components/PatientEditCard/EditFields';
 
+const calculateBMI = (peso, altura) => {
+  if (!peso || !altura) return null;
+  const pesoNum = parseFloat(peso);
+  const alturaMetros = parseFloat(altura) / 100;
+  if (isNaN(pesoNum) || isNaN(alturaMetros) || alturaMetros <= 0) return null;
+  return (pesoNum / (alturaMetros * alturaMetros)).toFixed(2);
+};
+
 export function PatientEditCard({ patient }) {
   const [showDialog, setShowDialog] = useState(false);
   const { updatePatient } = usePatients();
@@ -22,10 +30,15 @@ export function PatientEditCard({ patient }) {
     const alturaCambiada = form.altura !== '' && form.altura !== patient.altura;
     const datosModificados = pesoCambiado || alturaCambiada;
 
+    const pesoFinal = form.peso === '' ? patient.peso : form.peso;
+    const alturaFinal = form.altura === '' ? patient.altura : form.altura;
+    const supCorporal = calculateBMI(pesoFinal, alturaFinal);
+
     const updatedForm = {
       ...form,
-      peso: form.peso === '' ? patient.peso : form.peso,
-      altura: form.altura === '' ? patient.altura : form.altura,
+      peso: pesoFinal,
+      altura: alturaFinal,
+      sup_corporal: supCorporal,
       obra_social: form.obra_social === '' ? patient.obra_social : form.obra_social,
       ultima_modificacion: datosModificados ? new Date() : patient.ultima_modificacion,
     };

@@ -1,7 +1,20 @@
 import { EditField } from '@/components/PatientEditCard/EditFields/EditField';
 
+const calculateBMI = (peso, altura) => {
+  if (!peso || !altura) return null;
+  const pesoNum = parseFloat(peso);
+  const alturaMetros = parseFloat(altura) / 100;
+  if (isNaN(pesoNum) || isNaN(alturaMetros) || alturaMetros <= 0) return null;
+  return (pesoNum / (alturaMetros * alturaMetros)).toFixed(2);
+};
+
 export function EditFields({form, setForm, patient}) {
   const defaultValue = 'No informa';
+  
+  const currentBMI = calculateBMI(
+    form.peso || patient.peso, 
+    form.altura || patient.altura
+  );
 
   const fields = [
     {
@@ -21,6 +34,15 @@ export function EditFields({form, setForm, patient}) {
       savedValue: patient.altura || defaultValue,
       hasInput: true,
       form: form.altura
+    },
+    {
+      id: 'sup_corporal',
+      label: 'Superficie corporal',
+      placeholder: '-',
+      savedLabel: 'Valor calculado',
+      savedValue: currentBMI || 'No disponible',
+      hasInput: false,
+      form: null
     },
     {
       id: 'obra_social',
