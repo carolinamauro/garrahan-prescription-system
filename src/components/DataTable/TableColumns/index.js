@@ -10,6 +10,7 @@ import { FileText } from 'lucide-react';
 import { DropdownCell } from '@/components/DataTable/TableColumns/DropdownCell';
 import { AgeCell } from '@/components/DataTable/TableColumns/AgeCell';
 import { ProtocolCell } from '@/components/DataTable/TableColumns/ProtocolCell';
+import { CalculateCell } from '@/components/DataTable/TableColumns/CalculateCell';
 
 // Definition of columns for @tanstack/react-table
 export const getPatientColumns = (handleEdit) => [
@@ -224,6 +225,16 @@ export const getMedicationColumns = (
         handleConcentrationChange={handleConcentrationChange}
       />
     ),
+  },
+  {
+    accessorKey: 'needed_amount',
+    header: 'Cantidad necesaria',
+    cell: ({ row }) => <DataCell content={row.original.needed_amount || '-'} />,
+  },
+  {
+    accessorKey: 'calculate',
+    header: '',
+    cell: ({ row }) => <CalculateCell row={row} />,
   },
   {
     id: 'actions',

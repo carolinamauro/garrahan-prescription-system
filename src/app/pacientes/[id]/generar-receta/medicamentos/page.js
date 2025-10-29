@@ -8,6 +8,7 @@ import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { RecetaButtons } from '@/components/RecetaButtons';
 import { useHeader } from '@/contexts/HeaderContext';
 import { usePatients } from '@/contexts/PatientContext';
+import { Button } from '@/components/ui/button';
 
 function shouldEnableExportButton(medications) {
   return medications.every((m) => (m.presentation ?? '') !== '' && (m.concentration ?? '') !== '');
@@ -43,8 +44,12 @@ export default function MedicamentosPage({ params }) {
           id: admin.admin_id,
           droga_id: admin.droga_id,
           nombre: admin.nombre_droga,
+          administracion_id: admin.admin_id,
           presentation: '',
-          concentration: ''
+          concentration: '',
+          concentrationData: null,
+          needed_amount: '',
+          onCalculate: handleCalculate
         }));
 
         setMedications(meds);
@@ -122,17 +127,54 @@ export default function MedicamentosPage({ params }) {
     const updated = medications.map((med) =>
       med.id === id ? {
         ...med,
-        concentration: `${presentacion.fuerza_valor} ${presentacion.fuerza_unidad}`
+        concentration: `${presentacion.fuerza_valor} ${presentacion.fuerza_unidad}`,
+        concentrationData: presentacion,
+        needed_amount: '' // Resetear la cantidad necesaria cuando cambia la concentración
       } : med
     );
     setMedications(updated);
     setExportBtnDisabled(!shouldEnableExportButton(updated));
   };
 
-  const handleDelete = (id) => () => {
-    setMedications((prev) =>
-      prev.filter((med) => med.id !== id)
-    );
+    const handleDelete = (id) => () => {
+    setMedications((prev) => prev.filter((m) => m.id !== id));
+  };
+
+  const handleCalculate = async (medication) => {
+    try {
+      const response = await fetch('http://localhost:3000/calculo/calculo-droga', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          administracion_id: medication.administracion_id,
+          imc: patient.sup_corporal,
+          nueva_fuerza_valor: medication.concentrationData.fuerza_valor,
+          nueva_fuerza_unidad: medication.concentrationData.fuerza_unidad
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al calcular la droga');
+      }
+
+      const result = await response.json();
+      
+      setMedications(prev => prev.map(med => {
+        if (med.id === medication.id) {
+          return {
+            ...med,
+            needed_amount: `${result.cantidad_total} ${result.fuerza_unidad} (${result.unidades} unidades)`
+          };
+        }
+        return med;
+      }));
+    } catch (error) {
+      console.error('Error al calcular la droga:', error);
+      // Aquí podrías mostrar un mensaje de error al usuario
+    }
   };
 
   const columns = getMedicationColumns(

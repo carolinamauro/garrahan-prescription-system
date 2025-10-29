@@ -6,12 +6,14 @@ import { AlertPopup } from '@/components/AlertPopup';
 import { EditButtons } from '@/components/EditButtons';
 import { EditFields } from '@/components/PatientEditCard/EditFields';
 
-const calculateBMI = (peso, altura) => {
+const calculateBodySurface = (peso, altura) => {
   if (!peso || !altura) return null;
   const pesoNum = parseFloat(peso);
-  const alturaMetros = parseFloat(altura) / 100;
-  if (isNaN(pesoNum) || isNaN(alturaMetros) || alturaMetros <= 0) return null;
-  return (pesoNum / (alturaMetros * alturaMetros)).toFixed(2);
+  const alturaCm = parseFloat(altura);
+  if (isNaN(pesoNum) || isNaN(alturaCm) || alturaCm <= 0) return null;
+  // Fórmula de Mosteller: SC (m²) = √((peso × altura)/3600)
+  const superficie = Math.sqrt((pesoNum * alturaCm) / 3600);
+  return superficie.toFixed(2);
 };
 
 export function PatientEditCard({ patient }) {
@@ -32,7 +34,7 @@ export function PatientEditCard({ patient }) {
 
     const pesoFinal = form.peso === '' ? patient.peso : form.peso;
     const alturaFinal = form.altura === '' ? patient.altura : form.altura;
-    const supCorporal = calculateBMI(pesoFinal, alturaFinal);
+    const supCorporal = calculateBodySurface(pesoFinal, alturaFinal);
 
     const updatedForm = {
       ...form,

@@ -1,17 +1,19 @@
 import { EditField } from '@/components/PatientEditCard/EditFields/EditField';
 
-const calculateBMI = (peso, altura) => {
+const calculateBodySurface = (peso, altura) => {
   if (!peso || !altura) return null;
   const pesoNum = parseFloat(peso);
-  const alturaMetros = parseFloat(altura) / 100;
-  if (isNaN(pesoNum) || isNaN(alturaMetros) || alturaMetros <= 0) return null;
-  return (pesoNum / (alturaMetros * alturaMetros)).toFixed(2);
+  const alturaCm = parseFloat(altura);
+  if (isNaN(pesoNum) || isNaN(alturaCm) || alturaCm <= 0) return null;
+  // Fórmula de Mosteller: SC (m²) = √((peso × altura)/3600)
+  const superficie = Math.sqrt((pesoNum * alturaCm) / 3600);
+  return superficie.toFixed(2);
 };
 
 export function EditFields({form, setForm, patient}) {
   const defaultValue = 'No informa';
   
-  const currentBMI = calculateBMI(
+  const currentBodySurface = calculateBodySurface(
     form.peso || patient.peso, 
     form.altura || patient.altura
   );
@@ -40,7 +42,7 @@ export function EditFields({form, setForm, patient}) {
       label: 'Superficie corporal',
       placeholder: '-',
       savedLabel: 'Valor calculado',
-      savedValue: currentBMI || 'No disponible',
+      savedValue: currentBodySurface ? `${currentBodySurface} m²` : 'No disponible',
       hasInput: false,
       form: null
     },
