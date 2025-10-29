@@ -40,6 +40,7 @@ export default function SearchProtocol({
       onChange={() => setSaveBtnDisabled(true)}
       filterFn={filterFn}
       getId={(protocol) => protocol.protocolo_id}
+      showedValue={(protocol) => protocol.nombre }
     />
   );
 }
