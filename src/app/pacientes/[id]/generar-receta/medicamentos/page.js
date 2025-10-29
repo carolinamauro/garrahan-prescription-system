@@ -166,6 +166,9 @@ export default function MedicamentosPage({ params }) {
         if (med.id === medication.id) {
           return {
             ...med,
+            total_dosis_amount: result.cantidad_total,
+            total_units: result.unidades,
+            total_dosis_unit: result.fuerza_unidad,
             needed_amount:
               `${result.cantidad_total} ${result.fuerza_unidad} (${result.unidades} unidades)`
           };

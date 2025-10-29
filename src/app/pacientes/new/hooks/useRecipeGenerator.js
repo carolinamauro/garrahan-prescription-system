@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { exportRecipe } from '../services/api';
-import ExcelJS from 'exceljs';
 import { calculateBodySurface } from '@/lib/utils';
 
 export const useRecipeGenerator = () => {
@@ -62,16 +61,16 @@ export const useRecipeGenerator = () => {
 
     medications.forEach((med) => {
       const admin = administraciones.find(a => a.droga_id === med.droga_id);
-      console.log(med);
+
       data.detalles.push({
         admin_id: admin.admin_id,
         nombre_generico: med.nombre,
         presentacion: med.presentation,
-        concentracion: `${admin.fuerza_valor} ${admin.fuerza_unidad}`,
-        cantidad: 2, //med.cantidad,
+        concentracion: med.concentration,
+        cantidad: med.total_units,
         dosis_diaria: admin.frecuencia_diaria,
         numero_dias: admin.cantidad_dias,
-        dosis_total:  10, //admin.fuerza_valor * admin.frecuencia_diaria * admin.cantidad_dias,
+        dosis_total: med.total_dosis_amount,
         via_administracion: admin.via_administracion,
       });
     });
