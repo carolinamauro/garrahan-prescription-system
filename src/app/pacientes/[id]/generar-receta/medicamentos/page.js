@@ -9,10 +9,13 @@ import { RecetaButtons } from '@/components/RecetaButtons';
 import { useHeader } from '@/contexts/HeaderContext';
 import { usePatients } from '@/contexts/PatientContext';
 import { useRecipeGenerator } from '@/app/pacientes/new/hooks/useRecipeGenerator';
-import { Button } from '@/components/ui/button';
 
 function shouldEnableExportButton(medications) {
-  return medications.every((m) => (m.presentation ?? '') !== '' && (m.concentration ?? '') !== '');
+  return medications.every((m) =>
+    (m.presentation ?? '') !== '' &&
+    (m.concentration ?? '') !== '' &&
+    (m.needed_amount ?? '') !== ''
+  );
 }
 
 export default function MedicamentosPage({ params }) {
@@ -162,22 +165,25 @@ export default function MedicamentosPage({ params }) {
 
       const result = await response.json();
 
-      setMedications(prev => prev.map(med => {
-        if (med.id === medication.id) {
-          return {
-            ...med,
-            total_dosis_amount: result.cantidad_total,
-            total_units: result.unidades,
-            total_dosis_unit: result.fuerza_unidad,
-            needed_amount:
-              `${result.cantidad_total} ${result.fuerza_unidad} (${result.unidades} unidades)`
-          };
-        }
-        return med;
-      }));
+      setMedications(prev => {
+        const updated = prev.map(med => {
+          if (med.id === medication.id) {
+            return {
+              ...med,
+              total_dosis_amount: result.cantidad_total,
+              total_units: result.unidades,
+              total_dosis_unit: result.fuerza_unidad,
+              needed_amount:
+                  `${result.cantidad_total} ${result.fuerza_unidad} (${result.unidades} unidades)`
+            };
+          }
+          return med;
+        });
+        setExportBtnDisabled(!shouldEnableExportButton(updated));
+        return updated;
+      });
     } catch (error) {
       console.error('Error al calcular la droga:', error);
-      // Aquí podrías mostrar un mensaje de error al usuario
     }
   };
 
