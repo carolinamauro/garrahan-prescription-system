@@ -153,7 +153,7 @@ export default function MedicamentosPage({ params }) {
         credentials: 'include',
         body: JSON.stringify({
           administracion_id: medication.administracion_id,
-          imc: patient.sup_corporal,
+          peso: patient.peso,
           nueva_fuerza_valor: medication.concentrationData.fuerza_valor,
           nueva_fuerza_unidad: medication.concentrationData.fuerza_unidad
         })
