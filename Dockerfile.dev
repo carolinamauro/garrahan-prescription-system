@@ -1,0 +1,12 @@
+FROM node:current
+
+# Utilidades básicas
+RUN apt-get update && apt-get install -y unzip curl git vim
+
+# Dependencias globales JS
+RUN npm install -g \
+    jest \
+    @cucumber/cucumber \
+    nodemon \
+    eslint \
+    prettier

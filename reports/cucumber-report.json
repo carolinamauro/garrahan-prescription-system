@@ -1,0 +1,76 @@
+[
+  {
+    "description": "  Como usuario\n  Quiero poder acceder a la sección de pacientes desde el menú\n  Para ver la gestión de pacientes",
+    "elements": [
+      {
+        "description": "",
+        "id": "navegación-a-pacientes;ir-a-la-página-de-pacientes-desde-el-menú",
+        "keyword": "Scenario",
+        "line": 6,
+        "name": "Ir a la página de Pacientes desde el menú",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "que estoy en la página principal",
+            "match": {
+              "location": "file:/app/features/step_definitions/patients_steps.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 893922920
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 8,
+            "name": "hago clic en \"Pacientes\" en el menú",
+            "match": {
+              "location": "file:/app/features/step_definitions/patients_steps.js:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 139157157
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 9,
+            "name": "debería navegar a \"/patients\"",
+            "match": {
+              "location": "file:/app/features/step_definitions/patients_steps.js:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 120387817
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "debería ver el texto \"Administra y visualiza todos los pacientes del sistema\"",
+            "match": {
+              "location": "file:/app/features/step_definitions/patients_steps.js:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 52083260
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "navegación-a-pacientes",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Navegación a Pacientes",
+    "tags": [],
+    "uri": "features/patients.feature"
+  }
+]

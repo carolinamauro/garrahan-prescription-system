@@ -1,10 +1,24 @@
+
+import js from '@eslint/js';
+
 export default [
+
+  js.configs.recommended,
+
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
       parserOptions: { ecmaFeatures: { jsx: true } },
+      globals: {
+        process: 'readonly',
+        require: 'readonly',
+        module: 'readonly',
+        window: 'readonly',
+        document: 'readonly',
+        console: 'readonly',
+      },
     },
     plugins: {
       react: (await import('eslint-plugin-react')).default,
@@ -16,7 +30,7 @@ export default [
       'no-unused-vars': 'warn',
       'react/jsx-uses-vars': 'warn',
       'no-undef': 'error',
-      'no-console': 'warn',
+      'no-console': 'off',
       'semi': ['error', 'always'],
       'quotes': ['error', 'single', { 'avoidEscape': true }],
       'eqeqeq': ['warn', 'always'],
@@ -28,9 +42,9 @@ export default [
       'keyword-spacing': ['error', { before: true, after: true }],
       'comma-spacing': ['error', { before: false, after: true }],
       'no-mixed-spaces-and-tabs': 'error',
-      'max-len': ['error', { 
-        'code': 80, 
-        'ignoreUrls': true, 
+      'max-len': ['error', {
+        'code': 100,
+        'ignoreUrls': true,
         'ignoreStrings': false,
         'ignoreTemplateLiterals': false,
         'ignoreRegExpLiterals': true
@@ -53,6 +67,9 @@ export default [
         beforeEach: 'readonly',
         afterEach: 'readonly',
         jest: 'readonly',
+        process: 'readonly',
+        require: 'readonly',
+        module: 'readonly',
       },
     },
   },
@@ -63,6 +80,7 @@ export default [
       'dist/**',
       'build/**',
       'coverage/**',
+      'src/components/ui/**'
     ],
   },
 ];
