@@ -5,7 +5,7 @@ import path from 'path';
 dotenv.config({ path: path.resolve(process.cwd(), '.env.test') });
 
 export default defineConfig({
-  testDir: './spec',
+  testDir: './spec/e2e',
   timeout: 30_000,
   retries: 0,
   use: {
