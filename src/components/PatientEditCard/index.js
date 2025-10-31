@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { AlertPopup } from '@/components/AlertPopup';
 import { EditButtons } from '@/components/EditButtons';
 import { EditFields } from '@/components/PatientEditCard/EditFields';
-import { calcularSuperficieCorporal } from '@/lib/utils';
+import { calculateBodySurface } from '@/lib/utils';
 
 export function PatientEditCard({ patient }) {
   const [showDialog, setShowDialog] = useState(false);
@@ -25,7 +25,7 @@ export function PatientEditCard({ patient }) {
 
     const pesoFinal = form.peso === '' ? patient.peso : form.peso;
     const alturaFinal = form.altura === '' ? patient.altura : form.altura;
-    const supCorporal = calcularSuperficieCorporal(pesoFinal);
+    const supCorporal = calculateBodySurface(pesoFinal);
 
     const updatedForm = {
       ...form,

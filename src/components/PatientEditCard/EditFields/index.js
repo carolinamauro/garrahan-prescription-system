@@ -1,10 +1,10 @@
 import { EditField } from '@/components/PatientEditCard/EditFields/EditField';
-import { calcularSuperficieCorporal } from '@/lib/utils';
+import { calculateBodySurface } from '@/lib/utils';
 
 export function EditFields({form, setForm, patient}) {
   const defaultValue = 'No informa';
 
-  const currentBodySurface = calcularSuperficieCorporal(form.peso || patient.peso);
+  const currentBodySurface = calculateBodySurface(form.peso || patient.peso);
 
   const fields = [
     {

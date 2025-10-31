@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { createPatient } from '../services/api';
+import { createPatient } from '../../../../services/api';
 import { usePatients } from '@/contexts/PatientContext';
 
 export function usePatientCreation() {

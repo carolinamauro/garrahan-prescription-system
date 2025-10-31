@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { searchExternalPatient } from '../services/api';
+import { searchExternalPatient } from '../../../../services/api';
 
 export function useExternalPatientSearch() {
   const [searchId, setSearchId] = useState('');

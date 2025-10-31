@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { exportRecipe } from '../services/api';
-import { calcularSuperficieCorporal } from '@/lib/utils';
+import { exportRecipe } from '../../../../services/api';
+import { calculateBodySurface } from '@/lib/utils';
 
 export const useRecipeGenerator = () => {
 
@@ -45,7 +45,7 @@ export const useRecipeGenerator = () => {
         peso: patient.peso,
         talla: patient.altura,
         superficie_corporal: patient.sup_corporal ?
-          patient.sup_corporal : calcularSuperficieCorporal(patient.peso),
+          patient.sup_corporal : calculateBodySurface(patient.peso),
         diagnostico: patient.protocolo.nombre,
         numero_ciclo: patient.protocolo.ciclo_actual_id,
         protocolo_id: patient.protocolo.protocolo_id,

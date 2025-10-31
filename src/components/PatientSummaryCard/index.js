@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { FilePen } from 'lucide-react';
 import { PatientInfoItem } from './PatientInfoItem';
 import Link from 'next/link';
+import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
 
 const formatDate = (dateString) => {
   if (!dateString) return '-';
@@ -13,7 +14,8 @@ const formatDate = (dateString) => {
   return `${day}/${month}/${year}`;
 };
 
-export function PatientSummaryCard({ patient, withEditButton }) {
+export function PatientSummaryCard({ withEditButton }) {
+  const {patient} = useSelectedPatient();
   const gridColsClass = withEditButton ? 'md:grid-cols-6' : 'md:grid-cols-5';
   const gridClass = `grid grid-cols-2 gap-3 ${gridColsClass} items-start place-items-center`;
 
@@ -27,6 +29,11 @@ export function PatientSummaryCard({ patient, withEditButton }) {
               label="Edad"
               value={patient.anios === null || patient.dias === null
                 ? 'No informa' : `${patient.anios} años y ${patient.dias} días`}
+            />
+            <PatientInfoItem
+              label="Dni"
+              value={patient.dni === null
+                ? 'No informa' : `${patient.dni}`}
             />
             <div className="flex flex-col">
               <PatientInfoItem label="Peso (en kg)"

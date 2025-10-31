@@ -32,6 +32,11 @@ export const getPatientColumns = (handleEdit) => [
     cell: ({ row }) => { return <IdCell content={row.original.paciente_id} />; },
   },
   {
+    accessorKey: 'DNI',
+    header: 'DNI',
+    cell: ({ row }) => { return <DataCell content={row.original.dni} />; },
+  },
+  {
     accessorKey: 'Historia Clínica',
     header: 'Historia Clínica',
     cell: ({ row }) => { return <IdCell content={row.original.id_hospitalario} />; },

@@ -1,5 +1,6 @@
 /* global fetch */
-const API_BASE_URL = 'http://localhost:3000';
+
+import { API_BASE_URL } from '.';
 
 export async function fetchPacientes() {
   const res = await fetch(`${API_BASE_URL}/pacientes`, {
@@ -74,4 +75,3 @@ export async function exportRecipe(patientData, type) {
   return result.blob();
 }
 
-export async function updatePatientProtocol() {}

@@ -93,7 +93,6 @@ export function DataTable({
         </div>
       }
 
-      {/* Table Content */}
       <TabsContent
         value="outline"
         className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6"

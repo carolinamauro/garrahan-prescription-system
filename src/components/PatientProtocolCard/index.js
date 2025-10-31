@@ -3,6 +3,7 @@ import { TabsProtocolCard } from '@/components/PatientProtocolCard/TabsProtocolC
 import { ActionButtonsProtocol } from '@/components/PatientProtocolCard/ActionButtonsProtocol';
 import { useState } from 'react';
 import recetas from '../../app/recetas.json';
+import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
 
 function tieneSuperficieCorporal(sup_corporal) {
   return Boolean(sup_corporal && String(sup_corporal).trim() !== '');
@@ -29,11 +30,12 @@ function getSeparadorTextos(tieneProtocolo, regimen, linea) {
     && linea !== null && linea !== undefined ? ' - ' : '';
 }
 
-export function PatientProtocolCard({ patient, tieneProtocolo }) {
+export function PatientProtocolCard() {
+  const {patient, hasProtocol, protocol, recipes} = useSelectedPatient();
   const tieneSupCorporal = tieneSuperficieCorporal(patient.sup_corporal);
-  const textoRegimen = getTextoRegimen(tieneProtocolo, patient.protocolo?.regimen);
-  const separadorTextos = getSeparadorTextos(tieneProtocolo,
-    patient.protocolo?.regimen, patient.protocolo?.linea);
+  const textoRegimen = getTextoRegimen(hasProtocol, patient.protocolo?.regimen);
+  const separadorTextos = getSeparadorTextos(hasProtocol,
+    protocol?.regimen, protocol?.linea);
   const [recetasSolicitadas] = useState(recetas);
 
   return (
@@ -41,11 +43,11 @@ export function PatientProtocolCard({ patient, tieneProtocolo }) {
       <Card className="bg-gradient-to-t from-primary/5 to-card shadow-xs">
         <CardHeader>
           <CardTitle>Protocolo de tratamiento</CardTitle>
-          <CardDescription className={!tieneProtocolo ? 'text-red-500' : ''}>
-            {tieneProtocolo ?
+          <CardDescription className={!hasProtocol ? 'text-red-500' : ''}>
+            {hasProtocol ?
               <div>
-                <p>{`${patient.protocolo.nombre}`}</p>
-                <p>{`${lineaNumeroATexto(patient.protocolo.linea)} 
+                <p>{`${protocol.nombre}`}</p>
+                <p>{`${lineaNumeroATexto(protocol.linea)} 
                      ${separadorTextos} 
                      ${textoRegimen}`}</p>
               </div>
@@ -57,12 +59,12 @@ export function PatientProtocolCard({ patient, tieneProtocolo }) {
         <CardContent>
           <ActionButtonsProtocol
             patientId={patient.paciente_id}
-            tieneProtocolo={tieneProtocolo}
+            tieneProtocolo={hasProtocol}
             tieneSupCorporal={tieneSupCorporal}
           />
           <TabsProtocolCard
-            recetasSolicitadas={recetasSolicitadas}
-            tieneProtocolo={tieneProtocolo}
+            recetasSolicitadas={recipes}
+            tieneProtocolo={hasProtocol}
           />
         </CardContent>
       </Card>

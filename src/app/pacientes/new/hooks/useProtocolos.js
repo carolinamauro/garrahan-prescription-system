@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { fetchProtocolos, fetchCiclos } from '../services/api';
+import { fetchProtocolos, fetchCiclos } from '../../../../services/api';
 
 export function useProtocolos() {
   const [protocolos, setProtocolos] = useState([]);

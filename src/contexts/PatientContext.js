@@ -1,7 +1,7 @@
 'use client';
 /* global fetch */
 import {createContext, useContext, useEffect, useState} from 'react';
-import {fetchPacientes, fetchProtocoloPaciente} from '@/app/pacientes/new/services/api';
+import {fetchPacientes, fetchProtocoloPaciente} from '@/services/api';
 import {calcularEdad} from '@/lib/utils';
 
 const PatientsContext = createContext();
@@ -128,8 +128,12 @@ export function PatientsProvider({ children }) {
     });
   };
 
+  const getPatientById = (id) => {
+    return patients.find((p) => (String(p.paciente_id)) === String(id)) || null;
+  };
+
   return (
-    <PatientsContext.Provider value={{ patients, updatePatient, addPatient, loading }}>
+    <PatientsContext.Provider value={{ patients, updatePatient, addPatient, loading, getPatientById }}>
       {children}
     </PatientsContext.Provider>
   );
