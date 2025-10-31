@@ -1,4 +1,5 @@
 'use client';
+/* global fetch */
 import {createContext, useContext, useEffect, useState} from 'react';
 import {fetchPacientes, fetchProtocoloPaciente} from '@/app/pacientes/new/services/api';
 import {calcularEdad} from '@/lib/utils';
@@ -33,7 +34,8 @@ export function PatientsProvider({ children }) {
 
   const fetchAndStorePatients = async () => {
     setLoading(true);
-    let pacientes = await fetchPacientes().catch((e) => {
+    let pacientes = await fetchPacientes().catch((error) => {
+      console.error('Error fetching pacientes:', error);
       return null;
     });
     if (!pacientes || pacientes.length === 0) {

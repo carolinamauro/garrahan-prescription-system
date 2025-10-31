@@ -11,6 +11,6 @@ test('navegar a Pacientes muestra Gestión de Pacientes', async ({ page }) => {
   await expect(page).toHaveURL(/.*\/patients/);
 
   // Verificar que aparece el título
-  await expect(page.getByText
-  ('Administra y visualiza todos los pacientes del sistema')).toBeVisible();
+  await expect(page.
+    getByText('Administra y visualiza todos los pacientes del sistema')).toBeVisible();
 });

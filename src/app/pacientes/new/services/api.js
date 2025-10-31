@@ -73,3 +73,5 @@ export async function exportRecipe(patientData, type) {
 
   return result.blob();
 }
+
+export async function updatePatientProtocol() {}

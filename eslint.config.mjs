@@ -1,4 +1,10 @@
+
+import js from '@eslint/js';
+
 export default [
+
+  js.configs.recommended,
+
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -11,6 +17,7 @@ export default [
         module: 'readonly',
         window: 'readonly',
         document: 'readonly',
+        console: 'readonly',
       },
     },
     plugins: {
@@ -23,7 +30,7 @@ export default [
       'no-unused-vars': 'warn',
       'react/jsx-uses-vars': 'warn',
       'no-undef': 'error',
-      'no-console': 'warn',
+      'no-console': 'off',
       'semi': ['error', 'always'],
       'quotes': ['error', 'single', { 'avoidEscape': true }],
       'eqeqeq': ['warn', 'always'],

@@ -32,7 +32,10 @@ export function calcularEdad(fechaNacimientoStr) {
   return { anios: edadAnios, dias: diffDias };
 }
 
-export const calcularSuperficieCorporal = (peso, altura) => {
-  if (!peso || !altura) return null;
+export const calculateBodySurface = (peso) => {
+  if (!peso) return null;
+  const pesoNum = parseFloat(peso);
+  if (isNaN(pesoNum)) return null;
   return (peso * 4 + 7) / (peso + 90);
 };
+
