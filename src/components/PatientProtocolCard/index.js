@@ -2,7 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { TabsProtocolCard } from '@/components/PatientProtocolCard/TabsProtocolCard';
 import { ActionButtonsProtocol } from '@/components/PatientProtocolCard/ActionButtonsProtocol';
 import { useState } from 'react';
-import recetas from '../../app/recetas.json';
 import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
 
 function tieneSuperficieCorporal(sup_corporal) {
@@ -36,7 +35,6 @@ export function PatientProtocolCard() {
   const textoRegimen = getTextoRegimen(hasProtocol, patient.protocolo?.regimen);
   const separadorTextos = getSeparadorTextos(hasProtocol,
     protocol?.regimen, protocol?.linea);
-  const [recetasSolicitadas] = useState(recetas);
 
   return (
     <div className="px-4 lg:px-6">

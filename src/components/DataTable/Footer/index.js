@@ -2,7 +2,7 @@ import { NavTable } from '@/components/DataTable/Footer/NavTable';
 import { Pagination } from '@/components/DataTable/Footer/Pagination';
 
 export function Footer({ table, withSelectedRowsCount }) {
-  const amountPages = table.getPageCount();
+  const amountPages = Math.max(table.getPageCount(), 1);
   let amountSelectedRows = table.getFilteredSelectedRowModel().rows.length;
   let amountTotalRows = table.getFilteredRowModel().rows.length;
   let totalRowsText = amountTotalRows === 1 ? 'fila' : 'filas';

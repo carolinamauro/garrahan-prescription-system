@@ -1,7 +1,0 @@
-[
-  { "id": "1", "genericName": "CISPLATINO", "requiredAmount": "120mg/ml", "presentation": "", "presentations": ["FRASCO AMPOLLA", "COMPRIMIDOS"], "concentration": "2 × 60ml/m2", "concentrations": ["2 × 60ml/m2", "1 × 120ml/m2"] },
-  { "id": "2", "genericName": "DOXORRUBICINA", "requiredAmount": "75ml/m2", "presentation": "", "presentations": ["FRASCO AMPOLLA", "COMPRIMIDOS"], "concentration": "2 × 37,5ml/m2", "concentrations": ["2 × 37,5ml/m2", "1 × 75ml/m2"] },
-  { "id": "3", "genericName": "METOTREXATO", "requiredAmount": "24g/m2", "presentation": "", "presentations": ["FRASCO AMPOLLA", "COMPRIMIDOS"], "concentration": "2 × 12ml/m2", "concentrations": ["2 × 12ml/m2", "1 × 24ml/m2"] },
-  { "id": "4", "genericName": "ONDANSETRON", "requiredAmount": "35ml/m2", "presentation": "", "presentations": ["FRASCO AMPOLLA", "COMPRIMIDOS"], "concentration": "7 × 5ml/m2", "concentrations": ["7 × 5ml/m2", "1 × 35ml/m2"] },
-  { "id": "5", "genericName": "LEUCOVORINA FOLINATO DE CALCIO", "requiredAmount": "90ml/m2", "presentation": "", "presentations": ["FRASCO AMPOLLA", "COMPRIMIDOS"], "concentration": "6 × 15ml/m2", "concentrations": ["6 × 15ml/m2", "3 × 30ml/m2", "1 × 90ml/m2"] }
-]
