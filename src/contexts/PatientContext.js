@@ -4,6 +4,8 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { fetchProtocoloPaciente } from '@/services/protocolos';
 import { fetchPacientes } from '@/services/pacientes';
 import { calcularEdad } from '@/lib/utils';
+import {useLogin} from '@/contexts/LoginContext';
+import {useRouter} from 'next/navigation';
 
 const PatientsContext = createContext();
 const STORAGE_KEY = 'patientsData';
@@ -12,6 +14,7 @@ const SYNC_INTERVAL_MS = 60 * 60 * 1000; // 1 hora
 export function PatientsProvider({ children }) {
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { loggedIn } = useLogin();
 
   const checkAndSync = async (timestamp) => {
     if (!timestamp || Date.now() - timestamp > SYNC_INTERVAL_MS) {
@@ -34,6 +37,11 @@ export function PatientsProvider({ children }) {
   };
 
   const fetchAndStorePatients = async () => {
+    if (!loggedIn) {
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     let pacientes = await fetchPacientes().catch((error) => {
       console.error('Error fetching pacientes:', error);

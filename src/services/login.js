@@ -1,4 +1,4 @@
-import { API_BASE_URL } from '.';
+import { apiClient } from './apiClient';
 
 const idRolAdmin = '1';
 const idRolMedico = '2';
@@ -12,17 +12,7 @@ export async function loginUser(role) {
   };
 
   try {
-    const response = await fetch(`${API_BASE_URL}/auth/login-test`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify(currUser)
-    });
-
-    if (!response.ok) {
-      throw new Error('Error al iniciar sesión');
-    }
-
+    await apiClient.post('/auth/login-test', currUser);
     return currUser;
   } catch (err) {
     console.error('Error in loginUser:', err);
