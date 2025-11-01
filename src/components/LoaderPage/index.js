@@ -8,7 +8,7 @@ export function LoaderPage({ children }) {
   if (loading) {
     return (
       <div className="flex items-center justify-center
-       min-h-screen w-full bg-background rounded-xl">
+       w-full bg-background rounded-xl min-h-[90.9vh]">
         <div className="max-w-md w-full px-4">
           <LoaderSpinner />
         </div>

@@ -5,6 +5,7 @@ import { PatientProtocolCard } from '@/components/PatientProtocolCard';
 import { usePatients } from '@/contexts/PatientContext';
 import { useHeader } from '@/contexts/HeaderContext';
 import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
+import { NotFoundPage } from '@/components/NotFoundPage';
 
 export default function PatientPage({ params }) {
   const { id } = React.use(params);
@@ -18,7 +19,7 @@ export default function PatientPage({ params }) {
   useEffect(() => {
 
     if (!patientFound) {
-      setTitle('Paciente no encontrado');
+      setTitle('');
       setSubtitle('');
       return;
     }
@@ -30,9 +31,7 @@ export default function PatientPage({ params }) {
 
   if (!patient) {
     return (
-      <div className="px-4 lg:px-6">
-        <p className="text-red-500">Paciente no encontrado.</p>
-      </div>
+      <NotFoundPage />
     );
   }
 
