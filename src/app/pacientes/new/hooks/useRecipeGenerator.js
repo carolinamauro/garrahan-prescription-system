@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { exportRecipe } from '../../../../services/api';
+import { exportRecipe } from '@/services/recipe';
 import { calculateBodySurface } from '@/lib/utils';
 
 export const useRecipeGenerator = () => {

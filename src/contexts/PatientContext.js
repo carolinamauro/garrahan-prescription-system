@@ -1,8 +1,9 @@
 'use client';
 /* global fetch */
-import {createContext, useContext, useEffect, useState} from 'react';
-import {fetchPacientes, fetchProtocoloPaciente} from '@/services/api';
-import {calcularEdad} from '@/lib/utils';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { fetchProtocoloPaciente } from '@/services/protocolos';
+import { fetchPacientes } from '@/services/pacientes';
+import { calcularEdad } from '@/lib/utils';
 
 const PatientsContext = createContext();
 const STORAGE_KEY = 'patientsData';
@@ -74,6 +75,7 @@ export function PatientsProvider({ children }) {
 
   const updatePatient = async (id, updates) => {
     try {
+      // TODO: Sacar a services
       const response = await fetch(`http://localhost:3000/pacientes/${id}`, {
         method: 'PATCH',
         headers: {
