@@ -21,16 +21,7 @@ export default function PatientEditProtocolPage() {
 
   const patient = getPatientById(id);
 
-  const {
-    selectedProtocol,
-    selectedLine,
-    setSelectedLine,
-    selectedRegimen,
-    setSelectedRegimen,
-    handleSave,
-    showDialog,
-    setShowDialog,
-  } = useProtocolForm(patient);
+  const protocolForm = useProtocolForm(patient);
 
   useEffect(() => {
     if (!patient) return;
@@ -48,17 +39,17 @@ export default function PatientEditProtocolPage() {
       <Card className="bg-gradient-to-t from-primary/5 to-card shadow-xs">
         <CardContent>
           <ProtocolInfo
-            protocolo={selectedProtocol || patient.protocolo}
-            selectedLine={selectedLine}
-            selectedRegimen={selectedRegimen}
-            setSelectedLine={setSelectedLine}
-            setSelectedRegimen={setSelectedRegimen}
+            protocolo={protocolForm.selectedProtocol || patient.protocolo}
+            selectedLine={protocolForm.selectedLine}
+            selectedRegimen={protocolForm.selectedRegimen}
+            setSelectedLine={protocolForm.setSelectedLine}
+            setSelectedRegimen={protocolForm.setSelectedRegimen}
           />
         </CardContent>
       </Card>
 
       <EditButtons
-        handleSave={handleSave}
+        handleSave={protocolForm.handleSave}
         href={`/pacientes/${patient.paciente_id}`}
         saveBtnDisabled={false}
       />
@@ -67,8 +58,8 @@ export default function PatientEditProtocolPage() {
         title="Datos guardados"
         description="El protocolo del paciente se actualizó correctamente."
         handleOnClick={() => router.push(`/pacientes/${patient.paciente_id}`)}
-        showDialog={showDialog}
-        setShowDialog={setShowDialog}
+        showDialog={protocolForm.showDialog}
+        setShowDialog={protocolForm.setShowDialog}
       />
     </div>
   );

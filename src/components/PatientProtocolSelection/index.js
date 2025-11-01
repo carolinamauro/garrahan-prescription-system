@@ -15,19 +15,7 @@ export function PatientProtocolSelection({ patient }) {
   const router = useRouter();
   const { protocolos } = useProtocolos();
   const [showProtocolInfo, setShowProtocolInfo] = useState(false);
-  const {
-    selectedProtocol,
-    setSelectedProtocol,
-    selectedLine,
-    setSelectedLine,
-    selectedRegimen,
-    setSelectedRegimen,
-    handleSave,
-    showDialog,
-    setShowDialog,
-    saveBtnDisabled,
-    setSaveBtnDisabled,
-  } = useProtocolForm(patient);
+  const protocolForm = useProtocolForm(patient);
 
   if (!patient) return <NotFoundPage />;
 
@@ -46,19 +34,19 @@ export function PatientProtocolSelection({ patient }) {
               <SearchProtocol
                 placeholder="Buscar protocolos..."
                 options={protocolos}
-                setSelectedValue={setSelectedProtocol}
+                setSelectedValue={protocolForm.setSelectedProtocol}
                 setShowProtocolInfo={setShowProtocolInfo}
-                setSaveBtnDisabled={setSaveBtnDisabled}
+                setSaveBtnDisabled={protocolForm.setSaveBtnDisabled}
               />
             </div>
 
             {showProtocolInfo && (
               <ProtocolInfo
-                protocolo={selectedProtocol}
-                selectedLine={selectedLine}
-                selectedRegimen={selectedRegimen}
-                setSelectedLine={setSelectedLine}
-                setSelectedRegimen={setSelectedRegimen}
+                protocolo={protocolForm.selectedProtocol}
+                selectedLine={protocolForm.selectedLine}
+                selectedRegimen={protocolForm.selectedRegimen}
+                setSelectedLine={protocolForm.setSelectedLine}
+                setSelectedRegimen={protocolForm.setSelectedRegimen}
               />
             )}
           </div>
@@ -66,17 +54,17 @@ export function PatientProtocolSelection({ patient }) {
       </Card>
 
       <EditButtons
-        handleSave={handleSave}
+        handleSave={protocolForm.handleSave}
         href={`/pacientes/${patient.paciente_id}`}
-        saveBtnDisabled={saveBtnDisabled}
+        saveBtnDisabled={protocolForm.saveBtnDisabled}
       />
 
       <AlertPopup
         title="Datos guardados"
         description="El protocolo del paciente se guardó correctamente."
         handleOnClick={() => router.push(`/pacientes/${patient.paciente_id}`)}
-        showDialog={showDialog}
-        setShowDialog={setShowDialog}
+        showDialog={protocolForm.showDialog}
+        setShowDialog={protocolForm.setShowDialog}
       />
     </div>
   );
