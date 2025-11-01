@@ -40,9 +40,7 @@ export default function PatientEditProtocolPage() {
         <CardContent>
           <ProtocolInfo
             protocolo={protocolForm.selectedProtocol || patient.protocolo}
-            selectedLine={protocolForm.selectedLine}
             selectedRegimen={protocolForm.selectedRegimen}
-            setSelectedLine={protocolForm.setSelectedLine}
             setSelectedRegimen={protocolForm.setSelectedRegimen}
           />
         </CardContent>

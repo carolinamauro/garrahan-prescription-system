@@ -2,13 +2,7 @@
 
 import { RadioSelector } from '@/components/RadioSelector';
 
-export function ProtocolInfo({
-  protocolo,
-  selectedLine,
-  setSelectedLine,
-  selectedRegimen,
-  setSelectedRegimen
-}) {
+export function ProtocolInfo({ protocolo, selectedRegimen, setSelectedRegimen }) {
   return (
     <div className="flex flex-col max-w-4xl">
       {protocolo && (
@@ -18,25 +12,16 @@ export function ProtocolInfo({
             <p className="text-sm text-foreground">{protocolo.nombre}</p>
           </div>
 
-          {/* TODO: Sacar el hardcodeo de los valores acá*/}
-          <RadioSelector
-            title="Etapas del protocolo / Línea"
-            value={selectedLine}
-            onChange={setSelectedLine}
-            options={[
-              { value: 1, label: 'Primera línea' },
-              { value: 2, label: 'Segunda línea' },
-            ]}
-          />
-
           <RadioSelector
             title="Régimen"
             value={selectedRegimen}
             onChange={setSelectedRegimen}
-            options={[
-              { value: 1, label: 'Régimen 1' },
-              { value: 2, label: 'Régimen 2' },
-            ]}
+            options={
+              Array.from(
+                { length: protocolo.cantidad_regimenes || 0 },
+                (_, i) => ({ value: i, label: `Régimen ${i}` })
+              )
+            }
           />
 
           <div className="mt-6">

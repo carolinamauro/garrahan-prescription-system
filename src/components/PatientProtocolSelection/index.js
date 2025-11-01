@@ -43,9 +43,7 @@ export function PatientProtocolSelection({ patient }) {
             {showProtocolInfo && (
               <ProtocolInfo
                 protocolo={protocolForm.selectedProtocol}
-                selectedLine={protocolForm.selectedLine}
                 selectedRegimen={protocolForm.selectedRegimen}
-                setSelectedLine={protocolForm.setSelectedLine}
                 setSelectedRegimen={protocolForm.setSelectedRegimen}
               />
             )}

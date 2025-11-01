@@ -9,7 +9,6 @@ export function useProtocolForm(patient) {
   const { setPatient } = useSelectedPatient();
 
   const [selectedProtocol, setSelectedProtocol] = useState(patient?.protocolo ?? null);
-  const [selectedLine, setSelectedLine] = useState(patient?.protocolo?.linea ?? 1);
   const [selectedRegimen, setSelectedRegimen] = useState(patient?.protocolo?.regimen ?? 1);
   const [showDialog, setShowDialog] = useState(false);
   const [saveBtnDisabled, setSaveBtnDisabled] = useState(true);
@@ -19,7 +18,6 @@ export function useProtocolForm(patient) {
 
     const updatedProtocolo = {
       ...selectedProtocol,
-      linea: selectedLine,
       regimen: selectedRegimen,
     };
 
@@ -30,13 +28,11 @@ export function useProtocolForm(patient) {
     } catch (error) {
       console.error('Error al actualizar el paciente:', error);
     }
-  }, [patient, selectedProtocol, selectedLine, selectedRegimen, updatePatient, setPatient]);
+  }, [patient, selectedProtocol, selectedRegimen]);
 
   return {
     selectedProtocol,
     setSelectedProtocol,
-    selectedLine,
-    setSelectedLine,
     selectedRegimen,
     setSelectedRegimen,
     showDialog,
