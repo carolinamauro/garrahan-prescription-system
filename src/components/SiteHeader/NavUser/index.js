@@ -1,16 +1,12 @@
 'use client';
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/ui/avatar';
-
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { admin } from '@/services/login';
 
 function getUsernameFallback(name) {
   if (name) {
@@ -24,7 +20,9 @@ function getUsernameFallback(name) {
 }
 
 export function NavUser({user}) {
-  let fallback = getUsernameFallback(user.name);
+  const fallback = getUsernameFallback(user.name);
+  const userName = user.role === admin ? 'Administrador' : `Dr. ${user.name}`;
+  const userRole = user.role === admin ? '' : 'Oncólogo - Prescriptor';
 
   return (
     <DropdownMenu>
@@ -32,13 +30,11 @@ export function NavUser({user}) {
         <DropdownMenuLabel className="p-0 font-normal">
           <div className="flex items-center gap-2 px-2 py-1.5">
             <Avatar className="h-8 w-8">
-              <AvatarImage src={user.avatar}
-                alt={user.name} />
               <AvatarFallback>{fallback}</AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
-              <span className="truncate font-medium">Dr. {user.name}</span>
-              <span className="text-muted-foreground truncate text-xs">{user.email}</span>
+              <span className="truncate font-medium">{userName}</span>
+              <span className="text-muted-foreground truncate text-xs">{userRole}</span>
             </div>
           </div>
         </DropdownMenuLabel>

@@ -7,14 +7,12 @@ import SearchPatient from '@/components/SearchPatient';
 import { NotificationsDropdown } from '@/components/NotificationsDropdown';
 import { useHeader } from '@/contexts/HeaderContext';
 import { usePatients } from '@/contexts/PatientContext';
+import { useLogin } from '@/contexts/LoginContext';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export function SiteHeader() {
-  const user = {
-    name: 'Amirul Haque',
-    email: 'Oncólogo - Prescriptor',
-    avatar: '/avatars/shadcn.jpg',
-  };
+  const { user, loggedIn } = useLogin();
 
   const { title, subtitle } = useHeader();
   const { patients } = usePatients();
@@ -41,19 +39,27 @@ export function SiteHeader() {
           </div>
         </div>
 
-        <div className="flex justify-center flex-1">
-          <div className="w-full max-w-sm">
-            <SearchPatient
-              placeholder="Buscar paciente..."
-              options={patients}
-            />
-          </div>
-        </div>
+        <SearchPatient
+          placeholder="Buscar paciente..."
+          options={patients}
+        />
 
         <div className="flex items-center gap-2">
-          <NotificationsDropdown />
           <ThemeToggle />
-          <NavUser user={user} />
+
+          {loggedIn ?
+            <>
+              <NotificationsDropdown />
+              <NavUser user={user} />
+            </>
+            :
+            <Link href="/login-test">
+              <Button variant="default">
+                      Login
+              </Button>
+            </Link>
+          }
+
         </div>
 
       </div>

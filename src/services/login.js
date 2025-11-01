@@ -2,12 +2,12 @@ import { apiClient } from './apiClient';
 
 const idRolAdmin = '1';
 const idRolMedico = '2';
-const admin = 'admin';
+export const admin = 'admin';
 
 export async function loginUser(role) {
   const currUser = {
     id: role === admin ? idRolAdmin : idRolMedico,
-    name: role === admin ? 'Administrador' : 'Dr. Miguel Merentiel',
+    name: role === admin ? 'Administrador' : 'Miguel Merentiel',
     role
   };
 
