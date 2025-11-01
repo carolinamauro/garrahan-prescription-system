@@ -1,5 +1,7 @@
 'use client';
-import React, { useEffect, useMemo } from 'react';
+
+import { useEffect, useMemo } from 'react';
+import { useParams } from 'next/navigation';
 import { usePatients } from '@/contexts/PatientContext';
 import { useHeader } from '@/contexts/HeaderContext';
 import { PatientSummaryCard } from '@/components/PatientSummaryCard';
@@ -7,33 +9,28 @@ import { PatientEditCard } from '@/components/PatientEditCard';
 import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
 import { NotFoundPage } from '@/components/NotFoundPage';
 
-export default function PatientEditPage({ params }) {
-  const { id } = React.use(params);
+export default function PatientEditPage() {
+  const { id } = useParams();
 
   const { getPatientById } = usePatients();
-  const { setPatient, patient } = useSelectedPatient();
+  const { patient, setPatient } = useSelectedPatient();
   const { setTitle, setSubtitle } = useHeader();
 
-  const patientFound = useMemo(() => getPatientById(id), [id, getPatientById]);
+  const foundPatient = useMemo(() => getPatientById(id), [id, getPatientById]);
 
   useEffect(() => {
-
-    if (!patientFound) {
+    if (!foundPatient) {
       setTitle('');
       setSubtitle('');
       return;
     }
 
-    setTitle(`${patientFound.nombre} ${patientFound.apellido}`);
+    setPatient(foundPatient);
+    setTitle(`${foundPatient.nombre} ${foundPatient.apellido}`);
     setSubtitle('Editar');
-    setPatient(patientFound);
-  }, [patientFound, setTitle, setSubtitle, setPatient]);
+  }, [foundPatient]);
 
-  if (!patient) {
-    return (
-      <NotFoundPage />
-    );
-  }
+  if (!patient) return <NotFoundPage />;
 
   return (
     <>

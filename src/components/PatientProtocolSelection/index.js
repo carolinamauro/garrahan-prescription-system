@@ -1,38 +1,35 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { useState } from 'react';
+'use client';
+
 import { useRouter } from 'next/navigation';
-import { usePatients } from '@/contexts/PatientContext';
+import { Card, CardContent } from '@/components/ui/card';
+import { useProtocolos } from '@/app/pacientes/new/hooks/useProtocolos';
+import { useProtocolForm } from '@/hooks/useProtocolForm';
+import { useState } from 'react';
 import SearchProtocol from '@/components/SearchProtocol';
 import { EditButtons } from '@/components/EditButtons';
 import { AlertPopup } from '@/components/AlertPopup';
-import { useProtocolos } from '@/app/pacientes/new/hooks/useProtocolos';
-import { ProtocolInfo } from '@/components/Protocollnfo';
+import { ProtocolInfo } from '@/components/ProtocolInfo';
+import { NotFoundPage } from '@/components/NotFoundPage';
 
 export function PatientProtocolSelection({ patient }) {
-  const [showDialog, setShowDialog] = useState(false);
-  const [showProtocolInfo, setShowProtocolInfo] = useState(false);
   const router = useRouter();
-  const { protocolos} = useProtocolos();
-  const [selectedProtocol, setSelectedProtocol] = useState('');
-  const [saveBtnDisabled, setSaveBtnDisabled] = useState(true);
-  const [selectedLine, setSelectedLine] = useState(1);
-  const [selectedRegimen, setSelectedRegimen] = useState(1);
+  const { protocolos } = useProtocolos();
+  const [showProtocolInfo, setShowProtocolInfo] = useState(false);
+  const {
+    selectedProtocol,
+    setSelectedProtocol,
+    selectedLine,
+    setSelectedLine,
+    selectedRegimen,
+    setSelectedRegimen,
+    handleSave,
+    showDialog,
+    setShowDialog,
+    saveBtnDisabled,
+    setSaveBtnDisabled,
+  } = useProtocolForm(patient);
 
-  const { updatePatient } = usePatients();
-  const [form] = useState({
-    protocolo: patient.protocolo || '',
-  });
-
-  const handleSave = async () => {
-    form.protocolo = {
-      ...selectedProtocol,
-      linea: selectedLine,
-      regimen: selectedRegimen,
-    };
-
-    await updatePatient(patient.paciente_id, form);
-    setShowDialog(true);
-  };
+  if (!patient) return <NotFoundPage />;
 
   return (
     <div className="px-4 lg:px-6">
@@ -77,9 +74,7 @@ export function PatientProtocolSelection({ patient }) {
       <AlertPopup
         title="Datos guardados"
         description="El protocolo del paciente se guardó correctamente."
-        handleOnClick={() => {
-          router.push(`/pacientes/${patient.paciente_id}`);
-        }}
+        handleOnClick={() => router.push(`/pacientes/${patient.paciente_id}`)}
         showDialog={showDialog}
         setShowDialog={setShowDialog}
       />

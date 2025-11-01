@@ -18,6 +18,7 @@ export function ProtocolInfo({
             <p className="text-sm text-foreground">{protocolo.nombre}</p>
           </div>
 
+          {/* TODO: Sacar el hardcodeo de los valores acá*/}
           <RadioSelector
             title="Etapas del protocolo / Línea"
             value={selectedLine}

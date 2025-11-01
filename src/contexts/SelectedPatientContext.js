@@ -16,7 +16,8 @@ export function SelectedPatientProvider({ children }) {
           isObject(patientProtocol) &&
           patientProtocol.nombre &&
           patientProtocol.nombre.trim() !== ''
-    );}, [patientProtocol]);
+    );
+  }, [patientProtocol]);
 
   useEffect(() => {
     if (patient && isObject(patient)) {

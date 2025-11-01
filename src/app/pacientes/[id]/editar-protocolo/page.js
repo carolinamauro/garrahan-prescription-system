@@ -1,45 +1,45 @@
 'use client';
 
 import { Card, CardContent } from '@/components/ui/card';
-import React, {useEffect, useState} from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { useRouter, useParams } from 'next/navigation';
+import { useHeader } from '@/contexts/HeaderContext';
 import { usePatients } from '@/contexts/PatientContext';
+import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
+import { ProtocolInfo } from '@/components/ProtocolInfo';
 import { EditButtons } from '@/components/EditButtons';
 import { AlertPopup } from '@/components/AlertPopup';
-import { ProtocolInfo } from '@/components/Protocollnfo';
-import { useHeader } from '@/contexts/HeaderContext';
+import { NotFoundPage } from '@/components/NotFoundPage';
+import { useProtocolForm } from '@/hooks/useProtocolForm';
 
-export default function PatientEditProtocol({ params }) {
-  const { id } = React.use(params);
-  const { patients } = usePatients();
-  const { setTitle, setSubtitle } = useHeader();
-  const patient = patients.find((p) => String(p.paciente_id) === String(id));
-
-  const [showDialog, setShowDialog] = useState(false);
+export default function PatientEditProtocolPage() {
+  const { id } = useParams();
   const router = useRouter();
-  const [selectedLine, setSelectedLine] = useState(patient.protocolo.linea);
-  const [selectedRegimen, setSelectedRegimen] = useState(patient.protocolo.regimen);
+  const { setTitle, setSubtitle } = useHeader();
+  const { getPatientById } = usePatients();
+  const { setPatient } = useSelectedPatient();
+
+  const patient = getPatientById(id);
+
+  const {
+    selectedProtocol,
+    selectedLine,
+    setSelectedLine,
+    selectedRegimen,
+    setSelectedRegimen,
+    handleSave,
+    showDialog,
+    setShowDialog,
+  } = useProtocolForm(patient);
 
   useEffect(() => {
+    if (!patient) return;
+    setPatient(patient);
     setTitle(`${patient.nombre} ${patient.apellido}`);
     setSubtitle('Editar protocolo');
-  }, []);
+  }, [patient, setPatient, setTitle, setSubtitle]);
 
-  const { updatePatient } = usePatients();
-  const [form] = useState({
-    protocolo: patient.protocolo || '',
-  });
-
-  const handleSave = async () => {
-    form.protocolo = {
-      ...patient.protocolo,
-      linea: selectedLine,
-      regimen: selectedRegimen,
-    };
-
-    await updatePatient(patient.paciente_id, form);
-    setShowDialog(true);
-  };
+  if (!patient) return <NotFoundPage />;
 
   return (
     <div className="px-4 lg:px-6">
@@ -48,7 +48,7 @@ export default function PatientEditProtocol({ params }) {
       <Card className="bg-gradient-to-t from-primary/5 to-card shadow-xs">
         <CardContent>
           <ProtocolInfo
-            protocolo={patient.protocolo}
+            protocolo={selectedProtocol || patient.protocolo}
             selectedLine={selectedLine}
             selectedRegimen={selectedRegimen}
             setSelectedLine={setSelectedLine}
@@ -66,9 +66,7 @@ export default function PatientEditProtocol({ params }) {
       <AlertPopup
         title="Datos guardados"
         description="El protocolo del paciente se actualizó correctamente."
-        handleOnClick={() => {
-          router.push(`/pacientes/${patient.paciente_id}`);
-        }}
+        handleOnClick={() => router.push(`/pacientes/${patient.paciente_id}`)}
         showDialog={showDialog}
         setShowDialog={setShowDialog}
       />
