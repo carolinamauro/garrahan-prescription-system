@@ -28,7 +28,7 @@ export default function PatientEditProtocolPage() {
     setPatient(patient);
     setTitle(`${patient.nombre} ${patient.apellido}`);
     setSubtitle('Editar protocolo');
-  }, [patient, setPatient, setTitle, setSubtitle]);
+  }, [patient]);
 
   if (!patient) return <NotFoundPage />;
 
