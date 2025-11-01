@@ -16,7 +16,7 @@ const formatDate = (dateString) => {
 
 export function PatientSummaryCard({ withEditButton }) {
   const {patient} = useSelectedPatient();
-  const gridColsClass = withEditButton ? 'md:grid-cols-6' : 'md:grid-cols-5';
+  const gridColsClass = withEditButton ? 'md:grid-cols-7' : 'md:grid-cols-6';
   const gridClass = `grid grid-cols-2 gap-3 ${gridColsClass} items-start place-items-center`;
 
   return (
@@ -32,8 +32,7 @@ export function PatientSummaryCard({ withEditButton }) {
             />
             <PatientInfoItem
               label="Dni"
-              value={patient.dni === null
-                ? 'No informa' : `${patient.dni}`}
+              value={patient?.dni?.trim() || 'No informa'}
             />
             <div className="flex flex-col">
               <PatientInfoItem label="Peso (en kg)"

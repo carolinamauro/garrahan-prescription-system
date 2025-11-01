@@ -19,14 +19,21 @@ export function EditField({
           className="text-base font-medium">
           {label}
         </Label>
+
         {hasInput ? (
-          <Input id={id}
+          <Input
+            id={id}
             placeholder={placeholder}
             value={form}
             onChange={handleChange}
-            className="mt-2" />
+            className="mt-2"
+          />
         ) : (
-          <p className="mt-2 text-sm text-muted-foreground">{placeholder}</p>
+          <div
+            className="mt-2 h-9 px-3 flex items-center"
+          >
+            {placeholder}
+          </div>
         )}
       </div>
 
