@@ -9,6 +9,10 @@ export function useProtocolos() {
   const [selectedCiclo, setSelectedCiclo] = useState('');
   const [selectedRegimen, setSelectedRegimen] = useState('');
 
+  const getProtocoloById = (id) => {
+    return protocolos.find((p) => (String(p.protocolo_id)) === String(id)) || null;
+  };
+
   useEffect(() => {
     fetchProtocolos()
       .then(setProtocolos)
@@ -44,6 +48,7 @@ export function useProtocolos() {
     selectedRegimen,
     setSelectedProtocolo,
     setSelectedCiclo,
-    setSelectedRegimen
+    setSelectedRegimen,
+    getProtocoloById
   };
 }
