@@ -9,6 +9,7 @@ export function SelectedPatientProvider({ children }) {
   const [recipes, setRecipes] = useState([]);
 
   const patientProtocol = get(patient, 'protocolo', null);
+  const patientSupCorp = get(patient, 'sup_corporal', null);
 
   const hasProtocol = useMemo(() => {
     return Boolean(
@@ -18,6 +19,10 @@ export function SelectedPatientProvider({ children }) {
           patientProtocol.nombre.trim() !== ''
     );
   }, [patientProtocol]);
+
+  const tieneSuperficieCorporal = useMemo(() => {
+    return Boolean(patientSupCorp && String(patientSupCorp).trim() !== '');
+  }, [patientSupCorp]);
 
   useEffect(() => {
     if (patient && isObject(patient)) {
@@ -32,9 +37,10 @@ export function SelectedPatientProvider({ children }) {
     patient,
     setPatient,
     hasProtocol,
+    tieneSuperficieCorporal,
     recipes,
     protocol: patientProtocol
-  }), [patient, hasProtocol, recipes, patientProtocol]);
+  }), [patient, hasProtocol, tieneSuperficieCorporal, recipes, patientProtocol]);
 
   return (
     <SelectedPatientContext.Provider value={value}>

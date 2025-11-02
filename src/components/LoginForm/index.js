@@ -39,7 +39,7 @@ export function LoginForm() {
             onClick={() => handleLogin('admin')}
           >
             <Shield className="w-4 h-4" />
-                    Entrar como Admin
+                    Entrar como administrador
           </Button>
           <Button
             variant="secondary"
@@ -47,7 +47,7 @@ export function LoginForm() {
             onClick={() => handleLogin('medico')}
           >
             <User className="w-4 h-4" />
-                    Entrar como Médico
+                    Entrar como médico
           </Button>
         </CardContent>
       </Card>
