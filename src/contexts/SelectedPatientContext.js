@@ -10,6 +10,7 @@ export function SelectedPatientProvider({ children }) {
 
   const patientProtocol = get(patient, 'protocolo', null);
   const patientSupCorp = get(patient, 'sup_corporal', null);
+  const patientAltura = get(patient, 'altura', null);
 
   const hasProtocol = useMemo(() => {
     return Boolean(
@@ -23,6 +24,14 @@ export function SelectedPatientProvider({ children }) {
   const tieneSuperficieCorporal = useMemo(() => {
     return Boolean(patientSupCorp && String(patientSupCorp).trim() !== '');
   }, [patientSupCorp]);
+
+  const tieneAltura = useMemo(() => {
+    return Boolean(
+      patientAltura &&
+        String(patientAltura).trim() !== '0'
+        && String(patientAltura).trim() !== ''
+    );
+  }, [patientAltura]);
 
   useEffect(() => {
     if (patient && isObject(patient)) {
@@ -38,6 +47,7 @@ export function SelectedPatientProvider({ children }) {
     setPatient,
     hasProtocol,
     tieneSuperficieCorporal,
+    tieneAltura,
     recipes,
     protocol: patientProtocol
   }), [patient, hasProtocol, tieneSuperficieCorporal, recipes, patientProtocol]);

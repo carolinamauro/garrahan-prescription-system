@@ -8,18 +8,21 @@ function getTextoRegimen(tieneProtocolo, regimen) {
 }
 
 export function PatientProtocolCard() {
-  const { patient, hasProtocol, protocol, recipes, tieneSuperficieCorporal } = useSelectedPatient();
-  const textoRegimen = getTextoRegimen(hasProtocol, patient.protocolo?.regimen);
+  const selectedPatient = useSelectedPatient();
+  const textoRegimen = getTextoRegimen(
+    selectedPatient.hasProtocol,
+    selectedPatient.patient.protocolo?.regimen
+  );
 
   return (
     <div className="px-4 lg:px-6">
       <Card className="bg-gradient-to-t from-primary/5 to-card shadow-xs">
         <CardHeader>
           <CardTitle>Protocolo de tratamiento</CardTitle>
-          <CardDescription className={!hasProtocol ? 'text-destructive' : ''}>
-            {hasProtocol ?
+          <CardDescription className={!selectedPatient.hasProtocol ? 'text-destructive' : ''}>
+            {selectedPatient.hasProtocol ?
               <div>
-                <p>{`${protocol.nombre}`}</p>
+                <p>{`${selectedPatient.protocol.nombre}`}</p>
                 <p>{`${textoRegimen}`}</p>
               </div>
               :
@@ -29,13 +32,14 @@ export function PatientProtocolCard() {
         </CardHeader>
         <CardContent>
           <ActionButtonsProtocol
-            patientId={patient.paciente_id}
-            tieneProtocolo={hasProtocol}
-            tieneSupCorporal={tieneSuperficieCorporal}
+            patientId={selectedPatient.patient.paciente_id}
+            tieneProtocolo={selectedPatient.hasProtocol}
+            tieneSupCorporal={selectedPatient.tieneSuperficieCorporal}
+            tieneAltura={selectedPatient.tieneAltura}
           />
           <TabsProtocolCard
-            recetasSolicitadas={recipes}
-            tieneProtocolo={hasProtocol}
+            recetasSolicitadas={selectedPatient.recipes}
+            tieneProtocolo={selectedPatient.hasProtocol}
           />
         </CardContent>
       </Card>
