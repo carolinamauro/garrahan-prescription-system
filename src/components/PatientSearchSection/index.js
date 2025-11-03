@@ -4,7 +4,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
-export default function PatientSearchSection({
+export function PatientSearchSection({
   searchId,
   setSearchId,
   loadingSearch,
@@ -13,7 +13,7 @@ export default function PatientSearchSection({
   return (
     <div className="grid md:grid-cols-[1fr_auto] gap-4 items-end">
       <div>
-        <Label htmlFor="searchId">Buscar por id_hospitalario</Label>
+        <Label htmlFor="searchId">Buscar por ID hospitalario</Label>
         <Input
           id="searchId"
           value={searchId}

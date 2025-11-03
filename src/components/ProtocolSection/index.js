@@ -11,7 +11,7 @@ import {
   SelectGroup,
 } from '@/components/ui/select';
 
-export default function ProtocolSection({
+export function ProtocolSection({
   form,
   protocolos,
   onProtocoloChange,

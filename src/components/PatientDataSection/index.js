@@ -3,7 +3,7 @@
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 
-export default function PatientDataSection({ form, onChange }) {
+export function PatientDataSection({ form, onChange }) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <div>

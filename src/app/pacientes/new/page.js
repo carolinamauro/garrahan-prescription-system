@@ -10,9 +10,9 @@ import { useProtocolos } from './hooks/useProtocolos';
 import { useExternalPatientSearch } from './hooks/useExternalPatientSearch';
 import { usePatientCreation } from './hooks/usePatientCreation';
 
-import PatientSearchSection from './components/PatientSearchSection';
-import PatientDataSection from './components/PatientDataSection';
-import ProtocolSection from './components/ProtocolSection';
+import { PatientSearchSection } from '@/components/PatientSearchSection';
+import { PatientDataSection } from '@/components/PatientDataSection';
+import { ProtocolSection } from '@/components/ProtocolSection';
 import { AlertPopup } from '@/components/AlertPopup';
 
 export default function NewPatientPage() {
