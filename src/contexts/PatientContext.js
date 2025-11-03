@@ -79,7 +79,7 @@ export function PatientsProvider({ children }) {
       fetchAndStorePatients();
     }
 
-  }, []);
+  }, [loggedIn]);
 
   const updatePatient = async (id, updates) => {
     try {
