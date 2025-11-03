@@ -30,9 +30,8 @@ export function PatientSummaryCard({ withEditButton }) {
     { label: 'Historia clínica', value: patient.id_hospitalario },
   ];
 
-  const gridCols = withEditButton ? (infoItems.length + 1) : infoItems.length;
-  const gridClass = `grid grid-cols-${gridCols} md:grid-cols-${gridCols}
-  gap-3 items-start place-items-center`;
+  const gridColsClass = withEditButton ? 'md:grid-cols-7' : 'md:grid-cols-6';
+  const gridClass = `grid grid-cols-2 gap-3 ${gridColsClass} items-start place-items-center`;
 
   return (
     <div className="px-4 lg:px-6">
