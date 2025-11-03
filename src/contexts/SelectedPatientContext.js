@@ -49,6 +49,7 @@ export function SelectedPatientProvider({ children }) {
     tieneSuperficieCorporal,
     tieneAltura,
     recipes,
+    setRecipes,
     protocol: patientProtocol
   }), [patient, hasProtocol, tieneSuperficieCorporal, recipes, patientProtocol]);
 

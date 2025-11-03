@@ -4,7 +4,7 @@ import { useRecipeGenerator } from '@/app/pacientes/new/hooks/useRecipeGenerator
 import { useRouter } from 'next/navigation';
 import { calculateDrug, getCurrentProtocol, getPresentationsByDrug } from '@/services/medications';
 
-export function useMedications(patient) {
+export function useMedications(patient, setRecipes) {
   const [medications, setMedications] = useState([]);
   const [presentationsByDrug, setPresentationsByDrug] = useState({});
   const [selectedForms, setSelectedForms] = useState({});
@@ -167,7 +167,7 @@ export function useMedications(patient) {
 
   const onExport = useCallback(async () => {
     try {
-      await generateRecipe(patient, medications, 'hospitalaria');
+      await generateRecipe(patient, medications, 'hospitalaria', setRecipes);
       router.push(`/pacientes/${patient.paciente_id}`);
     } catch (err) {
       console.error('Error al generar receta:', err);

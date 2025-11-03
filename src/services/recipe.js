@@ -1,4 +1,5 @@
 import { apiClient } from './apiClient';
+import {formatDate} from '@/lib/utils';
 
 export async function fetchPatientRecipes(patientId) {
   try {
@@ -10,9 +11,20 @@ export async function fetchPatientRecipes(patientId) {
   }
 }
 
-export async function exportRecipe(patientData, type) {
+export async function exportRecipe(patientData, type, setRecipes) {
   const { data: recipeIdData } = await apiClient.post('/recetas', patientData);
   const recipeId = recipeIdData.id;
+
+  const recipeData = {
+    ...patientData,
+    receta_id: recipeId,
+    fecha_solicitud_receta: formatDate(new Date().toISOString())
+  };
+
+  setRecipes((prevRecipes) => [
+    ...prevRecipes,
+    recipeData,
+  ]);
 
   const result = await apiClient.get(`/recetas/${recipeId}/exportar`, {
     params: { tipo: type },

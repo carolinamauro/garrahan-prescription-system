@@ -15,7 +15,7 @@ export default function MedicamentosPage() {
   const { id } = useParams();
   const { setTitle, setSubtitle } = useHeader();
   const { getPatientById } = usePatients();
-  const { setPatient } = useSelectedPatient();
+  const { setPatient, setRecipes } = useSelectedPatient();
   const patient = getPatientById(id);
   const cycles = useSearchParams().get('ciclos') || '1';
 
@@ -28,7 +28,7 @@ export default function MedicamentosPage() {
 
   if (!patient) return <NotFoundPage />;
 
-  const { loading, medications, handlers, uiState } = useMedications(patient);
+  const { loading, medications, handlers, uiState } = useMedications(patient, setRecipes);
 
   if (loading) return <p className="text-center py-10">Cargando medicamentos...</p>;
 

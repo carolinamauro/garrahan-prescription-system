@@ -82,22 +82,12 @@ export const getProtocolColumns = () => [
   {
     accessorKey: 'Protocolo',
     header: 'Protocolo',
-    cell: ({ row }) => { return <DataCell content={row.original.protocolo} />; },
-  },
-  {
-    accessorKey: 'Fecha de inicio del tratamiento',
-    header: 'Fecha de inicio del tratamiento',
-    cell: ({ row }) => { return <DataCell content={row.original.fecha_inicio_tratamiento} />; },
+    cell: ({ row }) => { return <DataCell content={row.original.diagnostico} />; },
   },
   {
     accessorKey: 'Fecha de solicitud de receta',
     header: 'Fecha de solicitud de receta',
     cell: ({ row }) => { return <DataCell content={row.original.fecha_solicitud_receta} />; },
-  },
-  {
-    accessorKey: 'Cantidad de ciclos solicitados',
-    header: 'Cantidad de ciclos solicitados',
-    cell: ({ row }) => { return <DataCell content={row.original.cantidad_ciclos_solicitados} />; },
   },
   {
     accessorKey: 'Ver receta',
