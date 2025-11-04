@@ -12,13 +12,20 @@ export const useRecipeGenerator = () => {
       const data = getPatientData(patient, medications);
       const blob = await exportRecipe(data, type, setRecipes);
       const url = window.URL.createObjectURL(blob);
+
+      window.open(url, '_blank');
+
       const a = document.createElement('a');
       a.href = url;
-      a.download = `receta_${patient.nombre.replace(/\s+/g, '_')}.xlsx`;
+      a.download = `receta_${patient.nombre.replace(/\s+/g, '_')}.pdf`; // Cambié extensión a .pdf
       document.body.appendChild(a);
       a.click();
       a.remove();
-      window.URL.revokeObjectURL(url);
+
+      window.setTimeout(() => {
+        window.URL.revokeObjectURL(url);
+      }, 1000);
+
     } catch (error) {
       console.error(error);
       throw error;
