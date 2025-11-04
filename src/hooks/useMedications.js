@@ -3,6 +3,7 @@ import { getMedicationColumns } from '@/components/DataTable/TableColumns';
 import { useRecipeGenerator } from '@/app/pacientes/new/hooks/useRecipeGenerator';
 import { useRouter } from 'next/navigation';
 import { calculateDrug, getCurrentProtocol, getPresentationsByDrug } from '@/services/medications';
+import { updateProtocoloPaciente } from '@/services/protocolos';
 
 export function useMedications(patient, setRecipes) {
   const [medications, setMedications] = useState([]);
@@ -167,6 +168,7 @@ export function useMedications(patient, setRecipes) {
 
   const onExport = useCallback(async () => {
     try {
+      await updateProtocoloPaciente(patient.paciente_id);
       await generateRecipe(patient, medications, 'hospitalaria', setRecipes);
       router.push(`/pacientes/${patient.paciente_id}`);
     } catch (err) {

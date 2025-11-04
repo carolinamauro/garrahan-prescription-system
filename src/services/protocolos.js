@@ -14,3 +14,8 @@ export async function fetchCiclos(protocoloId) {
   const { data } = await apiClient.get(`/protocolos/${protocoloId}/ciclos`);
   return data;
 }
+
+export async function updateProtocoloPaciente(idPaciente) {
+  const { data } = await apiClient.patch(`/pacientes/${idPaciente}/protocolos`);
+  return data;
+}
