@@ -139,10 +139,10 @@ export function useMedications(patient, setRecipes) {
             m.id === med.id
               ? {
                 ...m,
-                total_dosis_amount: result.cantidad_total,
+                total_dosis_amount: result.cantidad_total.valor,
                 total_units: result.unidades,
                 needed_amount:
-                    `${result.cantidad_total} ${result.fuerza_unidad} 
+                    `${result.cantidad_total.valor} ${result.cantidad_total.unidad} 
                     (${result.unidades} unidades)`,
               }
               : m
