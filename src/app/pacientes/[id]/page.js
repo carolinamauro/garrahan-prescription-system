@@ -1,14 +1,16 @@
 'use client';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { PatientSummaryCard } from '@/components/PatientSummaryCard';
 import { PatientProtocolCard } from '@/components/PatientProtocolCard';
 import { usePatients } from '@/contexts/PatientContext';
 import { useHeader } from '@/contexts/HeaderContext';
 import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
 import { NotFoundPage } from '@/components/NotFoundPage';
+import { fetchProtocoloPaciente } from '@/services/protocolos';
 
 export default function PatientPage({ params }) {
   const { id } = React.use(params);
+  const [protocolo, setProtocolo] = useState(null);
 
   const { getPatientById } = usePatients();
   const { setPatient, patient } = useSelectedPatient();
@@ -17,7 +19,6 @@ export default function PatientPage({ params }) {
   const patientFound = useMemo(() => getPatientById(id), [id, getPatientById]);
 
   useEffect(() => {
-
     if (!patientFound) {
       setTitle('');
       setSubtitle('');
@@ -29,6 +30,21 @@ export default function PatientPage({ params }) {
     setPatient(patientFound);
   }, [patientFound, setTitle, setSubtitle, setPatient]);
 
+  useEffect(() => {
+    async function loadProtocolo() {
+      if (id) {
+        try {
+          const protocoloData = await fetchProtocoloPaciente(id);
+          setProtocolo(protocoloData);
+        } catch (error) {
+          console.error('Error al cargar el protocolo:', error);
+        }
+      }
+    }
+    
+    loadProtocolo();
+  }, [id]);
+
   if (!patient) {
     return (
       <NotFoundPage />
@@ -38,7 +54,7 @@ export default function PatientPage({ params }) {
   return (
     <>
       <PatientSummaryCard withEditButton />
-      <PatientProtocolCard />
+      <PatientProtocolCard protocolo={protocolo} />
     </>
   );
 }

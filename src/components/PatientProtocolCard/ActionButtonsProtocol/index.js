@@ -5,7 +5,8 @@ export function ActionButtonsProtocol({
   patientId,
   tieneProtocolo,
   tieneSupCorporal,
-  tieneAltura
+  tieneAltura,
+  cambiarRegimen
 }) {
   return (
     <div className="mb-4 flex gap-2">
@@ -19,7 +20,7 @@ export function ActionButtonsProtocol({
 
       <LinkButton
         href={`/pacientes/${patientId}/generar-receta`}
-        disabled={!tieneProtocolo || !tieneSupCorporal || !tieneAltura}
+        disabled={!tieneProtocolo || !tieneSupCorporal || !tieneAltura || cambiarRegimen}
         btnText="Generar receta"
         icon={FileText}
         variant="outline"
