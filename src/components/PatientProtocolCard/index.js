@@ -4,11 +4,10 @@ import { ActionButtonsProtocol } from '@/components/PatientProtocolCard/ActionBu
 import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
 import { useLogin } from '@/contexts/LoginContext';
 
-function getTextoRegimen(tieneProtocolo, regimen, cambiarRegimen) {
-  if (!tieneProtocolo || regimen === null) return '';
-  console.log('CAMBIAR REGIMEN:', cambiarRegimen);
+function getTextoRegimen(tieneProtocolo, regimen, ciclo, cambiarRegimen) {
+  if (!tieneProtocolo || regimen == null) return '';
 
-  const textoBase = `Régimen ${regimen}`;
+  const textoBase = `Régimen ${regimen} - Ciclo ${ciclo}`;
   return cambiarRegimen ? `${textoBase} - ES NECESARIO CAMBIAR REGIMEN` : textoBase;
 }
 
@@ -17,6 +16,7 @@ export function PatientProtocolCard() {
   const textoRegimen = getTextoRegimen(
     selectedPatient.hasProtocol,
     selectedPatient.patient.protocolo?.regimen,
+    selectedPatient.patient.protocolo?.ciclo_actual_id,
     selectedPatient.patient.protocolo?.cambiar_regimen,
   );
   const { loggedIn } = useLogin();

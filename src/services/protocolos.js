@@ -19,3 +19,14 @@ export async function updateProtocoloPaciente(idPaciente) {
   const { data } = await apiClient.patch(`/pacientes/${idPaciente}/protocolos`);
   return data;
 }
+
+export async function updateProtocoloPacienteRegimen(idPaciente, protocoloPacienteId, regimen) {
+  const { data } = await apiClient.patch(
+    `/pacientes/${idPaciente}/protocolos/${protocoloPacienteId}`,
+    { 
+      regimen,
+      cambiar_regimen: false 
+    }
+  );
+  return data;
+}

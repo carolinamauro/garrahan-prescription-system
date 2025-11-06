@@ -11,9 +11,7 @@ import { useLogin } from '@/contexts/LoginContext';
 
 export default function PatientPage({ params }) {
   const { id } = React.use(params);
-  const [protocolo, setProtocolo] = useState(null);
-
-  const { getPatientById } = usePatients();
+  const { getPatientById, refreshPatientProtocol } = usePatients();
   const { setPatient, patient } = useSelectedPatient();
   const { setTitle, setSubtitle } = useHeader();
   const { loggedIn } = useLogin();
@@ -33,32 +31,33 @@ export default function PatientPage({ params }) {
   }, [patientFound, setTitle, setSubtitle, setPatient]);
 
   useEffect(() => {
-    async function loadProtocolo() {
+    async function refreshProtocol() {
       if (id) {
-        try {
-          const protocoloData = await fetchProtocoloPaciente(id);
-          setProtocolo(protocoloData);
-        } catch (error) {
-          console.error('Error al cargar el protocolo:', error);
+        const updatedPatient = await refreshPatientProtocol(id);
+        if (updatedPatient) {
+          setPatient(updatedPatient);
         }
       }
     }
-
-    if (loggedIn) {
-      loadProtocolo();
-    }
-  }, [id]);
+    
+    refreshProtocol();
+  }, [id, refreshPatientProtocol, setPatient]);
 
   if (!patient) {
-    return (
-      <NotFoundPage />
-    );
+    return <NotFoundPage />;
   }
+
+  const tieneProtocolo = Boolean(
+    patient.protocolo &&
+    typeof patient.protocolo === 'object' &&
+    patient.protocolo.nombre &&
+    patient.protocolo.nombre.trim() !== ''
+  );
 
   return (
     <>
-      <PatientSummaryCard withEditButton />
-      <PatientProtocolCard protocolo={protocolo} />
+      <PatientSummaryCard patient={patient} withEditButton />
+      <PatientProtocolCard patient={patient} tieneProtocolo={tieneProtocolo} />
     </>
   );
 }

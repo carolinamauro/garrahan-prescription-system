@@ -98,6 +98,8 @@ export function useMedications(patient, setRecipes) {
                 filtered.length === 1
                   ? `${filtered[0].fuerza_valor} ${filtered[0].fuerza_unidad}`
                   : '',
+            // Añadimos los datos de concentración cuando hay una única opción
+            concentrationData: filtered.length === 1 ? filtered[0] : null
           }
           : m
       );

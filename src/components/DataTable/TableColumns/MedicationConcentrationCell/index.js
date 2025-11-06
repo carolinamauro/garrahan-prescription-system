@@ -18,6 +18,14 @@ export function MedicationConcentrationCell({
 
   if (presentations.length === 1) {
     const presentation = presentations[0];
+    
+    // Auto-seleccionar si no hay una concentración ya seleccionada
+    if (!row.original.concentration) {
+      setTimeout(() => {
+        handleConcentrationChange(row.original.id, presentation);
+      }, 0);
+    }
+
     return (
       <DataCell
         content={`${presentation.fuerza_valor} ${presentation.fuerza_unidad}`}

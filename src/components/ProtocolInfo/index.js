@@ -1,6 +1,14 @@
 'use client';
 
-import { RadioSelector } from '@/components/RadioSelector';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  SelectGroup
+} from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
 
 export function ProtocolInfo({ protocolo, selectedRegimen, setSelectedRegimen }) {
   return (
@@ -12,17 +20,29 @@ export function ProtocolInfo({ protocolo, selectedRegimen, setSelectedRegimen })
             <p className="text-sm text-foreground">{protocolo.nombre}</p>
           </div>
 
-          <RadioSelector
-            title="Régimen"
-            value={selectedRegimen}
-            onChange={setSelectedRegimen}
-            options={
-              Array.from(
-                { length: protocolo.cantidad_regimenes || 0 },
-                (_, i) => ({ value: i, label: `Régimen ${i}` })
-              )
-            }
-          />
+          <div className="mt-6">
+            <Label>Régimen</Label>
+            <Select
+              value={String(selectedRegimen)}
+              onValueChange={(value) => setSelectedRegimen(Number(value))}
+            >
+              <SelectTrigger className="mt-2">
+                <SelectValue placeholder="Seleccionar régimen" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {Array.from(
+                    { length: (protocolo.cantidad_regimenes || 2) + 1 },
+                    (_, i) => (
+                      <SelectItem key={i} value={String(i)}>
+                        Régimen {i}
+                      </SelectItem>
+                    )
+                  )}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
 
           <div className="mt-6">
             <h3 className="mb-4 text-lg font-semibold">Esquema de tratamiento</h3>
