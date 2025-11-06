@@ -1,20 +1,17 @@
 'use client';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { PatientSummaryCard } from '@/components/PatientSummaryCard';
 import { PatientProtocolCard } from '@/components/PatientProtocolCard';
 import { usePatients } from '@/contexts/PatientContext';
 import { useHeader } from '@/contexts/HeaderContext';
 import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
 import { NotFoundPage } from '@/components/NotFoundPage';
-import { fetchProtocoloPaciente } from '@/services/protocolos';
-import { useLogin } from '@/contexts/LoginContext';
 
 export default function PatientPage({ params }) {
   const { id } = React.use(params);
   const { getPatientById, refreshPatientProtocol } = usePatients();
   const { setPatient, patient } = useSelectedPatient();
   const { setTitle, setSubtitle } = useHeader();
-  const { loggedIn } = useLogin();
 
   const patientFound = useMemo(() => getPatientById(id), [id, getPatientById]);
 
@@ -31,7 +28,12 @@ export default function PatientPage({ params }) {
   }, [patientFound, setTitle, setSubtitle, setPatient]);
 
   useEffect(() => {
+    let didRun = false;
+
     async function refreshProtocol() {
+      if (didRun) return;
+      didRun = true;
+
       if (id) {
         const updatedPatient = await refreshPatientProtocol(id);
         if (updatedPatient) {
@@ -39,9 +41,9 @@ export default function PatientPage({ params }) {
         }
       }
     }
-    
+
     refreshProtocol();
-  }, [id, refreshPatientProtocol, setPatient]);
+  }, []);
 
   if (!patient) {
     return <NotFoundPage />;
@@ -56,8 +58,14 @@ export default function PatientPage({ params }) {
 
   return (
     <>
-      <PatientSummaryCard patient={patient} withEditButton />
-      <PatientProtocolCard patient={patient} tieneProtocolo={tieneProtocolo} />
+      <PatientSummaryCard
+        patient={patient}
+        withEditButton
+      />
+      <PatientProtocolCard
+        patient={patient}
+        tieneProtocolo={tieneProtocolo}
+      />
     </>
   );
 }
