@@ -1,5 +1,5 @@
-import { apiClient } from './apiClient';
-import {formatDate} from '@/lib/utils';
+import { API_BASE_URL, apiClient } from './apiClient';
+import { formatDate } from '@/lib/utils';
 
 export async function fetchPatientRecipes(patientId) {
   try {
@@ -11,6 +11,10 @@ export async function fetchPatientRecipes(patientId) {
   }
 }
 
+export function getRecipeUrl(recipeId, type) {
+  return `${API_BASE_URL}/recetas/${recipeId}/exportar?tipo=${type}`;
+}
+
 export async function exportRecipe(patientData, type, setRecipes) {
   const { data: recipeIdData } = await apiClient.post('/recetas', patientData);
   const recipeId = recipeIdData.id;
@@ -18,6 +22,7 @@ export async function exportRecipe(patientData, type, setRecipes) {
   const recipeData = {
     ...patientData,
     receta_id: recipeId,
+    tipo_receta: type,
     fecha_solicitud_receta: formatDate(new Date().toISOString())
   };
 

@@ -10,24 +10,20 @@ export const useRecipeGenerator = () => {
     setLoading(true);
     try {
       const data = getPatientData(patient, medications);
-      const blob = await exportRecipe(data, type, setRecipes);
-      const url = window.URL.createObjectURL(blob);
+      const pdfData = await exportRecipe(data, type, setRecipes);
 
-      window.open(url, '_blank');
-
+      const blobUrl = window.URL.createObjectURL(pdfData);
       const a = document.createElement('a');
-      a.href = url;
-      a.download = `receta_${patient.nombre.replace(/\s+/g, '_')}.pdf`; // Cambié extensión a .pdf
+      a.href = blobUrl;
+      a.download = `receta_${patient.nombre.replace(/\s+/g, '_')}.pdf`;
       document.body.appendChild(a);
       a.click();
-      a.remove();
+      document.body.removeChild(a);
 
-      window.setTimeout(() => {
-        window.URL.revokeObjectURL(url);
-      }, 1000);
+      window.URL.revokeObjectURL(blobUrl);
 
     } catch (error) {
-      console.error(error);
+      console.error('Error al generar receta:', error);
       throw error;
     } finally {
       setLoading(false);

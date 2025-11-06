@@ -6,10 +6,10 @@ import { IdCell } from '@/components/DataTable/TableColumns/IdColumn/IdCell';
 import { StatusCell } from '@/components/DataTable/TableColumns/StatusColumn/StatusCell';
 import { ActionCell } from '@/components/DataTable/TableColumns/ActionCell/ActionCell';
 import { DataCell } from '@/components/DataTable/TableColumns/DataCell';
-import { FileText } from 'lucide-react';
 import { AgeCell } from '@/components/DataTable/TableColumns/AgeCell';
 import { ProtocolCell } from '@/components/DataTable/TableColumns/ProtocolCell';
 import { CalculateCell } from '@/components/DataTable/TableColumns/CalculateCell';
+import { VerRecetaCell } from '@/components/DataTable/TableColumns/VerRecetaCell';
 import {
   MedicationConcentrationCell
 } from '@/components/DataTable/TableColumns/MedicationConcentrationCell';
@@ -92,7 +92,12 @@ export const getProtocolColumns = () => [
   {
     accessorKey: 'Ver receta',
     header: 'Ver receta',
-    cell: () => { return <FileText className="mr-2 h-4 w-4" />; },
+    cell: ({ row }) => {
+      return <VerRecetaCell
+        recetaId={row.original.receta_id}
+        type={row.original.tipo_receta}
+      />;
+    },
   },
 ];
 
