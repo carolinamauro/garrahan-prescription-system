@@ -74,9 +74,9 @@ export const getPatientColumns = (handleEdit) => [
 
 export const getProtocolColumns = () => [
   {
-    accessorKey: 'Ciclos solicitados',
-    header: 'Ciclos solicitados',
-    cell: ({ row }) => { return <DataCell content={row.original.ciclos_solicitados} />; },
+    accessorKey: 'Ciclo solicitado',
+    header: 'Ciclo solicitado',
+    cell: ({ row }) => { return <DataCell content={row.original.numero_ciclo} />; },
     size: '200px'
   },
   {

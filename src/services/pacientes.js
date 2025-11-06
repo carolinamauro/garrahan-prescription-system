@@ -1,6 +1,7 @@
 import { apiClient } from './apiClient';
 import { fetchProtocoloPaciente } from './protocolos';
 import { calcularEdad } from '@/lib/utils';
+import { fetchPatientRecipes } from '@/services/recipe';
 
 export async function fetchPacientes() {
   const { data } = await apiClient.get('/pacientes');
@@ -30,6 +31,7 @@ export async function loadPatientWithProtocol(paciente) {
   const { anios, dias } = calcularEdad(paciente.fecha_nacimiento);
   try {
     const protocolo = await fetchProtocoloPaciente(paciente.paciente_id);
+    paciente.recetas = (await fetchPatientRecipes(paciente.paciente_id)) ?? [];
     return { ...paciente, protocolo, anios, dias };
   } catch {
     return { ...paciente, protocolo: null, anios, dias };

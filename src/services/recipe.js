@@ -3,8 +3,15 @@ import { formatDate } from '@/lib/utils';
 
 export async function fetchPatientRecipes(patientId) {
   try {
-    const { data } = await apiClient.get(`/recetas/${patientId}`);
-    return data;
+    const { data } = await apiClient.get(`/recetas?paciente_id=${patientId}`);
+
+    return data.map(receta => ({
+      numero_ciclo: receta.contexto.numero_ciclo,
+      diagnostico: receta.diagnostico,
+      fecha_solicitud_receta: formatDate(receta.fecha_prescripcion),
+      receta_id: receta.id,
+      tipo_receta: 'hospitalaria' // TODO: definir el tipo de la receta desde backend
+    }));
   } catch (error) {
     console.error('Error fetching recipes:', error);
     return [];
