@@ -7,6 +7,7 @@ import { useHeader } from '@/contexts/HeaderContext';
 import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
 import { NotFoundPage } from '@/components/NotFoundPage';
 import { fetchProtocoloPaciente } from '@/services/protocolos';
+import { useLogin } from '@/contexts/LoginContext';
 
 export default function PatientPage({ params }) {
   const { id } = React.use(params);
@@ -15,6 +16,7 @@ export default function PatientPage({ params }) {
   const { getPatientById } = usePatients();
   const { setPatient, patient } = useSelectedPatient();
   const { setTitle, setSubtitle } = useHeader();
+  const { loggedIn } = useLogin();
 
   const patientFound = useMemo(() => getPatientById(id), [id, getPatientById]);
 
@@ -41,8 +43,10 @@ export default function PatientPage({ params }) {
         }
       }
     }
-    
-    loadProtocolo();
+
+    if (loggedIn) {
+      loadProtocolo();
+    }
   }, [id]);
 
   if (!patient) {

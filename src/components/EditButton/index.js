@@ -2,10 +2,10 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { FilePen } from 'lucide-react';
 
-export function EditButton({ patientId }) {
+export function EditButton({ patientId, disabled }) {
   return (
     <div className="flex items-end">
-      <Button>
+      <Button disabled={disabled}>
         <Link
           href={`/pacientes/${patientId}/editar`}
           className="flex items-center gap-2"

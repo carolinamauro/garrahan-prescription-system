@@ -2,9 +2,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { TabsProtocolCard } from '@/components/PatientProtocolCard/TabsProtocolCard';
 import { ActionButtonsProtocol } from '@/components/PatientProtocolCard/ActionButtonsProtocol';
 import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
+import { useLogin } from '@/contexts/LoginContext';
 
 function getTextoRegimen(tieneProtocolo, regimen, cambiarRegimen) {
-  if (!tieneProtocolo || regimen == null) return '';
+  if (!tieneProtocolo || regimen === null) return '';
   console.log('CAMBIAR REGIMEN:', cambiarRegimen);
 
   const textoBase = `Régimen ${regimen}`;
@@ -18,6 +19,7 @@ export function PatientProtocolCard() {
     selectedPatient.patient.protocolo?.regimen,
     selectedPatient.patient.protocolo?.cambiar_regimen,
   );
+  const { loggedIn } = useLogin();
 
   return (
     <div className="px-4 lg:px-6">
@@ -42,10 +44,12 @@ export function PatientProtocolCard() {
             tieneSupCorporal={selectedPatient.tieneSuperficieCorporal}
             tieneAltura={selectedPatient.tieneAltura}
             cambiarRegimen={selectedPatient.patient.protocolo?.cambiar_regimen}
+            loggedIn={loggedIn}
           />
           <TabsProtocolCard
             recetasSolicitadas={selectedPatient.recipes}
             tieneProtocolo={selectedPatient.hasProtocol}
+            loggedIn={loggedIn}
           />
         </CardContent>
       </Card>

@@ -3,9 +3,11 @@ import { PatientInfoItem } from './PatientInfoItem';
 import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
 import { formatDate } from '@/lib/utils';
 import { EditButton } from '@/components/EditButton';
+import { useLogin } from '@/contexts/LoginContext';
 
 export function PatientSummaryCard({ withEditButton }) {
   const { patient } = useSelectedPatient();
+  const { loggedIn } = useLogin();
 
   const infoItems = [
     {
@@ -50,7 +52,11 @@ export function PatientSummaryCard({ withEditButton }) {
               </div>
             ))}
 
-            {withEditButton && <EditButton patientId={patient.paciente_id} />}
+            {withEditButton &&
+                <EditButton
+                  patientId={patient.paciente_id}
+                  disabled={!loggedIn}
+                />}
           </div>
         </CardContent>
       </Card>
