@@ -5,10 +5,10 @@ import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
 import { useLogin } from '@/contexts/LoginContext';
 
 function getTextoRegimen(tieneProtocolo, regimen, ciclo, cambiarRegimen) {
-  if (!tieneProtocolo || regimen == null) return '';
+  if (!tieneProtocolo || regimen === null) return '';
 
   const textoBase = `Régimen ${regimen} - Ciclo ${ciclo}`;
-  return cambiarRegimen ? `${textoBase} - ES NECESARIO CAMBIAR REGIMEN` : textoBase;
+  return cambiarRegimen ? `${textoBase} -` : textoBase;
 }
 
 export function PatientProtocolCard() {
@@ -19,6 +19,8 @@ export function PatientProtocolCard() {
     selectedPatient.patient.protocolo?.ciclo_actual_id,
     selectedPatient.patient.protocolo?.cambiar_regimen,
   );
+  const textoCambiarRegimen = selectedPatient.patient.protocolo?.cambiar_regimen
+    ? 'Es necesario cambiar el régimen' : '';
   const { loggedIn } = useLogin();
 
   return (
@@ -30,7 +32,14 @@ export function PatientProtocolCard() {
             {selectedPatient.hasProtocol ?
               <div>
                 <p>{`${selectedPatient.protocol.nombre}`}</p>
-                <p>{`${textoRegimen}`}</p>
+                <div className="flex items-center gap-2">
+                  <p>{textoRegimen}</p>
+                  <p className={selectedPatient.patient.protocolo?.cambiar_regimen
+                    ? 'text-destructive'
+                    : ''}>
+                    {textoCambiarRegimen}
+                  </p>
+                </div>
               </div>
               :
               <p>No tiene protocolo asignado</p>
