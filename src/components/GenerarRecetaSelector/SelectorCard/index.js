@@ -6,7 +6,7 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
-import { useProtocolos } from '@/app/pacientes/new/hooks/useProtocolos';
+import { useProtocolos } from '@/hooks/useProtocolos';
 
 export function SelectorCard({ paciente, selectedCycles, setSelectedCycles }) {
   const { getProtocoloById } = useProtocolos();

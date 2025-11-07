@@ -11,8 +11,9 @@ export async function fetchProtocoloPaciente(idPaciente) {
 }
 
 export async function fetchCiclos(protocoloId) {
-  const { data } = await apiClient.get(`/protocolos/${protocoloId}/ciclos`);
-  return data;
+  // TODO: Armar endpoint en el back
+  // const { data } = await apiClient.get(`/protocolos/${protocoloId}/ciclos`);
+  return [];
 }
 
 export async function updateProtocoloPaciente(idPaciente) {
@@ -20,12 +21,19 @@ export async function updateProtocoloPaciente(idPaciente) {
   return data;
 }
 
-export async function updateProtocoloPacienteRegimen(idPaciente, protocoloPacienteId, regimen) {
+export async function updateProtocoloPacienteRegimen(
+  idPaciente,
+  protocoloPacienteId,
+  regimen,
+  ciclo
+) {
   const { data } = await apiClient.patch(
     `/pacientes/${idPaciente}/protocolos/${protocoloPacienteId}`,
-    { 
+    {
       regimen,
-      cambiar_regimen: false 
+      ciclo_actual_id: ciclo,
+      numero_ciclo: ciclo,
+      cambiar_regimen: false
     }
   );
   return data;

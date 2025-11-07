@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 import { usePatientForm } from './hooks/usePatientForm';
-import { useProtocolos } from './hooks/useProtocolos';
+import { useProtocolos } from '@/hooks/useProtocolos';
 import { useExternalPatientSearch } from './hooks/useExternalPatientSearch';
 import { usePatientCreation } from './hooks/usePatientCreation';
 

@@ -2,67 +2,60 @@
 
 import { useRouter } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
-import { useProtocolos } from '@/app/pacientes/new/hooks/useProtocolos';
-import { useProtocolForm } from '@/hooks/useProtocolForm';
-import { useState } from 'react';
-import SearchProtocol from '@/components/SearchProtocol';
+import { useProtocolos } from '@/hooks/useProtocolos';
+import { ProtocolSection } from '@/components/ProtocolSection';
+import { usePatientForm } from '@/hooks/usePatientForm';
 import { EditButtons } from '@/components/EditButtons';
 import { AlertPopup } from '@/components/AlertPopup';
-import { ProtocolInfo } from '@/components/ProtocolInfo';
-import { NotFoundPage } from '@/components/NotFoundPage';
+import { useProtocolForm } from '@/hooks/useProtocolForm';
 
 export function PatientProtocolSelection({ patient }) {
   const router = useRouter();
-  const { protocolos } = useProtocolos();
-  const [showProtocolInfo, setShowProtocolInfo] = useState(false);
+  const { form, setForm } = usePatientForm(patient);
+  const useProtos = useProtocolos();
   const protocolForm = useProtocolForm(patient);
 
-  if (!patient) return <NotFoundPage />;
+  const handleSave = async () => {
+    await protocolForm.handleSave();
+    router.push(`/pacientes/${patient.paciente_id}`);
+  };
 
   return (
     <div className="px-4 lg:px-6">
-      <h2 className="mb-4 text-xl font-semibold">Protocolos de tratamiento</h2>
+      <h2 className="mb-4 text-xl font-semibold">Seleccionar protocolo</h2>
 
       <Card className="bg-gradient-to-t from-primary/5 to-card shadow-xs">
-        <CardContent className="pt-2">
-          <div className="flex flex-col gap-2">
-            <p className="text-sm font-medium text-muted-foreground">
-                    Buscar protocolos de tratamiento
-            </p>
-
-            <div className="mb-6">
-              <SearchProtocol
-                placeholder="Buscar protocolos..."
-                options={protocolos}
-                setSelectedValue={protocolForm.setSelectedProtocol}
-                setShowProtocolInfo={setShowProtocolInfo}
-                setSaveBtnDisabled={protocolForm.setSaveBtnDisabled}
-              />
-            </div>
-
-            {showProtocolInfo && (
-              <ProtocolInfo
-                protocolo={protocolForm.selectedProtocol}
-                selectedRegimen={protocolForm.selectedRegimen}
-                setSelectedRegimen={protocolForm.setSelectedRegimen}
-              />
-            )}
-          </div>
+        <CardContent className="grid gap-6 pt-4">
+          <ProtocolSection
+            form={form}
+            protocolos={useProtos.protocolos}
+            onProtocoloChange={(v) => {
+              useProtos.setSelectedProtocolo(v);
+              protocolForm.setSelectedProtocol(v);
+              setForm((f) => ({ ...f, protocolo: v, ciclo: '' }));
+            }}
+            onRegimenChange={protocolForm.setSelectedRegimen}
+            onCicloChange={(v) => {
+              setForm((f) => ({ ...f, ciclo: v }));
+              protocolForm.setSelectedCiclo(v);
+            }}
+            withInputPeso={false}
+          />
         </CardContent>
       </Card>
 
       <EditButtons
-        handleSave={protocolForm.handleSave}
+        handleSave={handleSave}
         href={`/pacientes/${patient.paciente_id}`}
-        saveBtnDisabled={protocolForm.saveBtnDisabled}
+        saveBtnDisabled={form.saveBtnDisabled}
       />
 
       <AlertPopup
         title="Datos guardados"
         description="El protocolo del paciente se guardó correctamente."
         handleOnClick={() => router.push(`/pacientes/${patient.paciente_id}`)}
-        showDialog={protocolForm.showDialog}
-        setShowDialog={protocolForm.setShowDialog}
+        showDialog={form.showDialog}
+        setShowDialog={form.setShowDialog}
       />
     </div>
   );

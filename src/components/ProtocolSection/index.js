@@ -18,6 +18,7 @@ export function ProtocolSection({
   onCicloChange,
   onRegimenChange,
   onPesoChange,
+  withInputPeso = true,
 }) {
   const protocoloSeleccionado = protocolos.find(
     (p) => p.protocolo_id === Number(form.protocolo)
@@ -34,8 +35,12 @@ export function ProtocolSection({
     .filter((c) => c.ciclo_id === Number(form.ciclo))
     .map((c) => c.regimen);
 
+  const classCols = withInputPeso
+    ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.25fr_0.75fr_1fr_1fr]'
+    : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.25fr_0.75fr_1fr]';
+
   return (
-    <div className="grid gap-4 md:grid-cols-4">
+    <div className={`grid gap-4 ${classCols}`}>
       <div>
         <Label>Protocolo</Label>
         <Select onValueChange={onProtocoloChange}>
@@ -107,16 +112,17 @@ export function ProtocolSection({
         </Select>
       </div>
 
-      <div>
-        <Label>Peso (kg)</Label>
-        <Input
-          id="peso"
-          value={form.peso}
-          onChange={onPesoChange}
-          placeholder="Ej: 70.5"
-          className="mt-2"
-        />
-      </div>
+      {withInputPeso && (
+        <div>
+          <Label>Peso (kg)</Label>
+          <Input
+            id="peso"
+            value={form.peso}
+            onChange={onPesoChange}
+            placeholder="Ej: 70.5"
+            className="mt-2"
+          />
+        </div>)}
     </div>
   );
 }

@@ -11,6 +11,7 @@ export function useProtocolForm(patient) {
 
   const [selectedProtocol, setSelectedProtocol] = useState(patient?.protocolo ?? null);
   const [selectedRegimen, setSelectedRegimen] = useState(patient?.protocolo?.regimen ?? 1);
+  const [selectedCiclo, setSelectedCiclo] = useState(patient?.protocolo?.ciclo_actual_id ?? 1);
   const [showDialog, setShowDialog] = useState(false);
   const [saveBtnDisabled, setSaveBtnDisabled] = useState(false);
 
@@ -18,23 +19,29 @@ export function useProtocolForm(patient) {
     if (!patient || !patient.protocolo?.protocoloPacienteId) return;
 
     try {
+      if (selectedProtocol !== patient.protocolo) {
+        // TODO: cambiar protocolo en el back
+      }
+
       const updatedProtocolo = await updateProtocoloPacienteRegimen(
         patient.paciente_id,
         patient.protocolo.protocoloPacienteId,
-        selectedRegimen
+        selectedRegimen,
+        selectedCiclo
       );
 
       // Creamos el protocolo actualizado
       const newProtocolo = {
         ...patient.protocolo,
         ...updatedProtocolo,
-        regimen: selectedRegimen
+        regimen: selectedRegimen,
+        ciclo_actual_id: selectedCiclo
       };
 
       // Actualizamos tanto el paciente seleccionado como el estado global
       const updatedPatient = { ...patient, protocolo: newProtocolo };
       setPatient(updatedPatient);
-      
+
       // También actualizamos el estado global de pacientes para mantener la consistencia
       updatePatient(patient.paciente_id, { protocolo: newProtocolo });
 
@@ -50,6 +57,8 @@ export function useProtocolForm(patient) {
     setSelectedProtocol,
     selectedRegimen,
     setSelectedRegimen,
+    selectedCiclo,
+    setSelectedCiclo,
     showDialog,
     setShowDialog,
     saveBtnDisabled,
