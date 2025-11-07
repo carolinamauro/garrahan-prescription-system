@@ -5,10 +5,10 @@ import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
 import { useLogin } from '@/contexts/LoginContext';
 
 function getTextoRegimen(tieneProtocolo, regimen, ciclo, cambiarRegimen) {
-  if (!tieneProtocolo || regimen === null) return '';
-
-  const textoBase = `Régimen ${regimen} - Ciclo ${ciclo}`;
-  return cambiarRegimen ? `${textoBase} -` : textoBase;
+  if (!tieneProtocolo) return '';
+  return cambiarRegimen
+    ? `Régimen - Ciclo ${ciclo}`
+    : `Régimen ${regimen} - Ciclo ${ciclo}`;
 }
 
 export function PatientProtocolCard() {
