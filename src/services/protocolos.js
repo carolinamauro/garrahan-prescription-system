@@ -38,3 +38,35 @@ export async function updateProtocoloPacienteRegimen(
   );
   return data;
 }
+
+export async function cambiarProtocoloPaciente(
+  idPaciente,
+  protocoloActualId,
+  nuevoProtocoloId,
+  regimen,
+  ciclo
+) {
+  const { data: dataPatch } = await apiClient.patch(
+    `/pacientes/${idPaciente}/protocolos/${protocoloActualId}`,
+    {
+      estado: 'Inactivo'
+    }
+  );
+
+  if (!dataPatch.actualizado) {
+    throw new Error('Error al desactivar el protocolo actual');
+  }
+
+  const { data: dataPost } = await apiClient.post(
+    `/pacientes/${idPaciente}/protocolos`,
+    {
+      protocolo_id: nuevoProtocoloId,
+      regimen: regimen,
+      ciclo_actual_id: ciclo,
+      numero_ciclo: ciclo,
+      estado: 'Activo',
+    }
+  );
+
+  return dataPost.protocolo_paciente_id;
+}

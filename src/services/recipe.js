@@ -6,7 +6,7 @@ export async function fetchPatientRecipes(patientId) {
     const { data } = await apiClient.get(`/recetas?paciente_id=${patientId}`);
 
     if (!data || data.length === 0) return [];
-    
+
     return data.map(receta => ({
       numero_ciclo: receta.contexto.numero_ciclo,
       diagnostico: receta.diagnostico,

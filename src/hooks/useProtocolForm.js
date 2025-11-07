@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react';
 import { usePatients } from '@/contexts/PatientContext';
 import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
-import { updateProtocoloPacienteRegimen } from '@/services/protocolos';
+import {cambiarProtocoloPaciente, updateProtocoloPacienteRegimen} from '@/services/protocolos';
 
 export function useProtocolForm(patient) {
   const { updatePatient } = usePatients();
@@ -19,16 +19,24 @@ export function useProtocolForm(patient) {
     if (!patient || !patient.protocolo?.protocoloPacienteId) return;
 
     try {
-      if (selectedProtocol !== patient.protocolo) {
-        // TODO: cambiar protocolo en el back
-      }
+      let updatedProtocolo;
 
-      const updatedProtocolo = await updateProtocoloPacienteRegimen(
-        patient.paciente_id,
-        patient.protocolo.protocoloPacienteId,
-        selectedRegimen,
-        selectedCiclo
-      );
+      if (Number(selectedProtocol) !== Number(patient.protocolo.protocoloPacienteId)) {
+        updatedProtocolo = await cambiarProtocoloPaciente(
+          patient.paciente_id,
+          patient.protocolo.protocolo_id,
+          selectedProtocol,
+          selectedRegimen,
+          selectedCiclo
+        );
+      } else {
+        updatedProtocolo = await updateProtocoloPacienteRegimen(
+          patient.paciente_id,
+          patient.protocolo.protocoloPacienteId,
+          selectedRegimen,
+          selectedCiclo
+        );
+      }
 
       // Creamos el protocolo actualizado
       const newProtocolo = {
@@ -37,6 +45,8 @@ export function useProtocolForm(patient) {
         regimen: selectedRegimen,
         ciclo_actual_id: selectedCiclo
       };
+
+      console.log(newProtocolo);
 
       // Actualizamos tanto el paciente seleccionado como el estado global
       const updatedPatient = { ...patient, protocolo: newProtocolo };
