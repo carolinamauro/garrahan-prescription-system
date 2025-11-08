@@ -11,33 +11,21 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { IconBell } from '@tabler/icons-react';
 import Link from 'next/link';
-
-// TODO: Sacar esto a un context de Notifications
-const notifications = [
-  {
-    id: 1,
-    title: 'Nueva asignación de paciente',
-    description: 'Se te ha asignado el paciente Juan Perez',
-    time: 'Hace 5 minutos',
-    unread: true,
-  },
-  {
-    id: 2,
-    title: 'Actualización de protocolo',
-    description: 'El protocolo de tratamiento ha sido actualizado',
-    time: 'Hace 1 hora',
-    unread: true,
-  },
-  {
-    id: 3,
-    title: 'Recordatorio de cita',
-    description: 'Tienes una cita programada para mañana a las 10:00',
-    time: 'Hace 2 horas',
-    unread: true,
-  },
-];
+import { fetchAlarmasPorProfesional } from '@/services/alarma';
+import { useEffect, useState} from 'react';
 
 export function NotificationsDropdown() {
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      const notif = await fetchAlarmasPorProfesional();
+      console.log('Notificaciones obtenidas:', notif);
+      setNotifications(notif);
+    };
+    fetchNotifications();
+  }, []);
+
   const unreadCount = notifications.filter((n) => n.unread).length;
 
   return (
