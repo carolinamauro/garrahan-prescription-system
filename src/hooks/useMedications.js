@@ -168,15 +168,18 @@ export function useMedications(patient, setRecipes) {
     []
   );
 
-  const onExport = useCallback(async () => {
-    try {
-      await updateProtocoloPaciente(patient.paciente_id);
-      await generateRecipe(patient, medications, 'hospitalaria', setRecipes);
-      router.push(`/pacientes/${patient.paciente_id}`);
-    } catch (err) {
-      console.error('Error al generar receta:', err);
-    }
-  }, [patient, medications]);
+  const onExport = useCallback(
+    async (tipoReceta) => {
+      try {
+        await updateProtocoloPaciente(patient.paciente_id);
+        await generateRecipe(patient, medications, tipoReceta, setRecipes);
+        router.push(`/pacientes/${patient.paciente_id}`);
+      } catch (err) {
+        console.error('Error al generar receta:', err);
+      }
+    },
+    [patient, medications]
+  );
 
   const columns = useMemo(
     () =>
