@@ -39,27 +39,30 @@ export function useProtocolForm(patient, conEstadoInicial = false) {
 
   const [saveBtnDisabled, setSaveBtnDisabled] = useState(!shouldEnableSaveButton());
 
-  const handleSave = useCallback(async () => {
-    if (!patient) return;
+  const handleSave = useCallback(async (providedPatient = null) => {
+    const effectivePatient = providedPatient ?? patient;
+    if (!effectivePatient) return;
 
     try {
       let updatedProtocolo;
 
-      if (!patient.protocolo ||
-          Number(idProtocoloSeleccionado) !== Number(patient.protocolo.protocolo_id)) {
+      if (!effectivePatient.protocolo ||
+          Number(idProtocoloSeleccionado) !== Number(effectivePatient.protocolo.protocolo_id)) {
         updatedProtocolo = await cambiarProtocoloPaciente(
-          patient.paciente_id,
-          patient.protocolo?.protocoloPacienteId,
+          effectivePatient.paciente_id,
+          effectivePatient.protocolo?.protocoloPacienteId,
           idProtocoloSeleccionado,
           selectedRegimen,
           selectedCiclo
         );
 
-        patient.protocolo.protocoloPacienteId = updatedProtocolo;
+        // Si creamos un nuevo protocolo, sustituimos el protocoloPacienteId en el objeto
+        effectivePatient.protocolo ??= {};
+        effectivePatient.protocolo.protocoloPacienteId = updatedProtocolo;
       } else {
         updatedProtocolo = await updateProtocoloPacienteRegimen(
-          patient.paciente_id,
-          patient.protocolo.protocoloPacienteId,
+          effectivePatient.paciente_id,
+          effectivePatient.protocolo.protocoloPacienteId,
           selectedRegimen,
           selectedCiclo
         );
@@ -67,23 +70,22 @@ export function useProtocolForm(patient, conEstadoInicial = false) {
 
       // Creamos el protocolo actualizado
       const newProtocolo = {
-        ...patient.protocolo,
+        ...effectivePatient.protocolo,
         ...updatedProtocolo,
         regimen: selectedRegimen,
         ciclo_actual_id: selectedCiclo
       };
 
       // Actualizamos tanto el paciente seleccionado como el estado global
-      const updatedPatient = { ...patient, protocolo: newProtocolo };
+      const updatedPatient = { ...effectivePatient, protocolo: newProtocolo };
       setPatient(updatedPatient);
 
       // También actualizamos el estado global de pacientes para mantener la consistencia
-      updatePatient(patient.paciente_id, { protocolo: newProtocolo });
+      updatePatient(effectivePatient.paciente_id, { protocolo: newProtocolo });
 
       setShowDialog(true);
     } catch (error) {
       console.error('Error al actualizar el régimen del paciente:', error);
-      alert('Error al actualizar el régimen del paciente');
     }
   }, [patient, selectedRegimen, updatePatient, setPatient]);
 

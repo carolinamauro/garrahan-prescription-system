@@ -13,6 +13,7 @@ import {
 
 export function ProtocolSection({
   form,
+  protocolForm,
   protocolos,
   onProtocoloChange,
   onCicloChange,
@@ -21,7 +22,7 @@ export function ProtocolSection({
   withInputPeso = true,
 }) {
   const protocoloSeleccionado = protocolos.find(
-    (p) => p.protocolo_id === Number(form.selectedProtocol)
+    (p) => p.protocolo_id === Number(protocolForm.selectedProtocol)
   );
   const ciclos = protocoloSeleccionado?.ciclos || [];
 
@@ -32,7 +33,7 @@ export function ProtocolSection({
 
   // Regímenes del ciclo seleccionado
   const regimenes = ciclos
-    .filter((c) => c.ciclo_id === Number(form.selectedCiclo))
+    .filter((c) => c.ciclo_id === Number(protocolForm.selectedCiclo))
     .map((c) => c.regimen);
 
   const classCols = withInputPeso
@@ -44,7 +45,7 @@ export function ProtocolSection({
       <div>
         <Label>Protocolo</Label>
         <Select onValueChange={onProtocoloChange}
-          value={form.selectedProtocol || ''}>
+          value={protocolForm.selectedProtocol || ''}>
           <SelectTrigger className="mt-2">
             <SelectValue placeholder="Seleccionar protocolo">
               {protocoloSeleccionado?.nombre || 'Seleccionar protocolo'}
@@ -68,11 +69,13 @@ export function ProtocolSection({
         <Select
           onValueChange={onCicloChange}
           disabled={!protocoloSeleccionado}
-          value={form.selectedCiclo || ''}
+          value={protocolForm.selectedCiclo || ''}
         >
           <SelectTrigger className="mt-2">
             <SelectValue placeholder="Seleccionar ciclo">
-              {form.selectedCiclo ? `Ciclo ${form.selectedCiclo}` : 'Seleccionar ciclo'}
+              {protocolForm.selectedCiclo
+                ? `Ciclo ${protocolForm.selectedCiclo}`
+                : 'Seleccionar ciclo'}
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
@@ -92,20 +95,20 @@ export function ProtocolSection({
         <Label>Régimen</Label>
         <Select
           onValueChange={onRegimenChange}
-          disabled={!form.selectedCiclo}
-          value={form.selectedRegimen}
+          disabled={!protocolForm.selectedCiclo}
+          value={protocolForm.selectedRegimen}
         >
           <SelectTrigger className="mt-2">
             <SelectValue placeholder="Seleccionar régimen">
-              {form.selectedRegimen !== undefined
-                ? `Régimen ${form.selectedRegimen}`
+              {protocolForm.selectedRegimen !== undefined
+                ? `Régimen ${protocolForm.selectedRegimen}`
                 : 'Seleccionar régimen'}
             </SelectValue>
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
               {regimenes.map((r) => (
-                <SelectItem key={`${form.selectedCiclo}-${r}`}
+                <SelectItem key={`${protocolForm.selectedCiclo}-${r}`}
                   value={String(r)}>
                   Régimen {r}
                 </SelectItem>

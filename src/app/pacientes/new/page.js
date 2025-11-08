@@ -14,6 +14,7 @@ import { PatientSearchSection } from '@/components/PatientSearchSection';
 import { PatientDataSection } from '@/components/PatientDataSection';
 import { ProtocolSection } from '@/components/ProtocolSection';
 import { AlertPopup } from '@/components/AlertPopup';
+import { useProtocolForm } from '@/hooks/useProtocolForm';
 
 export default function NewPatientPage() {
   const router = useRouter();
@@ -21,6 +22,7 @@ export default function NewPatientPage() {
   const { protocolos, ciclos, setSelectedProtocolo } = useProtocolos();
   const { searchId, setSearchId, loadingSearch, handleSearch } = useExternalPatientSearch();
   const { showDialog, setShowDialog, createNewPatient } = usePatientCreation();
+  const protocolForm = useProtocolForm(null, true);
 
   const handleSearchClick = async () => {
     const data = await handleSearch();
@@ -40,8 +42,8 @@ export default function NewPatientPage() {
       alert('Complete todos los campos obligatorios');
       return;
     }
-
-    await createNewPatient(form);
+    // TODO: Handelear el calculo de la superficie corporal y la altura en la creacion del paciente
+    await createNewPatient(form, protocolForm.handleSave);
   };
 
   return (
@@ -65,13 +67,29 @@ export default function NewPatientPage() {
 
             <ProtocolSection
               form={form}
+              protocolForm={protocolForm}
               protocolos={protocolos}
               ciclos={ciclos}
               onProtocoloChange={(v) => {
+                protocolForm.setSelectedProtocol(v);
+                protocolForm.setSelectedRegimen('');
+                protocolForm.setSelectedCiclo('');
+                protocolForm.setSaveBtnDisabled(true);
                 setSelectedProtocolo(v);
-                setForm((f) => ({ ...f, protocolo: v, ciclo: '' }));
+                setForm((f) => ({ ...f, protocolo: v, ciclo: '', regimen: '' }));
+
               }}
-              onCicloChange={(v) => setForm((f) => ({ ...f, ciclo: v }))}
+              onCicloChange={(v) => {
+                protocolForm.setSelectedCiclo(v);
+                protocolForm.setSelectedRegimen('');
+                protocolForm.setSaveBtnDisabled(true);
+                setForm((f) => ({ ...f, ciclo: v, regimen: '' }));
+              }}
+              onRegimenChange={(v) => {
+                protocolForm.setSelectedRegimen(v);
+                protocolForm.setSaveBtnDisabled(false);
+                setForm((f) => ({ ...f, regimen: v }));
+              }}
               onPesoChange={handleChange}
             />
 

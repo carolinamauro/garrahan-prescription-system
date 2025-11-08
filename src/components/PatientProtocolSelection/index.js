@@ -23,7 +23,7 @@ export function PatientProtocolSelection({ patient, title, protocolForm }) {
       <Card className="bg-gradient-to-t from-primary/5 to-card shadow-xs">
         <CardContent className="grid gap-6 pt-4">
           <ProtocolSection
-            form={protocolForm}
+            protocolForm={protocolForm}
             protocolos={useProtos.protocolos}
             onProtocoloChange={(v) => {
               protocolForm.setSelectedProtocol(v);
