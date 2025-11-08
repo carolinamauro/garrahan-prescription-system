@@ -41,20 +41,22 @@ export async function updateProtocoloPacienteRegimen(
 
 export async function cambiarProtocoloPaciente(
   idPaciente,
-  protocoloActualId,
+  protocoloPacienteId,
   nuevoProtocoloId,
   regimen,
   ciclo
 ) {
-  const { data: dataPatch } = await apiClient.patch(
-    `/pacientes/${idPaciente}/protocolos/${protocoloActualId}`,
-    {
-      estado: 'Inactivo'
-    }
-  );
+  if (protocoloPacienteId) {
+    const { data: dataPatch } = await apiClient.patch(
+      `/pacientes/${idPaciente}/protocolos/${protocoloPacienteId}`,
+      {
+        estado: 'Inactivo'
+      }
+    );
 
-  if (!dataPatch.actualizado) {
-    throw new Error('Error al desactivar el protocolo actual');
+    if (!dataPatch.actualizado) {
+      throw new Error('Error al desactivar el protocolo actual');
+    }
   }
 
   const { data: dataPost } = await apiClient.post(
@@ -67,6 +69,8 @@ export async function cambiarProtocoloPaciente(
       estado: 'Activo',
     }
   );
+
+  // TODO: Si hay un error con el post, activar nuevamente el protocolo anterior
 
   return dataPost.protocolo_paciente_id;
 }
