@@ -6,6 +6,7 @@ import { PatientProtocolSelection } from '@/components/PatientProtocolSelection'
 import { useParams } from 'next/navigation';
 import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
 import { NotFoundPage } from '@/components/NotFoundPage';
+import { useProtocolForm } from '@/hooks/useProtocolForm';
 
 export default function PatientSelectProtocol() {
   const { id } = useParams();
@@ -24,9 +25,23 @@ export default function PatientSelectProtocol() {
 
   if (!patient) return <NotFoundPage />;
 
+  const protocolForm = useProtocolForm(patient);
+
+  useEffect(() => {
+    if (patient) {
+      protocolForm.setSelectedProtocol('');
+      protocolForm.setSelectedCiclo('');
+      protocolForm.setSelectedRegimen('');
+    }
+  }, [patient]);
+
   return (
     <>
-      <PatientProtocolSelection patient={patient} />
+      <PatientProtocolSelection
+        patient={patient}
+        title={'Seleccionar protocolo'}
+        protocolForm={protocolForm}
+      />
     </>
   );
 }

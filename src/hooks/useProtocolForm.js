@@ -5,15 +5,39 @@ import { usePatients } from '@/contexts/PatientContext';
 import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
 import { cambiarProtocoloPaciente, updateProtocoloPacienteRegimen } from '@/services/protocolos';
 
-export function useProtocolForm(patient) {
+export function useProtocolForm(patient, conEstadoInicial = false) {
   const { updatePatient } = usePatients();
   const { setPatient } = useSelectedPatient();
-
-  const [selectedProtocol, setSelectedProtocol] = useState(patient?.protocolo ?? null);
-  const [selectedRegimen, setSelectedRegimen] = useState(patient?.protocolo?.regimen ?? 1);
-  const [selectedCiclo, setSelectedCiclo] = useState(patient?.protocolo?.ciclo_actual_id ?? 1);
   const [showDialog, setShowDialog] = useState(false);
-  const [saveBtnDisabled, setSaveBtnDisabled] = useState(false);
+
+  const definirEstadoInicial = (valor) => {
+    if (conEstadoInicial && valor !== null) {
+      return valor;
+    }
+    return '';
+  };
+
+  const [
+    idProtocoloSeleccionado,
+    setIdProtocoloSeleccionado
+  ] = useState(definirEstadoInicial(patient?.protocolo?.protocolo_id));
+  const [
+    selectedRegimen, setSelectedRegimen
+  ] = useState(definirEstadoInicial(patient?.protocolo?.regimen));
+  const [
+    selectedCiclo, setSelectedCiclo
+  ] = useState(definirEstadoInicial(patient?.protocolo?.ciclo_actual_id));
+
+  const shouldEnableSaveButton = useCallback(
+    () => {
+      return (selectedCiclo ?? '') !== '' &&
+      (selectedRegimen ?? '') !== '' &&
+      (idProtocoloSeleccionado ?? '') !== '';
+    },
+    []
+  );
+
+  const [saveBtnDisabled, setSaveBtnDisabled] = useState(!shouldEnableSaveButton());
 
   const handleSave = useCallback(async () => {
     if (!patient) return;
@@ -22,11 +46,11 @@ export function useProtocolForm(patient) {
       let updatedProtocolo;
 
       if (!patient.protocolo ||
-          Number(selectedProtocol) !== Number(patient.protocolo.protocolo_id)) {
+          Number(idProtocoloSeleccionado) !== Number(patient.protocolo.protocolo_id)) {
         updatedProtocolo = await cambiarProtocoloPaciente(
           patient.paciente_id,
           patient.protocolo?.protocoloPacienteId,
-          selectedProtocol,
+          idProtocoloSeleccionado,
           selectedRegimen,
           selectedCiclo
         );
@@ -64,8 +88,8 @@ export function useProtocolForm(patient) {
   }, [patient, selectedRegimen, updatePatient, setPatient]);
 
   return {
-    selectedProtocol,
-    setSelectedProtocol,
+    selectedProtocol: idProtocoloSeleccionado,
+    setSelectedProtocol: setIdProtocoloSeleccionado,
     selectedRegimen,
     setSelectedRegimen,
     selectedCiclo,

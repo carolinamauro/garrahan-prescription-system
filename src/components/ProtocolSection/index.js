@@ -21,7 +21,7 @@ export function ProtocolSection({
   withInputPeso = true,
 }) {
   const protocoloSeleccionado = protocolos.find(
-    (p) => p.protocolo_id === Number(form.protocolo)
+    (p) => p.protocolo_id === Number(form.selectedProtocol)
   );
   const ciclos = protocoloSeleccionado?.ciclos || [];
 
@@ -32,7 +32,7 @@ export function ProtocolSection({
 
   // Regímenes del ciclo seleccionado
   const regimenes = ciclos
-    .filter((c) => c.ciclo_id === Number(form.ciclo))
+    .filter((c) => c.ciclo_id === Number(form.selectedCiclo))
     .map((c) => c.regimen);
 
   const classCols = withInputPeso
@@ -43,10 +43,12 @@ export function ProtocolSection({
     <div className={`grid gap-4 ${classCols}`}>
       <div>
         <Label>Protocolo</Label>
-        <Select onValueChange={onProtocoloChange}>
+        <Select onValueChange={onProtocoloChange}
+          value={form.selectedProtocol || ''}>
           <SelectTrigger className="mt-2">
-            {/* Este ya estaba bien */}
-            <SelectValue>{protocoloSeleccionado?.nombre || 'Seleccionar protocolo'}</SelectValue>
+            <SelectValue placeholder="Seleccionar protocolo">
+              {protocoloSeleccionado?.nombre || 'Seleccionar protocolo'}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -66,15 +68,12 @@ export function ProtocolSection({
         <Select
           onValueChange={onCicloChange}
           disabled={!protocoloSeleccionado}
-          // Añadimos 'value' para que el Select sepa qué mostrar
-          value={form.ciclo}
+          value={form.selectedCiclo || ''}
         >
           <SelectTrigger className="mt-2">
-            {/* --- CAMBIO AQUÍ --- */}
-            <SelectValue>
-              {form.ciclo ? `Ciclo ${form.ciclo}` : 'Seleccionar ciclo'}
+            <SelectValue placeholder="Seleccionar ciclo">
+              {form.selectedCiclo ? `Ciclo ${form.selectedCiclo}` : 'Seleccionar ciclo'}
             </SelectValue>
-            {/* --- FIN CAMBIO --- */}
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -93,16 +92,20 @@ export function ProtocolSection({
         <Label>Régimen</Label>
         <Select
           onValueChange={onRegimenChange}
-          disabled={!form.ciclo}
-          value={form.regimen}
+          disabled={!form.selectedCiclo}
+          value={form.selectedRegimen}
         >
           <SelectTrigger className="mt-2">
-            <SelectValue placeholder="Seleccionar régimen" />
+            <SelectValue placeholder="Seleccionar régimen">
+              {form.selectedRegimen !== undefined
+                ? `Régimen ${form.selectedRegimen}`
+                : 'Seleccionar régimen'}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
               {regimenes.map((r) => (
-                <SelectItem key={`${form.ciclo}-${r}`}
+                <SelectItem key={`${form.selectedCiclo}-${r}`}
                   value={String(r)}>
                   Régimen {r}
                 </SelectItem>
