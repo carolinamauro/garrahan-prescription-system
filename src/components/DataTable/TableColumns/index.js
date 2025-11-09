@@ -32,9 +32,12 @@ export const getPatientColumns = (handleEdit) => [
     enableHiding: false,
   },
   {
-    accessorKey: 'DNI',
-    header: 'DNI',
-    cell: ({ row }) => { return <DataCell content={row.original.dni} />; },
+    accessorKey: 'Documento',
+    header: 'Documento',
+    cell: ({ row }) => {
+      const doc = `${row.original.tipo_documento || ''} ${row.original.numero_documento || ''}`.trim();
+      return <DataCell content={doc || '-'} />;
+    },
   },
   {
     accessorKey: 'Historia Clínica',
