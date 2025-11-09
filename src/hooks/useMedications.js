@@ -154,6 +154,7 @@ export function useMedications(patient, setRecipes) {
           peso: patient.peso,
           nueva_fuerza_valor: med.concentrationData.fuerza_valor,
           nueva_fuerza_unidad: med.concentrationData.fuerza_unidad,
+          nombre_droga: med.nombre,
         });
 
         setMedications((prev) => {
