@@ -42,6 +42,26 @@ export function PatientDataSection({ form, onChange }) {
           className="mt-2"
         />
       </div>
+
+      <div>
+        <Label htmlFor="altura">Altura</Label>
+        <Input
+          id="altura"
+          value={form.altura}
+          onChange={onChange}
+          className="mt-2"
+        />
+      </div>
+
+      <div>
+        <Label htmlFor="obra_social">Obra social</Label>
+        <Input
+          id="obra_social"
+          value={form.obra_social}
+          onChange={onChange}
+          className="mt-2"
+        />
+      </div>
     </div>
   );
 }

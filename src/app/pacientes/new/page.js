@@ -32,7 +32,9 @@ export default function NewPatientPage() {
         nombre: data.nombre || '',
         apellido: data.apellido || '',
         id_hospitalario: data.id_hospitalario || '',
-        fecha_nacimiento: data.fecha_nacimiento || ''
+        fecha_nacimiento: data.fecha_nacimiento || '',
+        altura: data.altura || '',
+        obra_social: data.obra_social || ''
       }));
     }
   };
@@ -42,7 +44,7 @@ export default function NewPatientPage() {
       alert('Complete todos los campos obligatorios');
       return;
     }
-    // TODO: Handelear el calculo de la superficie corporal y la altura en la creacion del paciente
+    console.log(form);
     await createNewPatient(form, protocolForm.handleSave);
   };
 
