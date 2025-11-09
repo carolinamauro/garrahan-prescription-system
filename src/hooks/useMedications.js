@@ -169,10 +169,10 @@ export function useMedications(patient, setRecipes) {
   );
 
   const onExport = useCallback(
-    async (tipoReceta) => {
+    async (tipoReceta, camposExtraRecetaProvincia) => {
       try {
         await updateProtocoloPaciente(patient.paciente_id);
-        await generateRecipe(patient, medications, tipoReceta, setRecipes);
+        await generateRecipe(patient, medications, tipoReceta, setRecipes, camposExtraRecetaProvincia);
         router.push(`/pacientes/${patient.paciente_id}`);
       } catch (err) {
         console.error('Error al generar receta:', err);

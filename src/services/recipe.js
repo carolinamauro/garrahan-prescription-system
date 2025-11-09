@@ -24,19 +24,23 @@ export function getRecipeUrl(recipeId, type) {
   return `${API_BASE_URL}/recetas/${recipeId}/exportar?tipo=${type}`;
 }
 
-export async function exportRecipe(patientData, type, setRecipes) {
-  const { data: recipeIdData } = await apiClient.post('/recetas',  {
+export async function exportRecipe(patientData, type, setRecipes, camposExtraRecetaProvincia) {
+  const { data: recipeIdData } = await apiClient.post('/recetas', {
     ...patientData,
     tipo_receta: type,
+    ...(type === 'provincia' ? camposExtraRecetaProvincia : {})
   });
+
   const recipeId = recipeIdData.id;
 
   const recipeData = {
     ...patientData,
     receta_id: recipeId,
     tipo_receta: type,
-    fecha_solicitud_receta: formatDate(new Date().toISOString())
+    fecha_solicitud_receta: formatDate(new Date().toISOString()),
+    ...(type === 'provincia' ? camposExtraRecetaProvincia : {})
   };
+
 
   setRecipes((prevRecipes) => [
     ...prevRecipes,

@@ -6,11 +6,11 @@ export const useRecipeGenerator = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const generateRecipe = async (patient, medications, type, setRecipes) => {
+  const generateRecipe = async (patient, medications, type, setRecipes, camposExtraRecetaProvincia) => {
     setLoading(true);
     try {
       const data = getPatientData(patient, medications);
-      const pdfData = await exportRecipe(data, type, setRecipes);
+      const pdfData = await exportRecipe(data, type, setRecipes, camposExtraRecetaProvincia);
 
       const blobUrl = window.URL.createObjectURL(pdfData);
       const a = document.createElement('a');
