@@ -27,14 +27,29 @@ export default function NewPatientPage() {
   const handleSearchClick = async () => {
     const data = await handleSearch();
     if (data) {
-      setForm((f) => ({
+      setForm(f => ({
         ...f,
-        nombre: data.nombre || '',
-        apellido: data.apellido || '',
-        id_hospitalario: data.id_hospitalario || '',
-        fecha_nacimiento: data.fecha_nacimiento || '',
-        altura: data.altura || '',
-        obra_social: data.obra_social || ''
+        nombre: data.nombre ?? f.nombre,
+        apellido: data.apellido ?? f.apellido,
+        id_hospitalario: data.id_hospitalario ?? f.id_hospitalario,
+        fecha_nacimiento: data.fecha_nacimiento ?? f.fecha_nacimiento,
+        sexo: data.sexo ?? f.sexo,
+        peso: data.peso ?? f.peso,
+        altura: data.talla ?? f.altura,
+        obra_social: data.obra_social ?? f.obra_social,
+        sup_corporal: data.superficie_corporal ?? f.sup_corporal,
+        nacionalidad: data.nacionalidad ?? f.nacionalidad,
+        domicilio_calle: data.domicilio_calle ?? f.domicilio_calle,
+        domicilio_numero: data.domicilio_numero ?? f.domicilio_numero,
+        domicilio_piso_depto: data.domicilio_piso_depto ?? f.domicilio_piso_depto,
+        codigo_postal: data.codigo_postal ?? f.codigo_postal,
+        localidad: data.localidad ?? f.localidad,
+        partido: data.partido ?? f.partido,
+        telefono: data.telefono ?? f.telefono,
+        email: data.email ?? f.email,
+        tipo_documento: data.tipo_documento ?? f.tipo_documento,
+        numero_documento: data.numero_documento ?? f.numero_documento,
+        diagnostico: data.diagnostico ?? f.diagnostico,
       }));
     }
   };
