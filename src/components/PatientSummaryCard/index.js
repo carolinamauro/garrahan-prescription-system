@@ -19,7 +19,7 @@ export function PatientSummaryCard({ withEditButton }) {
     {
       label: 'Superficie corporal',
       value: patient?.sup_corporal
-        ? `${patient?.sup_corporal} m²`
+        ? `${parseFloat(patient?.sup_corporal, 10).toFixed(8)} m²`
         : 'No informa'
     },
     {
