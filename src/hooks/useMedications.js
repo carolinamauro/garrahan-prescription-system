@@ -12,20 +12,39 @@ export function useMedications(patient, setRecipes) {
   const [availableConcentrations, setAvailableConcentrations] = useState({});
   const [loading, setLoading] = useState(true);
   const [exportBtnDisabled, setExportBtnDisabled] = useState(true);
+  const [tipoReceta, setTipoReceta] = useState('hospitalaria');
+  const [camposExtra, setCamposExtra] = useState({ estadio: '', intervalo: '', ps: '', tnm: '' });
 
   const router = useRouter();
   const { generateRecipe } = useRecipeGenerator();
 
   const shouldEnableExportButton = useCallback(
-    (meds) =>
-      meds.every(
+    (meds, maybeTipoReceta) => {
+      // Usamos el tipoReceta pasado o, si no viene, el estado `tipoReceta`
+      const tr = maybeTipoReceta ?? tipoReceta;
+
+      const targetMeds = meds ?? medications;
+      const tieneTodosLosCampos = (targetMeds || []).every(
         (m) =>
           (m.presentation ?? '') !== '' &&
           (m.concentration ?? '') !== '' &&
           (m.needed_amount ?? '') !== ''
-      ),
-    []
+      );
+
+      // Si es provincia, además requerimos camposExtra completos
+      if (tr === 'provincia') {
+        const tieneTodosLosCamposExtra = Object.values(camposExtra).every((v) => v !== '');
+        return tieneTodosLosCampos && tieneTodosLosCamposExtra;
+      }
+      return tieneTodosLosCampos;
+    },
+    [tipoReceta, camposExtra, medications]
   );
+
+  // Recalcula automáticamente el estado del botón de exportar cuando cambien los datos relevantes
+  useEffect(() => {
+    setExportBtnDisabled(!shouldEnableExportButton(medications, tipoReceta));
+  }, [medications, tipoReceta, camposExtra, shouldEnableExportButton]);
 
   useEffect(() => {
     if (!patient) return;
@@ -169,16 +188,16 @@ export function useMedications(patient, setRecipes) {
   );
 
   const onExport = useCallback(
-    async (tipoReceta, camposExtraRecetaProvincia) => {
+    async () => {
       try {
         await updateProtocoloPaciente(patient.paciente_id);
-        await generateRecipe(patient, medications, tipoReceta, setRecipes, camposExtraRecetaProvincia);
+        await generateRecipe(patient, medications, tipoReceta, setRecipes, camposExtra);
         router.push(`/pacientes/${patient.paciente_id}`);
       } catch (err) {
         console.error('Error al generar receta:', err);
       }
     },
-    [patient, medications]
+    [patient, medications, tipoReceta, setRecipes, camposExtra, router, generateRecipe]
   );
 
   const columns = useMemo(
@@ -216,5 +235,10 @@ export function useMedications(patient, setRecipes) {
       columns,
       cycles: 1,
     },
+    tipoReceta,
+    setTipoReceta,
+    camposExtra,
+    setCamposExtra,
+    shouldEnableExportButton
   };
 }
