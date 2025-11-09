@@ -59,7 +59,6 @@ export default function NewPatientPage() {
       alert('Complete todos los campos obligatorios');
       return;
     }
-    console.log(form);
     await createNewPatient(form, protocolForm.handleSave);
   };
 

@@ -10,11 +10,11 @@ const PatientsContext = createContext();
 
 export function PatientsProvider({ children }) {
   const { loggedIn } = useLogin();
-  const { 
-    patients, 
-    setPatients, 
-    loading, 
-    refreshPatientProtocol 
+  const {
+    patients,
+    setPatients,
+    loading,
+    refreshPatientProtocol
   } = usePatientsSync({ loggedIn });
 
   const updatePatient = useCallback(async (id, updates) => {
@@ -48,13 +48,13 @@ export function PatientsProvider({ children }) {
   }, [patients]);
 
   return (
-    <PatientsContext.Provider value={{ 
-      patients, 
-      updatePatient, 
-      addPatient, 
-      loading, 
+    <PatientsContext.Provider value={{
+      patients,
+      updatePatient,
+      addPatient,
+      loading,
       getPatientById,
-      refreshPatientProtocol 
+      refreshPatientProtocol
     }}>
       {children}
     </PatientsContext.Provider>

@@ -6,7 +6,8 @@ export const useRecipeGenerator = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const generateRecipe = async (patient, medications, type, setRecipes, camposExtraRecetaProvincia) => {
+  const generateRecipe = async (patient, medications, type, setRecipes,
+    camposExtraRecetaProvincia) => {
     setLoading(true);
     try {
       const data = getPatientData(patient, medications);
@@ -19,7 +20,6 @@ export const useRecipeGenerator = () => {
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-
       window.URL.revokeObjectURL(blobUrl);
 
     } catch (error) {
@@ -55,7 +55,7 @@ export const useRecipeGenerator = () => {
         ciclo_id: patient.protocolo.ciclo_actual_id,
         regimen: patient.protocolo.regimen,
         paciente_id: patient.paciente_id,
-        profesional_id: 2, // TODO: id del profesional
+        profesional_id: 2,
         estado: 'Activo',
         detalles: []
       };
