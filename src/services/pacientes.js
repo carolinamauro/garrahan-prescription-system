@@ -14,3 +14,4 @@ export async function createPatient(patientData) {
   const { data } = await apiClient.post('/pacientes', patientData);
   return data;
 }
+

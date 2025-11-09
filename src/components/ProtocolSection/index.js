@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 'use client';
 
 import { Label } from '@/components/ui/label';
@@ -10,14 +11,16 @@ import {
   SelectItem,
   SelectGroup,
 } from '@/components/ui/select';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { mergeTwClassNames } from '@/lib/utils';
+import { ESTADOS_PROTOCOLO } from '@/lib/constants';
 
 export function ProtocolSection({
   form,
   protocolos,
   onProtocoloChange,
-  onCicloChange,
-  onRegimenChange,
-  onPesoChange,
+  onChange,
 }) {
   const protocoloSeleccionado = protocolos.find(
     (p) => p.protocolo_id === Number(form.protocolo)
@@ -35,13 +38,13 @@ export function ProtocolSection({
     .map((c) => c.regimen);
 
   return (
-    <div className="grid gap-4 md:grid-cols-4">
-      <div>
+    <div className="flex gap-5 flex-wrap">
+      <div className='flex-1'>
         <Label>Protocolo</Label>
         <Select onValueChange={onProtocoloChange}>
           <SelectTrigger className="mt-2">
-            {/* Este ya estaba bien */}
-            <SelectValue>{protocoloSeleccionado?.nombre || 'Seleccionar protocolo'}</SelectValue>
+            <SelectValue placeholder="Seleccionar protocolo"
+              value={protocoloSeleccionado?.nombre}/>
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -56,20 +59,15 @@ export function ProtocolSection({
         </Select>
       </div>
 
-      <div>
+      <div className='flex-1'>
         <Label>Ciclo</Label>
         <Select
-          onValueChange={onCicloChange}
+          onValueChange={(value) => onChange('ciclo', value)}
           disabled={!protocoloSeleccionado}
-          // Añadimos 'value' para que el Select sepa qué mostrar
           value={form.ciclo}
         >
           <SelectTrigger className="mt-2">
-            {/* --- CAMBIO AQUÍ --- */}
-            <SelectValue>
-              {form.ciclo ? `Ciclo ${form.ciclo}` : 'Seleccionar ciclo'}
-            </SelectValue>
-            {/* --- FIN CAMBIO --- */}
+            <SelectValue placeholder='Seleccionar ciclo' />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -84,10 +82,10 @@ export function ProtocolSection({
         </Select>
       </div>
 
-      <div>
+      <div className='flex-1'>
         <Label>Régimen</Label>
         <Select
-          onValueChange={onRegimenChange}
+          onValueChange={(value) => onChange('regimen', value)}
           disabled={!form.ciclo}
           value={form.regimen}
         >
@@ -107,12 +105,49 @@ export function ProtocolSection({
         </Select>
       </div>
 
-      <div>
+      <div className='flex-1'>
+        <Label>Fecha de inicio</Label>
+        <DatePicker
+          maxDate={new Date()}
+          className={mergeTwClassNames(
+            'file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+            'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
+            'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
+            'mt-2'
+          )}
+          selected={form.fecha_inicio}
+          placeholderText='Seleccionar fecha'
+          onChange={(date) => onChange('fecha_inicio', date)}
+          dateFormat={'dd/MM/yyyy'}
+        />
+      </div>
+
+      <div className='flex-1'>
+        <Label>Estado del protocolo</Label>
+        <Select onValueChange={(value) => onChange('estado', value)}>
+          <SelectTrigger className="mt-2">
+            <SelectValue placeholder="Seleccionar estado"
+              value={form.estado}/>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              {ESTADOS_PROTOCOLO.map((p) => (
+                <SelectItem key={p.value}
+                  value={String(p.label)}>
+                  {p.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className='flex-1 min-w-[100px]'>
         <Label>Peso (kg)</Label>
         <Input
           id="peso"
           value={form.peso}
-          onChange={onPesoChange}
+          onChange={({ target }) => onChange('peso', target.value)}
           placeholder="Ej: 70.5"
           className="mt-2"
         />

@@ -1,27 +1,28 @@
 import { Card, CardContent } from '@/components/ui/card';
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ContinueButtons } from '@/components/GenerarRecetaSelector/ContinueButtons';
-import { SelectorCard } from '@/components/GenerarRecetaSelector/SelectorCard';
+import { Label } from '@/components/ui/label';
+import { ContinueButtons } from './ContinueButtons';
 
 export function GenerarRecetaSelector({ paciente }) {
   const id = paciente.paciente_id;
   const router = useRouter();
-  const [selectedCycles, setSelectedCycles] = useState('1');
 
   const handleContinue = () => {
-    router.push(`/pacientes/${id}/generar-receta/medicamentos?ciclos=${selectedCycles}`);
+    router.push(`/pacientes/${id}/generar-receta/medicamentos?ciclos=1`);
   };
 
   return (
     <div className="px-4 lg:px-6 mt-6">
       <Card>
         <CardContent className="p-6">
-          <SelectorCard
-            selectedCycles={selectedCycles}
-            setSelectedCycles={setSelectedCycles}
-            paciente={paciente}
-          />
+          <div className="flex items-center gap-4">
+            <Label className="font-semibold text-muted-foreground">
+                Cantidad de ciclos a solicitar:
+            </Label>
+            <Label className="font-semibold text-muted-foreground">
+                1
+            </Label>
+          </div>
         </CardContent>
       </Card>
 

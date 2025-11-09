@@ -143,7 +143,8 @@ export function PatientsProvider({ children }) {
   };
 
   return (
-    <PatientsContext.Provider value={{ patients, updatePatient, addPatient, loading, getPatientById }}>
+    <PatientsContext.Provider
+      value={{ patients, updatePatient, addPatient, loading, getPatientById }}>
       {children}
     </PatientsContext.Provider>
   );

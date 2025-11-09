@@ -44,6 +44,10 @@ export default function NewPatientPage() {
     await createNewPatient(form);
   };
 
+  const onChange = (key, value) => {
+    handleChange({ target: { id: key, value } });
+  };
+
   return (
     <div className="px-4 lg:px-6">
       <h1 className="mb-4 text-xl font-semibold">Agregar paciente</h1>
@@ -71,8 +75,7 @@ export default function NewPatientPage() {
                 setSelectedProtocolo(v);
                 setForm((f) => ({ ...f, protocolo: v, ciclo: '' }));
               }}
-              onCicloChange={(v) => setForm((f) => ({ ...f, ciclo: v }))}
-              onPesoChange={handleChange}
+              onChange={onChange}
             />
 
             {errors.length > 0 && (

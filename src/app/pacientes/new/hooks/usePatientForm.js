@@ -13,6 +13,9 @@ export function usePatientForm() {
     fecha_nacimiento: '',
     protocolo: '',
     ciclo: '',
+    regimen: '',
+    estado: '',
+    fecha_inicio: '',
     peso: ''
   });
 

@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { fetchProtocolos, fetchCiclos } from '@/services/protocolos';
+import { fetchProtocolos } from '@/services/protocolos';
 
 export function useProtocolos() {
   const [protocolos, setProtocolos] = useState([]);
@@ -26,18 +26,10 @@ export function useProtocolos() {
       setSelectedRegimen('');
       return;
     }
+    setCiclos(selectedProtocolo.ciclos);
+    setSelectedCiclo('');
+    setSelectedRegimen('');
 
-    fetchCiclos(selectedProtocolo)
-      .then((c) => {
-        setCiclos(c);
-        setSelectedCiclo('');
-        setSelectedRegimen('');
-      })
-      .catch(() => {
-        setCiclos([]);
-        setSelectedCiclo('');
-        setSelectedRegimen('');
-      });
   }, [selectedProtocolo]);
 
   return {
