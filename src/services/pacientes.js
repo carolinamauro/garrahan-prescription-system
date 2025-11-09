@@ -22,7 +22,8 @@ export async function updatePaciente(id, updates) {
   const { data } = await apiClient.patch(`/pacientes/${id}`, {
     peso: updates.peso,
     altura: updates.altura,
-    obra_social: updates.obra_social
+    obra_social: updates.obra_social,
+    sup_corporal: updates.sup_corporal,
   });
   return data;
 }

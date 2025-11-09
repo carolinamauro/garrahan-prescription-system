@@ -11,6 +11,7 @@ export function usePatientForm(patient) {
     altura: patient.altura || '',
     ultima_modificacion: patient.ultima_modificacion || '',
     obra_social: patient.obra_social || '',
+    sup_corporal: patient.sup_corporal || '',
   });
 
   const handleSave = useCallback(async () => {
