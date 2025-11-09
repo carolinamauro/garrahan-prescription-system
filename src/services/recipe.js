@@ -12,7 +12,7 @@ export async function fetchPatientRecipes(patientId) {
       diagnostico: receta.diagnostico,
       fecha_solicitud_receta: formatDate(receta.fecha_prescripcion),
       receta_id: receta.id,
-      tipo_receta: 'hospitalaria' // TODO: definir el tipo de la receta desde backend
+      tipo_receta: receta.tipo_receta
     }));
   } catch (error) {
     console.error('Error fetching recipes:', error);
@@ -25,7 +25,10 @@ export function getRecipeUrl(recipeId, type) {
 }
 
 export async function exportRecipe(patientData, type, setRecipes) {
-  const { data: recipeIdData } = await apiClient.post('/recetas', patientData);
+  const { data: recipeIdData } = await apiClient.post('/recetas',  {
+    ...patientData,
+    tipo_receta: type,
+  });
   const recipeId = recipeIdData.id;
 
   const recipeData = {
