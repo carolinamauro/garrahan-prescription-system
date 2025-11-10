@@ -66,7 +66,9 @@ export const useRecipeGenerator = () => {
     const administraciones = patient.protocolo.administraciones;
 
     medications.forEach((med) => {
-      const admin = administraciones.find(a => a.droga_id === med.droga_id);
+      const admin = administraciones.find(
+        a => a.droga_id === med.droga_id && a.admin_id === med.administracion_id
+      );
 
       data.detalles.push({
         admin_id: admin.admin_id,
