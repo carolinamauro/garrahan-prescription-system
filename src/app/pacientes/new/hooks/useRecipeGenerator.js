@@ -6,11 +6,12 @@ export const useRecipeGenerator = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const generateRecipe = async (patient, medications, type, setRecipes,
+  const generateRecipe = async (patientFullData, medications, type, setRecipes,
     camposExtraRecetaProvincia) => {
     setLoading(true);
     try {
-      const data = getPatientData(patient, medications);
+      const {metaData, patient} = patientFullData;
+      const data = getPatientData(metaData, patient, medications);
       const pdfData = await exportRecipe(data, type, setRecipes, camposExtraRecetaProvincia);
 
       const blobUrl = window.URL.createObjectURL(pdfData);
@@ -30,36 +31,34 @@ export const useRecipeGenerator = () => {
     }
   };
 
-  const getPatientData = (patient, medications) => {
+  const getPatientData = (metaData, patient, medications) => {
     const data =
       {
-        nombre: patient.nombre,
-        apellido: patient.apellido,
-        tipo_documento: patient.tipo_documento,
-        numero_documento: patient.numero_documento,
-        fecha_nacimiento: patient.fecha_nacimiento,
-        sexo: patient.sexo,
-        nacionalidad: patient.nacionalidad,
-        domicilio_calle: patient.domicilio_calle,
-        domicilio_numero: patient.domicilio_numero,
-        domicilio_piso_depto: patient.domicilio_piso_depto,
-        codigo_postal: patient.codigo_postal,
-        localidad: patient.localidad,
-        partido: patient.partido,
-        telefono: patient.telefono,
-        email: patient.email,
-        peso: patient.peso,
-        talla: patient.altura,
-        superficie_corporal: patient.sup_corporal ?
-          patient.sup_corporal : calculateBodySurface(patient.peso),
-        diagnostico: patient.diagnostico,
-        numero_ciclo: patient.protocolo.ciclo_actual_id,
+        nombre: metaData.nombre,
+        apellido: metaData.apellido,
+        tipo_documento: metaData.tipo_documento,
+        numero_documento: metaData.numero_documento,
+        fecha_nacimiento: metaData.fecha_nacimiento,
+        sexo: metaData.sexo,
+        nacionalidad: metaData.nacionalidad,
+        domicilio_calle: metaData.domicilio_calle,
+        domicilio_numero: metaData.domicilio_numero,
+        domicilio_piso_depto: metaData.domicilio_piso_depto,
+        codigo_postal: metaData.codigo_postal,
+        localidad: metaData.localidad,
+        partido: metaData.partido,
+        telefono: metaData.telefono,
+        email: metaData.email,
+        peso: metaData.peso,
+        talla: metaData.talla,
+        superficie_corporal: metaData.sup_corporal ?
+          metaData.sup_corporal : calculateBodySurface(metaData.peso),
+        diagnostico: metaData.diagnostico,
         protocolo_id: patient.protocolo.protocolo_id,
         ciclo_id: patient.protocolo.ciclo_actual_id,
         regimen: patient.protocolo.regimen,
         paciente_id: patient.paciente_id,
-        profesional_id: 2,
-        estado: 'Activo',
+        estado: 'activo',
         detalles: []
       };
 
@@ -76,7 +75,7 @@ export const useRecipeGenerator = () => {
         presentacion: med.presentation,
         concentracion: med.concentration,
         cantidad: med.total_units,
-        dosis_diaria: med.dosis_diaria,
+        dosis_diaria: `${med.dosis_diaria.valor} ${med.dosis_diaria.unidad}/m2`,
         numero_dias: admin.cantidad_dias,
         dosis_total: med.total_dosis_amount,
         dosis_unidad: med.total_dosis_unit,

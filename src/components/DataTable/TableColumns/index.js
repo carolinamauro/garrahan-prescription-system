@@ -35,7 +35,8 @@ export const getPatientColumns = (handleEdit) => [
     accessorKey: 'Documento',
     header: 'Documento',
     cell: ({ row }) => {
-      const doc = `${row.original.tipo_documento || ''} ${row.original.numero_documento || ''}`.trim();
+      const doc = `${row.original.tipo_documento || ''} 
+      ${row.original.numero_documento || ''}`.trim();
       return <DataCell content={doc || '-'} />;
     },
   },
@@ -79,12 +80,12 @@ export const getProtocolColumns = () => [
   {
     accessorKey: 'Ciclo solicitado',
     header: 'Ciclo solicitado',
-    cell: ({ row }) => { return <DataCell content={row.original.numero_ciclo} />; },
+    cell: ({ row }) => { return <DataCell content={row.original.ciclo_id} />; },
     size: '200px'
   },
   {
-    accessorKey: 'Protocolo',
-    header: 'Protocolo',
+    accessorKey: 'Diagnostico',
+    header: 'Diagnostico',
     cell: ({ row }) => { return <DataCell content={row.original.diagnostico} />; },
   },
   {
@@ -154,7 +155,7 @@ export const getMedicationColumns = (
     id: 'actions',
     header: '',
     cell: ({ row }) => (
-      <ActionCell 
+      <ActionCell
         handleDelete={handleDelete(row.original.id)}
       />
     ),

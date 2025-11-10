@@ -32,7 +32,6 @@ export async function updateProtocoloPacienteRegimen(
     {
       regimen,
       ciclo_actual_id: ciclo,
-      numero_ciclo: ciclo,
       cambiar_regimen: false
     }
   );
@@ -65,7 +64,6 @@ export async function cambiarProtocoloPaciente(
       protocolo_id: nuevoProtocoloId,
       regimen: regimen,
       ciclo_actual_id: ciclo,
-      numero_ciclo: ciclo,
       estado: 'Activo',
     }
   );

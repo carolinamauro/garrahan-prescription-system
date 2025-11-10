@@ -7,7 +7,6 @@ export function TabsProtocolCard({ recetasSolicitadas, tieneProtocolo, loggedIn 
   const oracionInicial = tieneProtocolo ?
     'Una vez inicies sesión' :
     'Una vez selecciones un protocolo de tratamiento';
-
   return (
     tieneProtocolo && loggedIn ?
       <Tabs defaultValue="resumen"

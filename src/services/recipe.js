@@ -8,7 +8,7 @@ export async function fetchPatientRecipes(patientId) {
     if (!data || data.length === 0) return [];
 
     return data.map(receta => ({
-      numero_ciclo: receta.contexto.numero_ciclo,
+      ciclo_id: receta.contexto.ciclo_id,
       diagnostico: receta.diagnostico,
       fecha_solicitud_receta: formatDate(receta.fecha_prescripcion),
       receta_id: receta.id,
@@ -25,32 +25,45 @@ export function getRecipeUrl(recipeId, type) {
 }
 
 export async function exportRecipe(patientData, type, setRecipes, camposExtraRecetaProvincia) {
-  const { data: recipeIdData } = await apiClient.post('/recetas', {
-    ...patientData,
-    tipo_receta: type,
-    ...(type === 'provincia' ? camposExtraRecetaProvincia : {})
-  });
 
-  const recipeId = recipeIdData.id;
+  let recipeId = null;
 
-  const recipeData = {
-    ...patientData,
-    receta_id: recipeId,
-    tipo_receta: type,
-    fecha_solicitud_receta: formatDate(new Date().toISOString()),
-    ...(type === 'provincia' ? camposExtraRecetaProvincia : {})
-  };
+  try {
+    const { data: recipeIdData } = await apiClient.post('/recetas', {
+      ...patientData,
+      tipo_receta: type,
+      ...(type === 'provincia' ? camposExtraRecetaProvincia : {})
+    });
 
+    recipeId = recipeIdData.id;
 
-  setRecipes((prevRecipes) => [
-    ...prevRecipes,
-    recipeData,
-  ]);
+    const recipeData = {
+      ...patientData,
+      receta_id: recipeId,
+      tipo_receta: type,
+      fecha_solicitud_receta: formatDate(new Date().toISOString()),
+      ...(type === 'provincia' ? camposExtraRecetaProvincia : {})
+    };
 
-  const result = await apiClient.get(`/recetas/${recipeId}/exportar`, {
-    params: { tipo: type },
-    responseType: 'blob'
-  });
+    setRecipes((prevRecipes) => [
+      ...prevRecipes,
+      recipeData,
+    ]);
 
-  return result.data;
+    const result = await apiClient.get(`/recetas/${recipeId}/exportar`, {
+      params: { tipo: type },
+      responseType: 'blob'
+    });
+
+    return result.data;
+  } catch (error) {
+    if (recipeId) {
+      try {
+        await apiClient.delete(`/recetas/${recipeId}`);
+      } catch (delErr) {
+        console.error('Fallo el rollback (DELETE /recetas/:id):', delErr);
+      }
+    }
+    throw error;
+  }
 }

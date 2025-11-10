@@ -6,6 +6,6 @@ export async function fetchAlarmas() {
 }
 
 export async function fetchAlarmasPorProfesional() {
-  const { data } = await apiClient.get(`/alarmas/profesional`);
+  const { data } = await apiClient.get('/alarmas/profesional');
   return data;
 }
