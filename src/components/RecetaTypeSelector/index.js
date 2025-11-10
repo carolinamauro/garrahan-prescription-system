@@ -11,8 +11,14 @@ export function RecetaTypeSelector({ value, onChange }) {
         onValueChange={(v) => onChange(v || 'hospitalaria')}
         className="mt-2"
       >
-        <ToggleGroupItem value="hospitalaria">Hospital</ToggleGroupItem>
-        <ToggleGroupItem value="provincia">Provincia</ToggleGroupItem>
+        <div className="flex">
+          <ToggleGroupItem value="hospitalaria">
+          Banco Nacional de Drogas Oncologicas/ Otros
+          </ToggleGroupItem>
+        </div>
+        <div className="flex">
+          <ToggleGroupItem value="provincia">Banco de Drogas PBA (IPC)</ToggleGroupItem>
+        </div>
       </ToggleGroup>
     </div>
   );
