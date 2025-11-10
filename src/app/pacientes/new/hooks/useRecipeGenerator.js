@@ -44,7 +44,7 @@ export const useRecipeGenerator = () => {
         domicilio_numero: patient.domicilio_numero,
         domicilio_piso_depto: patient.domicilio_piso_depto,
         codigo_postal: patient.codigo_postal,
-        localidad: patient.domicilio_localidad,
+        localidad: patient.localidad,
         partido: patient.partido,
         telefono: patient.telefono,
         email: patient.email,
@@ -79,6 +79,7 @@ export const useRecipeGenerator = () => {
         dosis_diaria: admin.frecuencia_diaria,
         numero_dias: admin.cantidad_dias,
         dosis_total: med.total_dosis_amount,
+        dosis_unidad: med.total_dosis_unit,
         via_administracion: admin.via_administracion,
       });
     });

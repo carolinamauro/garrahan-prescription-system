@@ -164,6 +164,7 @@ export function useMedications(patient, setRecipes) {
               ? {
                 ...m,
                 total_dosis_amount: result.cantidad_total.valor,
+                total_dosis_unit: result.cantidad_total.unidad,
                 total_units: result.unidades,
                 needed_amount:
                     `${result.cantidad_total.valor} ${result.cantidad_total.unidad} 
