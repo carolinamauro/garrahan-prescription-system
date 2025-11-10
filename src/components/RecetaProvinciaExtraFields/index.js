@@ -9,6 +9,7 @@ export function RecetaProvinciaExtraFields({ values, onChange }) {
       <div>
         <Label>Estadio</Label>
         <Input
+          className="mt-2"
           name="estadio"
           value={values.estadio}
           onChange={handleChange}
@@ -19,6 +20,7 @@ export function RecetaProvinciaExtraFields({ values, onChange }) {
       <div>
         <Label>Intervalo</Label>
         <Input
+          className="mt-2"
           name="intervalo"
           value={values.intervalo}
           onChange={handleChange}
@@ -29,6 +31,7 @@ export function RecetaProvinciaExtraFields({ values, onChange }) {
       <div>
         <Label>T/N/M</Label>
         <Input
+          className="mt-2"
           name="tnm"
           value={values.tnm}
           onChange={handleChange}
@@ -39,6 +42,7 @@ export function RecetaProvinciaExtraFields({ values, onChange }) {
       <div>
         <Label>PS (0-4)</Label>
         <Input
+          className="mt-2"
           name="ps"
           value={values.ps}
           onChange={handleChange}
