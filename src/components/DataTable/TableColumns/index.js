@@ -152,6 +152,11 @@ export const getMedicationColumns = (
   },
   {
     id: 'actions',
-    cell: ({ row }) => <ActionCell handleDelete={handleDelete(row.original.id)} />,
+    header: '',
+    cell: ({ row }) => (
+      <ActionCell 
+        handleDelete={handleDelete(row.original.id)}
+      />
+    ),
   },
 ];

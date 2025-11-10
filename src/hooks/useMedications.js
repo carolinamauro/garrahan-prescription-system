@@ -61,7 +61,8 @@ export function useMedications(patient, setRecipes) {
           concentration: '',
           concentrationData: null,
           needed_amount: '',
-          onCalculate: handleCalculate
+          onCalculate: handleCalculate,
+          isRemovable: true,
         }));
 
         setMedications(meds);
