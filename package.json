@@ -6,7 +6,7 @@
     "build": "next build",
     "dev": "cross-env NODE_ENV=development HOST=127.0.0.1 PORT=3003 BASE_URL=http://127.0.0.1:3003 next dev",
     "lint": "npx eslint . --ext .js,.jsx --fix",
-    "start": "next start",
+    "start": "cross-env HOST=0.0.0.0 PORT=3004 next start -H 0.0.0.0 -p 3004",
     "test": "jest",
     "pw": "npx playwright test",
     "cucumber": "npx cucumber-js --tags \"not @wip\""
