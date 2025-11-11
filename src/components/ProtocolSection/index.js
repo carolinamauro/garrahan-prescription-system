@@ -11,16 +11,18 @@ import {
   SelectGroup,
 } from '@/components/ui/select';
 
-export default function ProtocolSection({
+export function ProtocolSection({
   form,
+  protocolForm,
   protocolos,
   onProtocoloChange,
   onCicloChange,
   onRegimenChange,
   onPesoChange,
+  withInputPeso = true,
 }) {
   const protocoloSeleccionado = protocolos.find(
-    (p) => p.protocolo_id === Number(form.protocolo)
+    (p) => p.protocolo_id === Number(protocolForm.selectedProtocol)
   );
   const ciclos = protocoloSeleccionado?.ciclos || [];
 
@@ -31,17 +33,23 @@ export default function ProtocolSection({
 
   // Regímenes del ciclo seleccionado
   const regimenes = ciclos
-    .filter((c) => c.ciclo_id === Number(form.ciclo))
+    .filter((c) => c.ciclo_id === Number(protocolForm.selectedCiclo))
     .map((c) => c.regimen);
 
+  const classCols = withInputPeso
+    ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.25fr_0.75fr_1fr_1fr]'
+    : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.25fr_0.75fr_1fr]';
+
   return (
-    <div className="grid gap-4 md:grid-cols-4">
+    <div className={`grid gap-4 ${classCols}`}>
       <div>
         <Label>Protocolo</Label>
-        <Select onValueChange={onProtocoloChange}>
+        <Select onValueChange={onProtocoloChange}
+          value={protocolForm.selectedProtocol || ''}>
           <SelectTrigger className="mt-2">
-            {/* Este ya estaba bien */}
-            <SelectValue>{protocoloSeleccionado?.nombre || 'Seleccionar protocolo'}</SelectValue>
+            <SelectValue placeholder="Seleccionar protocolo">
+              {protocoloSeleccionado?.nombre || 'Seleccionar protocolo'}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -61,15 +69,14 @@ export default function ProtocolSection({
         <Select
           onValueChange={onCicloChange}
           disabled={!protocoloSeleccionado}
-          // Añadimos 'value' para que el Select sepa qué mostrar
-          value={form.ciclo}
+          value={protocolForm.selectedCiclo || ''}
         >
           <SelectTrigger className="mt-2">
-            {/* --- CAMBIO AQUÍ --- */}
-            <SelectValue>
-              {form.ciclo ? `Ciclo ${form.ciclo}` : 'Seleccionar ciclo'}
+            <SelectValue placeholder="Seleccionar ciclo">
+              {protocolForm.selectedCiclo
+                ? `Ciclo ${protocolForm.selectedCiclo}`
+                : 'Seleccionar ciclo'}
             </SelectValue>
-            {/* --- FIN CAMBIO --- */}
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -88,16 +95,20 @@ export default function ProtocolSection({
         <Label>Régimen</Label>
         <Select
           onValueChange={onRegimenChange}
-          disabled={!form.ciclo}
-          value={form.regimen}
+          disabled={!protocolForm.selectedCiclo}
+          value={protocolForm.selectedRegimen}
         >
           <SelectTrigger className="mt-2">
-            <SelectValue placeholder="Seleccionar régimen" />
+            <SelectValue placeholder="Seleccionar régimen">
+              {protocolForm.selectedRegimen !== undefined
+                ? `Régimen ${protocolForm.selectedRegimen}`
+                : 'Seleccionar régimen'}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
               {regimenes.map((r) => (
-                <SelectItem key={`${form.ciclo}-${r}`}
+                <SelectItem key={`${protocolForm.selectedCiclo}-${r}`}
                   value={String(r)}>
                   Régimen {r}
                 </SelectItem>
@@ -107,16 +118,17 @@ export default function ProtocolSection({
         </Select>
       </div>
 
-      <div>
-        <Label>Peso (kg)</Label>
-        <Input
-          id="peso"
-          value={form.peso}
-          onChange={onPesoChange}
-          placeholder="Ej: 70.5"
-          className="mt-2"
-        />
-      </div>
+      {withInputPeso && (
+        <div>
+          <Label>Peso (kg)</Label>
+          <Input
+            id="peso"
+            value={form.peso}
+            onChange={onPesoChange}
+            placeholder="Ej: 70.5"
+            className="mt-2"
+          />
+        </div>)}
     </div>
   );
 }

@@ -1,38 +1,29 @@
 import { EditField } from '@/components/PatientEditCard/EditFields/EditField';
-import { calcularSuperficieCorporal } from '@/lib/utils';
+import { calculateBodySurface } from '@/lib/utils';
 
 export function EditFields({form, setForm, patient}) {
   const defaultValue = 'No informa';
 
-  const currentBodySurface = calcularSuperficieCorporal(form.peso || patient.peso);
+  const currentBodySurface = calculateBodySurface(form.peso || patient.peso);
 
   const fields = [
     {
       id: 'peso',
-      label: 'Peso',
+      label: 'Peso (en kg)',
       placeholder: 'Ingresa el peso del paciente (en kg)',
-      savedLabel: 'Peso guardado',
+      savedLabel: 'Peso guardado (en kg)',
       savedValue: patient.peso || defaultValue,
       hasInput: true,
       form: form.peso
     },
     {
       id: 'altura',
-      label: 'Altura',
+      label: 'Altura (en cm)',
       placeholder: 'Ingresa la altura del paciente (en cm)',
-      savedLabel: 'Altura guardada',
+      savedLabel: 'Altura guardada (en cm)',
       savedValue: patient.altura || defaultValue,
       hasInput: true,
       form: form.altura
-    },
-    {
-      id: 'sup_corporal',
-      label: 'Superficie corporal',
-      placeholder: '-',
-      savedLabel: 'Valor calculado',
-      savedValue: currentBodySurface ? `${currentBodySurface} m²` : 'No disponible',
-      hasInput: false,
-      form: null
     },
     {
       id: 'obra_social',
@@ -43,6 +34,15 @@ export function EditFields({form, setForm, patient}) {
       hasInput: true,
       form: form.obra_social
     },
+    {
+      id: 'sup_corporal',
+      label: 'Superficie corporal',
+      placeholder: '-',
+      savedLabel: 'Valor calculado',
+      savedValue: currentBodySurface ? `${currentBodySurface} m²` : 'No disponible',
+      hasInput: false,
+      form: null
+    },
   ];
 
   const handleChange = (e) => {
@@ -51,7 +51,7 @@ export function EditFields({form, setForm, patient}) {
   };
 
   return (
-    <div className="grid gap-8 md:grid-cols-[1.5fr_1fr_1.5fr]">
+    <div className="grid gap-8 md:grid-cols-[0.7fr_0.7fr_0.7fr_0.5fr]">
       {fields.map(({ id, label, placeholder, savedLabel, savedValue, hasInput, form }) => (
         <EditField
           id={id}

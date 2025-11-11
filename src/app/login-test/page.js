@@ -1,51 +1,13 @@
-/* global fetch */
-'use client';
-import { useRouter } from 'next/navigation';
-import { LinkButton } from '@/components/LinkButton';
-import { User, Shield } from 'lucide-react';
+import { LoginForm } from '@/components/LoginForm';
+import {NameAndLogo} from '@/components/LoginForm/NameAndLogo';
 
-export default function TestLogin() {
-  const router = useRouter();
-
-  const login = async (role) => {
-    await fetch('http://localhost:3000/auth/login-test', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({
-        id: role === 'admin' ? '1' : '2',
-        name: role === 'admin' ? 'Admin' : 'Dr. Juan',
-        role
-      })
-    });
-  };
-
+export default function LoginPage() {
   return (
-    <div className="flex gap-4 p-8">
-      <div
-        onClick={async (e) => {
-          e.preventDefault();
-          await login('admin');
-          router.push('/');
-        }}
-      >
-        <LinkButton href="#"
-          btnText="Entrar como Admin"
-          icon={Shield}
-          variant="default" />
-      </div>
-
-      <div
-        onClick={async (e) => {
-          e.preventDefault();
-          await login('medico');
-          router.push('/');
-        }}
-      >
-        <LinkButton href="#"
-          btnText="Entrar como Médico"
-          icon={User}
-          variant="secondary" />
+    <div className="absolute inset-0 flex items-center
+    justify-center bg-background rounded-xl p-6 md:p-10">
+      <div className="flex w-full max-w-xl flex-col gap-6 items-center">
+        <NameAndLogo />
+        <LoginForm />
       </div>
     </div>
   );

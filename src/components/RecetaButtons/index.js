@@ -1,14 +1,9 @@
 import { Button } from '@/components/ui/button';
-import { FileText, Plus } from 'lucide-react';
+import { FileText } from 'lucide-react';
 
 export function RecetaButtons({ exportBtnDisabled, onPressExport }) {
   return (
-    <div className="mt-6 flex items-center justify-between">
-      <Button variant="default"
-        size="lg">
-        <Plus className="mr-2 size-5" /> Agregar droga
-      </Button>
-
+    <div className="mt-6 flex items-center justify-end">
       <Button variant="default"
         disabled={exportBtnDisabled}
         size="lg"

@@ -14,14 +14,18 @@ export default function SearchPatient({ options = [], placeholder = 'Buscar paci
   };
 
   return (
-    <SearchInput
-      placeholder={placeholder}
-      options={options}
-      value={searchValue}
-      setValue={setSearchValue}
-      onSelect={handleSelect}
-      getId={(patient) => patient.paciente_id}
-      showedValue={(patient) => `${patient.nombre} ${patient.apellido}` }
-    />
+    <div className="flex justify-center flex-1">
+      <div className="w-full max-w-sm">
+        <SearchInput
+          placeholder={placeholder}
+          options={options}
+          value={searchValue}
+          setValue={setSearchValue}
+          onSelect={handleSelect}
+          getId={(patient) => patient.paciente_id}
+          showedValue={(patient) => `${patient.nombre} ${patient.apellido}` }
+        />
+      </div>
+    </div>
   );
 }

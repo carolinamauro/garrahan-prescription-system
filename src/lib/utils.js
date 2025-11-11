@@ -32,6 +32,7 @@ export function calcularEdad(fechaNacimientoStr) {
   return { anios: edadAnios, dias: diffDias };
 }
 
+// TODO: Llevar esto al back
 export const calculateBodySurface = (peso) => {
   if (!peso) return null;
   const pesoNum = parseFloat(peso);
@@ -39,3 +40,11 @@ export const calculateBodySurface = (peso) => {
   return (peso * 4 + 7) / (peso + 90);
 };
 
+export const formatDate = (dateString) => {
+  if (!dateString) return '-';
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+};

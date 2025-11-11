@@ -3,7 +3,7 @@
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 
-export default function PatientDataSection({ form, onChange }) {
+export function PatientDataSection({ form, onChange }) {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <div>
@@ -38,6 +38,26 @@ export default function PatientDataSection({ form, onChange }) {
         <Input
           id="fecha_nacimiento"
           value={form.fecha_nacimiento}
+          onChange={onChange}
+          className="mt-2"
+        />
+      </div>
+
+      <div>
+        <Label htmlFor="altura">Altura</Label>
+        <Input
+          id="altura"
+          value={form.altura}
+          onChange={onChange}
+          className="mt-2"
+        />
+      </div>
+
+      <div>
+        <Label htmlFor="obra_social">Obra social</Label>
+        <Input
+          id="obra_social"
+          value={form.obra_social}
           onChange={onChange}
           className="mt-2"
         />

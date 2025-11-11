@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import {calculateBodySurface} from '@/lib/utils';
 
 const REQUIRED_FIELDS = ['nombre', 'apellido', 'id_hospitalario', 'fecha_nacimiento', 'protocolo',
   'ciclo', 'peso'];
@@ -13,7 +14,10 @@ export function usePatientForm() {
     fecha_nacimiento: '',
     protocolo: '',
     ciclo: '',
-    peso: ''
+    peso: '',
+    obra_social: '',
+    sup_corporal: '',
+    altura: ''
   });
 
   const [errors, setErrors] = useState([]);
@@ -21,6 +25,12 @@ export function usePatientForm() {
   const handleChange = (e) => {
     const { id, value } = e.target;
     setForm((f) => ({ ...f, [id]: value }));
+
+    if (id === 'peso') {
+      console.log('Calculando sup corporal con peso: ', value, '');
+      const peso = parseFloat(value);
+      setForm((f) => ({ ...f, sup_corporal: calculateBodySurface(peso) }));
+    }
   };
 
   const validate = () => {

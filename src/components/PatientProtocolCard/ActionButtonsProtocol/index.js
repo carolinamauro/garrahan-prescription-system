@@ -1,12 +1,19 @@
 import { FileText, MousePointerClick, FilePen } from 'lucide-react';
 import { LinkButton } from '@/components/LinkButton';
 
-export function ActionButtonsProtocol({ patientId, tieneProtocolo, tieneSupCorporal }) {
+export function ActionButtonsProtocol({
+  patientId,
+  tieneProtocolo,
+  tieneSupCorporal,
+  tieneAltura,
+  cambiarRegimen,
+  loggedIn
+}) {
   return (
     <div className="mb-4 flex gap-2">
       <LinkButton
         href={`/pacientes/${patientId}/seleccionar-protocolo`}
-        disabled={!tieneSupCorporal}
+        disabled={!tieneSupCorporal || !loggedIn}
         btnText="Seleccionar protocolo"
         icon={MousePointerClick}
         variant=""
@@ -14,7 +21,8 @@ export function ActionButtonsProtocol({ patientId, tieneProtocolo, tieneSupCorpo
 
       <LinkButton
         href={`/pacientes/${patientId}/generar-receta`}
-        disabled={!tieneProtocolo || !tieneSupCorporal}
+        disabled={!tieneProtocolo ||
+            !tieneSupCorporal || !tieneAltura || cambiarRegimen || !loggedIn}
         btnText="Generar receta"
         icon={FileText}
         variant="outline"
@@ -23,7 +31,7 @@ export function ActionButtonsProtocol({ patientId, tieneProtocolo, tieneSupCorpo
       {tieneProtocolo && (
         <LinkButton
           href={`/pacientes/${patientId}/editar-protocolo`}
-          disabled={!tieneProtocolo}
+          disabled={!tieneProtocolo || !loggedIn}
           btnText="Editar protocolo"
           icon={FilePen}
           variant="outline"

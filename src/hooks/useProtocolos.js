@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { fetchProtocolos, fetchCiclos } from '../services/api';
+import { fetchProtocolos, fetchCiclos } from '@/services/protocolos';
 
 export function useProtocolos() {
   const [protocolos, setProtocolos] = useState([]);
@@ -8,6 +8,10 @@ export function useProtocolos() {
   const [selectedProtocolo, setSelectedProtocolo] = useState('');
   const [selectedCiclo, setSelectedCiclo] = useState('');
   const [selectedRegimen, setSelectedRegimen] = useState('');
+
+  const getProtocoloById = (id) => {
+    return protocolos.find((p) => (String(p.protocolo_id)) === String(id)) || null;
+  };
 
   useEffect(() => {
     fetchProtocolos()
@@ -44,6 +48,7 @@ export function useProtocolos() {
     selectedRegimen,
     setSelectedProtocolo,
     setSelectedCiclo,
-    setSelectedRegimen
+    setSelectedRegimen,
+    getProtocoloById
   };
 }

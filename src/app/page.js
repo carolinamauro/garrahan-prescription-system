@@ -5,11 +5,13 @@ import { useHeader } from '@/contexts/HeaderContext';
 import { useEffect } from 'react';
 import { getPatientColumns } from '@/components/DataTable/TableColumns';
 import { useRouter } from 'next/navigation';
+import { useLogin } from '@/contexts/LoginContext';
 
 export default function Page() {
   const { patients } = usePatients();
   const { setTitle, setSubtitle } = useHeader();
   const router = useRouter();
+  const { loggedIn } = useLogin();
 
   useEffect(() => {
     setTitle('Pacientes');
@@ -25,7 +27,7 @@ export default function Page() {
       <DataTable
         data={patients}
         tabsList={[]}
-        withActionButtons={true}
+        withActionButtons={loggedIn}
         columns={getPatientColumns(handleEdit)}
       />
     </>

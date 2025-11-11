@@ -1,21 +1,30 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { usePatients } from '@/contexts/PatientContext';
 import { useHeader } from '@/contexts/HeaderContext';
 import { GenerarRecetaInfo } from '@/components/GenerarRecetaInfo';
 import { GenerarRecetaSelector } from '@/components/GenerarRecetaSelector';
+import { useParams } from 'next/navigation';
+import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
+import { NotFoundPage } from '@/components/NotFoundPage';
 
-export default function GenerarRecetaPage({ params }) {
-  const { id } = React.use(params);
-  const { patients } = usePatients();
+export default function GenerarRecetaPage() {
+  const { id } = useParams();
   const { setTitle, setSubtitle } = useHeader();
-  const patient = patients.find((p) => String(p.paciente_id) === String(id));
+  const { getPatientById } = usePatients();
+  const { setPatient } = useSelectedPatient();
+
+  const patient = getPatientById(id);
 
   useEffect(() => {
+    if (!patient) return;
+    setPatient(patient);
     setTitle(`${patient.nombre} ${patient.apellido}`);
     setSubtitle('Generar receta');
-  }, []);
+  }, [patient]);
+
+  if (!patient) return <NotFoundPage />;
 
   return (
     <div className="flex-1 min-h-screen flex-col p-6 gap-3">

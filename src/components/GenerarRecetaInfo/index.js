@@ -3,14 +3,14 @@ import { PatientInfoItem } from '../PatientSummaryCard/PatientInfoItem';
 
 export function GenerarRecetaInfo({ paciente }) {
   const gridClass = 'grid grid-cols-2 gap-3 md:grid-cols-3 items-start place-items-center';
-
+  console.log(paciente);
   return (
     <div className="px-4 lg:px-6">
       <Card className="bg-gradient-to-t from-primary/5 to-card shadow-xs">
         <CardContent className="pt-2">
           <div className={gridClass}>
             <PatientInfoItem label="Cantidad de ciclos ya solicitados"
-              value={paciente.protocolo.ciclos?.length} />
+              value={paciente.protocolo.ciclo_actual_id} />
             <PatientInfoItem label="Protocolo aplicado"
               value={paciente.protocolo.nombre} />
             <PatientInfoItem label="Superficie corporal"
