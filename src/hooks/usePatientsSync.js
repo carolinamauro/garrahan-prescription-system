@@ -87,15 +87,15 @@ export function usePatientsSync({ loggedIn }) {
         if (parsed.timestamp <= startOfToday.getTime() + SYNC_INTERVAL_MS) {
           window.localStorage.removeItem(STORAGE_KEY);
           fetchAndStorePatients();
-        } else { 
+        } else {
           setPatients(parsed.pacientes);
           checkAndSync(parsed.timestamp);
           setLoading(false);
-        } 
+        }
       } catch {
-          window.localStorage.removeItem(STORAGE_KEY);
-          fetchAndStorePatients();
-        }  
+        window.localStorage.removeItem(STORAGE_KEY);
+        fetchAndStorePatients();
+      }
     } else {
       fetchAndStorePatients();
     }

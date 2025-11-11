@@ -5,27 +5,20 @@ import globals from "globals";
 export default [
   {
     ...js.configs.recommended,
+    files: ['**/*.{js,jsx}'],
     languageOptions: {
-      ecmaVersion: 2022,
+      ecmaVersion: 2024,
       sourceType: 'module',
-      parserOptions: { ecmaFeatures: { jsx: true } },
       globals: {
         ...globals.browser,
         ...globals.node,
+        React: 'readonly',
+        JSX: 'readonly',
       },
-    },
-    files: ['**/*.{js,jsx}'],
-    languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: 'module',
-      parserOptions: { ecmaFeatures: { jsx: true } },
-      globals: {
-        process: 'readonly',
-        require: 'readonly',
-        module: 'readonly',
-        window: 'readonly',
-        document: 'readonly',
-        console: 'readonly',
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
       },
     },
     plugins: {
