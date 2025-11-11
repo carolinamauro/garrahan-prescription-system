@@ -82,13 +82,20 @@ export function usePatientsSync({ loggedIn }) {
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
-        setPatients(parsed.pacientes);
-        checkAndSync(parsed.timestamp);
-        setLoading(false);
+        const startOfToday = new Date();
+        startOfToday.setHours(0, 0, 0, 0);
+        if (parsed.timestamp <= startOfToday.getTime() + SYNC_INTERVAL_MS) {
+          window.localStorage.removeItem(STORAGE_KEY);
+          fetchAndStorePatients();
+        } else { 
+          setPatients(parsed.pacientes);
+          checkAndSync(parsed.timestamp);
+          setLoading(false);
+        } 
       } catch {
-        window.localStorage.removeItem(STORAGE_KEY);
-        fetchAndStorePatients();
-      }
+          window.localStorage.removeItem(STORAGE_KEY);
+          fetchAndStorePatients();
+        }  
     } else {
       fetchAndStorePatients();
     }
