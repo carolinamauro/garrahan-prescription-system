@@ -1,3 +1,4 @@
+/* global setTimeout */
 import { DropdownCell } from '@/components/DataTable/TableColumns/DropdownCell';
 import { DataCell } from '@/components/DataTable/TableColumns/DataCell';
 
@@ -18,7 +19,7 @@ export function MedicationConcentrationCell({
 
   if (presentations.length === 1) {
     const presentation = presentations[0];
-    
+
     // Auto-seleccionar si no hay una concentración ya seleccionada
     if (!row.original.concentration) {
       setTimeout(() => {

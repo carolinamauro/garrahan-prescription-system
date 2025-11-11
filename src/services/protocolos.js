@@ -11,6 +11,7 @@ export async function fetchProtocoloPaciente(idPaciente) {
 }
 
 export async function fetchCiclos(protocoloId) {
+  console.log('fetchCiclos called with protocoloId:', protocoloId);
   // TODO: Armar endpoint en el back
   // const { data } = await apiClient.get(`/protocolos/${protocoloId}/ciclos`);
   return [];

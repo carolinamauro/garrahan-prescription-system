@@ -1,7 +1,11 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { loadPatientsWithProtocols, fetchPacientes, loadPatientWithProtocol } from '@/services/pacientes';
+import {
+  loadPatientsWithProtocols,
+  fetchPacientes,
+  loadPatientWithProtocol
+} from '@/services/pacientes';
 
 const STORAGE_KEY = 'patientsData';
 const SYNC_INTERVAL_MS = 60 * 60 * 1000; // 1 hora

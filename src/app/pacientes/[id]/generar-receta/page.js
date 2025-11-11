@@ -8,7 +8,6 @@ import { GenerarRecetaSelector } from '@/components/GenerarRecetaSelector';
 import { useParams } from 'next/navigation';
 import { useSelectedPatient } from '@/contexts/SelectedPatientContext';
 import { NotFoundPage } from '@/components/NotFoundPage';
-import { searchExternalPatient } from '@/services/pacientes';
 
 export default function GenerarRecetaPage() {
   const { id } = useParams();

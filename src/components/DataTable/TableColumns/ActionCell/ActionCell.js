@@ -50,19 +50,20 @@ export const ActionCell = ({ handleEdit, handleDelete }) => {
           </Button>
         </div>
 
-        <AlertDialog open={showDeleteAlert} onOpenChange={setShowDeleteAlert}>
+        <AlertDialog open={showDeleteAlert}
+          onOpenChange={setShowDeleteAlert}>
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle>¿Está seguro?</AlertDialogTitle>
               <AlertDialogDescription>
-                Esta acción eliminará la droga de la receta. 
+                Esta acción eliminará la droga de la receta.
                 Esta acción no se puede deshacer.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancelar</AlertDialogCancel>
-              <AlertDialogAction 
-                onClick={onConfirmDelete} 
+              <AlertDialogAction
+                onClick={onConfirmDelete}
                 className="bg-destructive text-white hover:bg-destructive/90"
               >
                 Eliminar
@@ -101,19 +102,20 @@ export const ActionCell = ({ handleEdit, handleDelete }) => {
         </DropdownMenu>
       </div>
 
-      <AlertDialog open={showDeleteAlert} onOpenChange={setShowDeleteAlert}>
+      <AlertDialog open={showDeleteAlert}
+        onOpenChange={setShowDeleteAlert}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>¿Está seguro?</AlertDialogTitle>
             <AlertDialogDescription>
-              Esta acción eliminará la droga de la receta. 
+              Esta acción eliminará la droga de la receta.
               Esta acción no se puede deshacer.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction 
-              onClick={onConfirmDelete} 
+            <AlertDialogAction
+              onClick={onConfirmDelete}
               className="bg-destructive text-white hover:bg-destructive/90"
             >
               Eliminar

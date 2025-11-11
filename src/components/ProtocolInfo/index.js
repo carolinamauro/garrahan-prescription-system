@@ -34,7 +34,8 @@ export function ProtocolInfo({ protocolo, selectedRegimen, setSelectedRegimen })
                   {Array.from(
                     { length: (protocolo.cantidad_regimenes || 2) + 1 },
                     (_, i) => (
-                      <SelectItem key={i} value={String(i)}>
+                      <SelectItem key={i}
+                        value={String(i)}>
                         Régimen {i}
                       </SelectItem>
                     )
