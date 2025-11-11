@@ -75,7 +75,7 @@ export const useRecipeGenerator = () => {
         presentacion: med.presentation,
         concentracion: med.concentration,
         cantidad: med.total_units,
-        dosis_diaria: `${med.dosis_diaria.valor} ${med.dosis_diaria.unidad}/m2`,
+        dosis_diaria: med.dosis_diaria,
         numero_dias: admin.cantidad_dias,
         dosis_total: med.total_dosis_amount,
         dosis_unidad: med.total_dosis_unit,
