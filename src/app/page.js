@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { getPatientColumns } from '@/components/DataTable/TableColumns';
 import { useRouter } from 'next/navigation';
 import { useLogin } from '@/contexts/LoginContext';
+import AdminProtocol from '@/components/AdminProtocol';
 
 export default function Page() {
   const { patients } = usePatients();
@@ -28,7 +29,7 @@ export default function Page() {
   };
 
   return (
-    isAdmin ? <></>: <DataTable
+    isAdmin ? <AdminProtocol /> : <DataTable
       data={patients}
       tabsList={[]}
       withActionButtons={loggedIn}
