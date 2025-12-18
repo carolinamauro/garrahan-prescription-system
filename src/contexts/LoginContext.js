@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import { loginUser } from '@/services/login';
 
 const LoginContext = createContext();
@@ -28,6 +28,12 @@ export function LoginProvider({ children }) {
     }
   };
 
+  const logout = () => {
+    window.localStorage.removeItem(STORAGE_KEY);
+    setUser(null);
+    setLoggedIn(false);
+  };
+
   useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored) {
@@ -49,8 +55,12 @@ export function LoginProvider({ children }) {
     }
   }, []);
 
+  const isAdmin = useMemo(() => {
+    return user && user.role === 'admin';
+  }, [user]);
+
   return (
-    <LoginContext.Provider value={{ user, loggedIn, loginAs }}>
+    <LoginContext.Provider value={{ user, loggedIn, loginAs, logout, isAdmin }}>
       {children}
     </LoginContext.Provider>
   );

@@ -35,6 +35,7 @@ export function DataTable({
   withTableColumnSelector = true,
   withSelectedRowsCount = true,
   withFooter = true,
+  withOptionsPadding = true,
   columns
 }) {
   const [data, setData] = React.useState(() => initialData);
@@ -95,7 +96,9 @@ export function DataTable({
 
       <TabsContent
         value="outline"
-        className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6"
+        className={`relative flex flex-col gap-4 overflow-auto ${
+          withOptionsPadding ? 'px-4 lg:px-6' : 'px-0'
+        }`}
       >
         <div className="overflow-hidden rounded-lg border">
           <DndContext

@@ -5,6 +5,8 @@ import {
   DropdownMenu,
   DropdownMenuLabel,
   DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
 import { admin } from '@/services/login';
 
@@ -19,16 +21,19 @@ function getUsernameFallback(name) {
   }
 }
 
-export function NavUser({user}) {
-  const fallback = getUsernameFallback(user.name);
-  const userName = user.role === admin ? 'Administrador' : `Dr. ${user.name}`;
-  const userRole = user.role === admin ? '' : 'Oncólogo - Prescriptor';
+export function NavUser({ user, onLogout, onLoginAs }) {
+  const profesional = user.profesional || {};
+  const fallback = getUsernameFallback(profesional?.nombre);
+  const userName = user.role === admin ? 'Administrador' :
+    `Dr. ${profesional.nombre} ${profesional.apellido}`;
+  const userRole = user.role === admin ? '' : user.profesional.especialidad;
+  const ohterRole = user.role === admin ? 'Médico' : 'Administrador';
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <DropdownMenuLabel className="p-0 font-normal">
-          <div className="flex items-center gap-2 px-2 py-1.5">
+          <div className="flex items-center gap-2 px-2 py-1.5 cursor-pointer">
             <Avatar className="h-8 w-8">
               <AvatarFallback>{fallback}</AvatarFallback>
             </Avatar>
@@ -39,6 +44,17 @@ export function NavUser({user}) {
           </div>
         </DropdownMenuLabel>
       </DropdownMenuTrigger>
+      <DropdownMenuContent align="end"
+        className="w-48">
+        <DropdownMenuItem onClick={onLoginAs}
+          className="cursor-pointer">
+          Cambiar a {ohterRole}
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={onLogout}
+          className="cursor-pointer">
+          Cerrar sesión
+        </DropdownMenuItem>
+      </DropdownMenuContent>
     </DropdownMenu>
   );
 }

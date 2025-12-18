@@ -10,12 +10,27 @@ import { usePatients } from '@/contexts/PatientContext';
 import { useLogin } from '@/contexts/LoginContext';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 export function SiteHeader() {
-  const { user, loggedIn } = useLogin();
-
+  const { user, loggedIn, logout, isAdmin, loginAs } = useLogin();
   const { title, subtitle } = useHeader();
   const { patients } = usePatients();
+  const router = useRouter();
+
+  const onLogout = () => {
+    logout();
+    router.push('/login-test');
+  };
+
+  const onLoginAs = () => {
+    logout();
+    if (isAdmin) {
+      loginAs('medico');
+    } else {
+      loginAs('admin');
+    }
+  };
 
   return (
     <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b">
@@ -39,10 +54,10 @@ export function SiteHeader() {
           </div>
         </div>
 
-        <SearchPatient
+        {!isAdmin && <SearchPatient
           placeholder="Buscar paciente..."
           options={patients}
-        />
+        />}
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
@@ -50,7 +65,9 @@ export function SiteHeader() {
           {loggedIn ?
             <>
               <NotificationsDropdown />
-              <NavUser user={user} />
+              <NavUser user={user}
+                onLogout={onLogout}
+                onLoginAs={onLoginAs} />
             </>
             :
             <Link href="/login-test">
