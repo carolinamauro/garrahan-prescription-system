@@ -59,6 +59,7 @@ export default function MedicamentosPage() {
             withActionButtons={false}
             withSelectedRowsCount={false}
             withFooter={false}
+            withOptionsPadding={false}
           />
 
           <RecetaButtons
