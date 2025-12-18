@@ -5,7 +5,7 @@ export const admin = 'admin';
 export async function loginUser(role) {
   const dni = 19201241;
   const currUser = {
-    id: 19201241,
+    id: 2,
     name: role === admin ? 'Administrador' : 'Profesional',
     role
   };
