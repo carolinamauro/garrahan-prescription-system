@@ -7,7 +7,7 @@ import { useLogin } from '@/contexts/LoginContext';
 function getTextoRegimen(tieneProtocolo, regimen, ciclo, cambiarRegimen) {
   if (!tieneProtocolo) return '';
   return cambiarRegimen
-    ? `Régimen - Ciclo ${ciclo}`
+    ? `Ciclo ${ciclo} -`
     : `Régimen ${regimen} - Ciclo ${ciclo}`;
 }
 
