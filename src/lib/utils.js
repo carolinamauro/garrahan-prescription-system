@@ -37,7 +37,7 @@ export const calculateBodySurface = (peso) => {
   if (!peso) return null;
   const pesoNum = parseFloat(peso);
   if (isNaN(pesoNum)) return null;
-  return (peso * 4 + 7) / (peso + 90);
+  return (pesoNum * 4 + 7) / (pesoNum + 90);
 };
 
 export const formatDate = (dateString) => {
