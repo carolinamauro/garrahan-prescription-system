@@ -18,8 +18,9 @@ export function useExternalPatientSearch() {
     setLoadingSearch(true);
     try {
       const data = await searchExternalPatient(formatExternalId(searchId));
-      setExternalData(data);
-      return data;
+      const dataWithId = { ...(data || {}), id_hospitalario: formatExternalId(searchId) };
+      setExternalData(dataWithId);
+      return dataWithId;
     } catch {
       setExternalData(null);
       alert('No se encontraron datos externos para ese id');
